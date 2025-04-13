@@ -1,0 +1,74 @@
+[
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "getbalancebyprivatekey",
+      "context": false,
+      "params": ["112t8rpnK9Hq2EqZbGJpoS2t7rB3z46sFeRwogUjvzMYHhfBvB3B2X1Mx9W1jCahUZ9aXnbcmrhLXQJsjKDzMvX8vbsA8wjKDArxXfknsVy9"]
+    },
+    "output": {
+      "error": null,
+      "response": 1000000000000000
+    }
+  },
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "createandsendtransaction",
+      "context": false,
+      "params": [
+        "112t8rpnK9Hq2EqZbGJpoS2t7rB3z46sFeRwogUjvzMYHhfBvB3B2X1Mx9W1jCahUZ9aXnbcmrhLXQJsjKDzMvX8vbsA8wjKDArxXfknsVy9",
+        {
+          "12RsFovpqaVaPggx7kFCNwczn5QXkUuuNWV6JLSDmz9Ec2xb5NmzSGdD9MW7Xzu5Fzu5kTQEay6nnHSdi2tp6znNrvWkbY6dhnobQ8D": 1000
+        },
+        10,
+        0
+      ]
+    },
+    "output": {
+      "error": null,
+      "response": {}
+    },
+    "store": {
+      "TxID1": "TxID"
+    }
+  },
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "subcribependingtransaction",
+      "context": true,
+      "params": ["TxID1"],
+      "type": "ws",
+      "wait": 60
+    },
+    "output": {
+      "error": null,
+      "response": {}
+    }
+  },
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "getbalancebyprivatekey",
+      "context": false,
+      "params": ["112t8rnXZYZ3h3LgWhqzwCu45o1aoHUWioJqD63yuxYmSbcKru6breCUHPrZafQ6FKvbctnonLNBegW7ppDLYLstjnnTjsXT14vBS8KXE7NM"]
+    },
+    "output": {
+      "error": null,
+      "response": 1000
+    }
+  },
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "getbalancebyprivatekey",
+      "context": false,
+      "params": ["112t8rpnK9Hq2EqZbGJpoS2t7rB3z46sFeRwogUjvzMYHhfBvB3B2X1Mx9W1jCahUZ9aXnbcmrhLXQJsjKDzMvX8vbsA8wjKDArxXfknsVy9"]
+    },
+    "output": {
+      "error": null,
+      "response": 999999999998980
+    }
+  }
+]

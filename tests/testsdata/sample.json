@@ -1,0 +1,14 @@
+[
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "getblockchaininfo",
+      "params": [],
+      "type": "http"
+    },
+    "output": {
+     "error": null,
+     "response": {}
+    }
+  }
+]

@@ -1,0 +1,239 @@
+name: "testnet-2"
+net: 0x32
+genesis_param:
+  initial_incognito:
+    - Version: 1
+      Type: "s"
+      LockTime: 1570159128
+      SigPubKey: "5xVSzcZpA3uHmBO5ejENk13iayexILopySACdieLugA="
+      Fee: 0
+      Sig: "oMJPBLxKgTnfQhMgfvvH68ed0UTuTfl3ofOoWgk8dgvfhovgvued9HH4dXz60rY32H4Y4c85Zd8bSXSnvNhZAA=="
+      Proof: "AAAAAAAAAbAAriDnFVLNxmkDe4eYE7l6MQ2TXeJrJ7EguinJIAJ2J4u6ACARCc1/qyLEePe1zSthzmRSqf2VNOlo036JwtDgbNg24yAb6hGuk1tRBVMO4ruHaNEasY09ZiBc4iuK/dpDSyNTCCABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDMoX8yNBbY68SO44umD1CMfz/r0T4YiXhDgDgT6+k4BgdY0V4XYoAAAAAAAAAAAAA="
+      PubKeyLastByteSender: 0
+  fee_per_tx_kb: 0
+  consensus_algorithm: "bls"
+  block_timestamp: "2020-08-11T00:00:00.000Z"
+  tx_stake: "d0e731f55fa6c49f602807a6686a7ac769de4e04882bb5eaf8f4fe209f46535d"
+
+committee_size:
+  max_shard_committee_size: 32
+  min_shard_committee_size: 4
+  min_beacon_committee_size: 4
+  max_beacon_committee_size: 4
+  init_shard_committee_size: 4
+  init_beacon_committee_size: 4
+  shard_committee_size_key_list_v2: 4
+  beacon_committee_size_key_list_v2: 4
+  number_of_fixed_shard_block_validators: 4
+  number_of_fixed_shard_validators_v2: 6
+  number_of_fixed_beacon_block_validators: 4
+  increase_max_shard_committee_size:
+    - 1000000000000: 48
+block_time:
+  min_beacon_block_interval: 10s
+  max_beacon_block_creation: 8s
+  min_shard_block_interval: 10s
+  max_shard_block_creation: 6s
+staking_amount_shard: 1750000000000
+active_shards: 8
+basic_reward: 400000000
+max_reward: 95000000000000000
+epoch_param:
+  number_of_block_in_epoch: 100
+  number_of_block_in_epoch_v2: 1000000000000
+  epoch_v2_break_point: 1000000000000
+  random_time: 50
+  random_time_v2: 1000000000000
+eth_contract_address: "0xc157CC3077ddfa425bae12d2F3002668971A4e3d"
+bsc_contract_address: "0x3534C0a523b3A862c06C8CAF61de230f9b408f51"
+plg_contract_address: "0x76318093c374e39B260120EBFCe6aBF7f75c8D28"
+ftm_contract_address: "0x76318093c374e39B260120EBFCe6aBF7f75c8D28"
+prv_erc20_contract_address: "0x4cB607c24Ac252A0cE4b2e987eC4413dA0F1e3Ae"
+prv_bep20_contract_address: "0xB49E8844a72CF1ce885aEf13F82BeeAEEFc01527"
+aurora_contract_address: "0x4cF1d43999606858BaC64B7DbFC196fb4A6853af"
+avax_contract_address: "0x01f6549BeF494C8b0B00C2790577AcC1A3Fa0Bd0"
+near_contract_address: "inc.prv.testnet"
+dao_address: "12S5Lrs1XeQLbqN4ySyKtjAjd2d7sBP2tjFijzmp6avrrkQCNFMpkXm3FPzj2Wcu2ZNqJEmh9JriVuRErVwhuQnLmWSaggobEWsBEci" # community fund
+centralized_website_payment_address: "12S5Lrs1XeQLbqN4ySyKtjAjd2d7sBP2tjFijzmp6avrrkQCNFMpkXm3FPzj2Wcu2ZNqJEmh9JriVuRErVwhuQnLmWSaggobEWsBEci"
+swap_committee_param:
+  offset: 1
+  swap_offset: 1
+  assign_offset: 2
+consensus_param:
+  consensus_v2_epoch: 15290
+  staking_flow_v2_height: 2051863
+  enable_slashing_height: 2087789
+  assign_rule_v3_height: 3023315
+  enable_slashing_height_v2: 3068072
+  staking_flow_v3_height: 3335020
+  force_not_use_burned_coins: 4211505
+  lemma2_height: 3790429
+  block_producing_v3_height: 3791509
+  byzantine_detector_height: 1000000000000
+  timeslot: 10
+  epoch_break_point_swap_new_key: # read from file key list v2
+    - 1280
+beacon_height_break_point_burn_addr: 1
+eth_remove_bridge_sig_epoch: 2085
+replace_staking_tx_height: 1
+bc_height_break_point_new_zkp: 1148608
+bc_height_break_point_privacy_v2: 2798322
+coin_v2_lowest_height: 2400000
+enable_feature_flags:
+  - PortalRelaying: 1
+  - PortalV3: 0
+  - PortalV4: 30225
+portal_v3_height: 1328816
+tx_pool_version: 0
+geth_param:
+  host:
+    - "https://goerli.infura.io/v3/1138a1e99b154b10bae5c382ad894361"
+    - "https://goerli.infura.io/v3/3544588d65864af7aaab0e945ec54a01"
+bsc_param:
+  host:
+    - "https://data-seed-prebsc-1-s1.binance.org:8545"
+    - "https://data-seed-prebsc-1-s2.binance.org:8545"
+    - "https://data-seed-prebsc-2-s2.binance.org:8545"
+    - "https://data-seed-prebsc-2-s3.binance.org:8545"
+plg_param:
+  host:
+    - "https://polygon-mumbai.g.alchemy.com/v2/CBQ1SQRLf3eQGbTXd_aA3LU7hvmwR33K"
+    - "https://rpc-mumbai.maticvigil.com"
+    - "https://matic-mumbai.chainstacklabs.com"
+ftm_param:
+  host:
+    - "https://rpc.testnet.fantom.network"
+aurora_param:
+  host:
+    - "https://testnet.aurora.dev"
+    - "https://aurora-testnet.infura.io/v3/1138a1e99b154b10bae5c382ad894361"
+avax_param:
+  host:
+    - "https://api.avax-test.network/ext/C/rpc"
+near_param:
+  host:
+    - "https://near-testnet.infura.io/v3/3544588d65864af7aaab0e945ec54a01"
+    - "https://archival-rpc.testnet.near.org"
+pdex_param:
+  pdex_v3_break_point_height: 3603596
+  protocol_fund_address: "12svfkP6w5UDJDSCwqH978PvqiqBxKmUnA9em9yAYWYJVRv7wuXY1qhhYpPAm4BDz2mLbFrRmdK3yRhnTqJCZXKHUmoi7NV83HCH2YFpctHNaDdkSiQshsjw2UFUuwdEvcidgaKmF3VJpY5f8RdN"
+  admin_address: "12svfkP6w5UDJDSCwqH978PvqiqBxKmUnA9em9yAYWYJVRv7wuXY1qhhYpPAm4BDz2mLbFrRmdK3yRhnTqJCZXKHUmoi7NV83HCH2YFpctHNaDdkSiQshsjw2UFUuwdEvcidgaKmF3VJpY5f8RdN"
+  params:
+    default_fee_rate_bps: 30
+    prv_discount_percent: 25
+    trading_protocol_fee_percent: 0
+    trading_staking_pool_reward_percent: 10
+    staking_pool_share:
+      - "0000000000000000000000000000000000000000000000000000000000000004": 10
+      - "0000000000000000000000000000000000000000000000000000000000000006": 20
+    mint_nft_require_amount: 1000000000
+    max_orders_per_nft: 10
+    auto_withdraw_order_limit_amount: 100
+    min_prv_reserve_trading_rate: 1000000000000
+is_enable_bpv3_stats: false
+auto_enable_feature:
+  - instantfinality:
+      min_trigger: 4617622
+      require_percentage: 90
+  - instantfinalityv2:
+      min_trigger: 5167674
+      require_percentage: 90
+  - reduce_fix_node:
+      min_trigger: 5647323
+      require_percentage: 90
+  - beacon_staking_flow_v4:
+      min_trigger: 6110375
+      require_percentage: 90
+  - reduce_fix_node_v2:
+      min_trigger: 5647323
+      require_percentage: 90
+  - reduce_fix_node_v3:
+      min_trigger: 5647323
+      require_percentage: 90
+  - maxcommitteesize48:
+      min_trigger: 3965040
+      require_percentage: 90
+  - unified_token_23062022:
+      min_trigger: 4762600
+      require_percentage: 90
+  - unified_token_230620222:
+      min_trigger: 4763160
+      require_percentage: 90
+  - unified_token_230620223:
+      min_trigger: 4806400
+      require_percentage: 90
+  - unified_token_230620224:
+      min_trigger: 4831300
+      require_percentage: 90
+  - unified_token_230620225:
+      min_trigger: 4864700
+      require_percentage: 90
+  - unified_token_230620226:
+      min_trigger: 5257096
+      require_percentage: 90
+  - blocktime30s_23_8:
+      min_trigger: 5272311
+      require_percentage: 90
+  - blocktime15s_30_8:
+      min_trigger: 5289626
+      require_percentage: 90
+  - blocktime10s_27_12:
+      min_trigger: 5963026
+      require_percentage: 90
+  - auroraavaxbridge:
+      min_trigger: 5505400
+      require_percentage: 90
+  - unified_token_061020227:
+      min_trigger: 5505400
+      require_percentage: 90
+  - unified_token_230620227:
+      min_trigger: 5507731
+      require_percentage: 90
+  - nearbridge:
+      min_trigger: 5601070
+      require_percentage: 90
+  - burnfee95:
+      min_trigger: 5776355
+      require_percentage: 90
+  - aurorahotfix:
+      min_trigger: 5776355
+      require_percentage: 90
+  - pdao:
+      min_trigger: 5926003
+      require_percentage: 90
+  - slash2sync:
+      min_trigger: 6508800
+      require_percentage: 90
+  - delegation:
+      min_trigger: 6508800
+      require_percentage: 90
+  - fixbulletproof:
+      min_trigger: 6766908
+      require_percentage: 85
+  - inscriptions:
+      min_trigger: 6944629
+      require_percentage: 90
+blocktime_param:
+  - "blocktimedef": 10
+  - "blocktime30s_23_8": 30
+  - "blocktime15s_30_8": 15
+  - "blocktime10s_27_12": 10
+feature_version:
+  - instantfinalityv2: 9
+  - blocktime30s_23_8: 10
+  - blocktime15s_30_8: 11
+  - reduce_fix_node: 12
+  - reduce_fix_node_v2: 13
+  - reduce_fix_node_v3: 14
+  - blocktime10s_27_12: 15
+  - beacon_staking_flow_v4 : 16
+transactions_param:
+  lowerbound: 15
+  upperbound: 100
+bridge_agg_param:
+  admin_address: "12svfkP6w5UDJDSCwqH978PvqiqBxKmUnA9em9yAYWYJVRv7wuXY1qhhYpPAm4BDz2mLbFrRmdK3yRhnTqJCZXKHUmoi7NV83HCH2YFpctHNaDdkSiQshsjw2UFUuwdEvcidgaKmF3VJpY5f8RdN"
+  base_decimal: 9 # Use only one time DONOT edit this after deployed
+  max_len_of_path: 5
+  percent_fee_decimal: 1e6
+  default_percent_fee_with_decimal: 500 # 0.05% * 1e6
+bc_height_break_point_coin_origin: 4565727

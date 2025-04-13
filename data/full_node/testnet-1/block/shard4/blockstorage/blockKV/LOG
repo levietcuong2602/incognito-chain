@@ -1,0 +1,6 @@
+=============== Aug 7, 2024 (EDT) ===============
+02:06:37.416568 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+02:06:37.418587 db@open opening
+02:06:37.419416 version@stat F·[] S·0B[] Sc·[]
+02:06:37.422232 db@janitor F·2 G·0
+02:06:37.422366 db@open done T·3.763588ms
