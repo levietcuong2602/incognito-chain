@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 
 	"github.com/0xsirrush/color"
-	"github.com/incognitochain/incognito-chain/blockchain"
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/blockchain"
+	"github.com/levietcuong2602/incognito-chain/common"
 	"github.com/jessevdk/go-flags"
 )
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/incognitochain/incognito-chain/utility/generateKeys/generator"
+	"github.com/levietcuong2602/incognito-chain/utility/generateKeys/generator"
 	"io/ioutil"
 )
 

@@ -1,12 +1,12 @@
 package zkp
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	agg "github.com/incognitochain/incognito-chain/privacy/privacy_v1/zeroknowledge/aggregatedrange"
-	oom "github.com/incognitochain/incognito-chain/privacy/privacy_v1/zeroknowledge/oneoutofmany"
-	snn "github.com/incognitochain/incognito-chain/privacy/privacy_v1/zeroknowledge/serialnumbernoprivacy"
-	snp "github.com/incognitochain/incognito-chain/privacy/privacy_v1/zeroknowledge/serialnumberprivacy"
-	utils "github.com/incognitochain/incognito-chain/privacy/privacy_util"
+	"github.com/levietcuong2602/incognito-chain/common"
+	agg "github.com/levietcuong2602/incognito-chain/privacy/privacy_v1/zeroknowledge/aggregatedrange"
+	oom "github.com/levietcuong2602/incognito-chain/privacy/privacy_v1/zeroknowledge/oneoutofmany"
+	snn "github.com/levietcuong2602/incognito-chain/privacy/privacy_v1/zeroknowledge/serialnumbernoprivacy"
+	snp "github.com/levietcuong2602/incognito-chain/privacy/privacy_v1/zeroknowledge/serialnumberprivacy"
+	utils "github.com/levietcuong2602/incognito-chain/privacy/privacy_util"
 )
 
 type PaymentV1Logger struct {

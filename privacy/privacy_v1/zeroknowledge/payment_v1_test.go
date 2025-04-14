@@ -3,10 +3,10 @@ package zkp
 import (
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common/base58"
-	"github.com/incognitochain/incognito-chain/privacy/coin"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
-	"github.com/incognitochain/incognito-chain/wallet"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/privacy/coin"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/wallet"
 )
 
 var _ = func() (_ struct{}) {

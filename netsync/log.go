@@ -1,6 +1,6 @@
 package netsync
 
-import "github.com/incognitochain/incognito-chain/common"
+import "github.com/levietcuong2602/incognito-chain/common"
 
 type NetSyncLogger struct {
 	log common.Logger

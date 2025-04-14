@@ -111,7 +111,7 @@ The tx is then mined and instructions generated and stored in the same block. Th
 
 The proof is only considered valid when more than ⅔ of the current number of validators have signed it. On the Ethereum side, the list of validators is stored and continually updated to mirror Incognito’s.
 
-The full code of BurningRequest tx can be found here: https://github.com/incognitochain/incognito-chain/blob/master/metadata/burningrequest.go
+The full code of BurningRequest tx can be found here: https://github.com/levietcuong2602/incognito-chain/blob/master/metadata/burningrequest.go
 
 ### Withdraw tokens with burn proof
 

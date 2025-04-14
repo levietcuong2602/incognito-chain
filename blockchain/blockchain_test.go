@@ -3,7 +3,7 @@ package blockchain
 import (
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/config"
 )
 
 func TestBlockChain_GetCurrentEpochLength(t *testing.T) {

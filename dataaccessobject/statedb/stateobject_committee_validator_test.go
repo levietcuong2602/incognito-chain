@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 )
 
 func storeCommitteeObjectOneShard(role int, initRoot common.Hash, shardID, from, to int) (common.Hash, map[common.Hash]*CommitteeState) {

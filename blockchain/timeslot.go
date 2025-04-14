@@ -1,7 +1,7 @@
 package blockchain
 
 import (
-	"github.com/incognitochain/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/config"
 )
 
 type anchorTime struct {

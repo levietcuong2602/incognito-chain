@@ -1,7 +1,7 @@
 package rawdbv2
 
 import (
-	"github.com/incognitochain/incognito-chain/incdb"
+	"github.com/levietcuong2602/incognito-chain/incdb"
 )
 
 func StorePreviousBeaconBestState(db incdb.Database, data []byte) error {

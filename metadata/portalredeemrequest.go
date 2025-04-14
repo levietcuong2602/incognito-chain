@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/config"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
-	"github.com/incognitochain/incognito-chain/wallet"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
+	"github.com/levietcuong2602/incognito-chain/wallet"
 )
 
 // PortalRedeemRequest - portal user redeem requests to get public token by burning ptoken

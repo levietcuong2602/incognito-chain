@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"

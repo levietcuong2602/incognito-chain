@@ -2,12 +2,12 @@ package pruner
 
 import (
 	"encoding/json"
-	"github.com/incognitochain/incognito-chain/blockchain"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/rawdbv2"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
-	"github.com/incognitochain/incognito-chain/incdb"
-	"github.com/incognitochain/incognito-chain/trie"
+	"github.com/levietcuong2602/incognito-chain/blockchain"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/rawdbv2"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
+	"github.com/levietcuong2602/incognito-chain/incdb"
+	"github.com/levietcuong2602/incognito-chain/trie"
 )
 
 func pruneByHeight(db incdb.Database, blockStorage *blockchain.BlockStorage, shardID int, stateBloom *trie.StateBloom, height uint64) (uint64, uint64, error) {

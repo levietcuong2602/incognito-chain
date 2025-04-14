@@ -1,8 +1,8 @@
 package jsonresult
 
 import (
-	"github.com/incognitochain/incognito-chain/blockchain/pdex"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/rawdbv2"
+	"github.com/levietcuong2602/incognito-chain/blockchain/pdex"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/rawdbv2"
 )
 
 type Pdexv3State struct {

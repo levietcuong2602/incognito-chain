@@ -4,9 +4,9 @@ import (
 	"crypto/subtle"
 	"errors"
 
-	"github.com/incognitochain/incognito-chain/common"
-	errhandler "github.com/incognitochain/incognito-chain/privacy/errorhandler"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/common"
+	errhandler "github.com/levietcuong2602/incognito-chain/privacy/errorhandler"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 )
 
 // SchnorrPublicKey represents Schnorr Publickey

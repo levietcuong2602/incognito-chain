@@ -1,10 +1,10 @@
 package server
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/common/base58"
-	"github.com/incognitochain/incognito-chain/wallet"
-	"github.com/incognitochain/incognito-chain/wire"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/wallet"
+	"github.com/levietcuong2602/incognito-chain/wire"
 	"testing"
 )
 

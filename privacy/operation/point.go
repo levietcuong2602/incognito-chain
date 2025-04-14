@@ -5,8 +5,8 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/incognitochain/incognito-chain/privacy/operation/edwards25519"
-	v1 "github.com/incognitochain/incognito-chain/privacy/operation/v1"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation/edwards25519"
+	v1 "github.com/levietcuong2602/incognito-chain/privacy/operation/v1"
 )
 
 // Point is a wrapper for `edwards25519.Point`, representing a point on the curve.

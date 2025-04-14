@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/config"
-	"github.com/incognitochain/incognito-chain/pruner"
-	"github.com/incognitochain/incognito-chain/rpcserver/rpcservice"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/pruner"
+	"github.com/levietcuong2602/incognito-chain/rpcserver/rpcservice"
 )
 
 func (httpServer *HttpServer) handlePrune(params interface{}, closeChan <-chan struct{}) (interface{}, *rpcservice.RPCError) {

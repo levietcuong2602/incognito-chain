@@ -4,7 +4,7 @@ import (
 	"errors"
 	"math"
 
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 )
 
 const (

@@ -1,4 +1,4 @@
-module github.com/incognitochain/incognito-chain/bin/centralized-logging/fluentd
+module github.com/levietcuong2602/incognito-chain/bin/centralized-logging/fluentd
 
 go 1.12
 

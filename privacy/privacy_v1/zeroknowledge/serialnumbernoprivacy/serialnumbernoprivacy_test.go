@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/privacy/key"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_util"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_v1/zeroknowledge/utils"
+	"github.com/levietcuong2602/incognito-chain/privacy/key"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_util"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_v1/zeroknowledge/utils"
 	"github.com/stretchr/testify/assert"
 )
 

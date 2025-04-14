@@ -6,7 +6,7 @@ import (
 	"errors"
 
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 // Iterator is a key-value trie iterator that traverses a Trie.

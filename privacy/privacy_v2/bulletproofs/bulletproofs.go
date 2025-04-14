@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/incognitochain/incognito-chain/privacy/operation"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_util"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_util"
 )
 
 // AggregatedRangeWitness contains the prover's secret data (the actual values to be proven & the generated random blinders)

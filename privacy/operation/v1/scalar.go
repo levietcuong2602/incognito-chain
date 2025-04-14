@@ -8,7 +8,7 @@ import (
 	"math/big"
 	"sort"
 
-	C25519 "github.com/incognitochain/incognito-chain/privacy/operation/v1/curve25519"
+	C25519 "github.com/levietcuong2602/incognito-chain/privacy/operation/v1/curve25519"
 )
 
 type Scalar struct {

@@ -1,8 +1,8 @@
 package blsbft
 
 import (
-	"github.com/incognitochain/incognito-chain/consensus_v2/consensustypes"
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/consensus_v2/consensustypes"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 )
 
 /*

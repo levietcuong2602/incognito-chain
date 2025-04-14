@@ -1,8 +1,8 @@
 package rawdb_consensus
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/incdb"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/incdb"
 )
 
 var consensusDatabase incdb.Database

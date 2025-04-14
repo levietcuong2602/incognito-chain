@@ -6,10 +6,10 @@ import (
 	"strconv"
 
 	ec "github.com/ethereum/go-ethereum/common"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/privacy"
-	"github.com/incognitochain/incognito-chain/privacy/coin"
-	"github.com/incognitochain/incognito-chain/wallet"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/privacy"
+	"github.com/levietcuong2602/incognito-chain/privacy/coin"
+	"github.com/levietcuong2602/incognito-chain/wallet"
 	"github.com/pkg/errors"
 )
 

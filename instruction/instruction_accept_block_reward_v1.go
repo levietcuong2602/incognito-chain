@@ -2,12 +2,12 @@ package instruction
 
 import (
 	"encoding/json"
-	"github.com/incognitochain/incognito-chain/metadata"
+	"github.com/levietcuong2602/incognito-chain/metadata"
 	"strconv"
 
 	// "errors"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 // ShardBlockRewardInfo IS LEGACY CODE, DO NOT MAKE ANY MODIFICATION

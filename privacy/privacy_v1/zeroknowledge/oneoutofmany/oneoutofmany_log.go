@@ -1,6 +1,6 @@
 package oneoutofmany
 
-import "github.com/incognitochain/incognito-chain/common"
+import "github.com/levietcuong2602/incognito-chain/common"
 
 type OneoutofmanyLogger struct {
 	Log common.Logger

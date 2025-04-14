@@ -2,7 +2,7 @@ package pubsub
 
 import (
 	"errors"
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 	"sync"
 	"time"
 )

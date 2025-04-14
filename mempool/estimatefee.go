@@ -16,9 +16,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/incognitochain/incognito-chain/blockchain/types"
+	"github.com/levietcuong2602/incognito-chain/blockchain/types"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 const (

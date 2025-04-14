@@ -3,8 +3,8 @@ package portaltokens
 import (
 	"errors"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/metadata"
-	btcrelaying "github.com/incognitochain/incognito-chain/relaying/btc"
+	"github.com/levietcuong2602/incognito-chain/metadata"
+	btcrelaying "github.com/levietcuong2602/incognito-chain/relaying/btc"
 )
 
 type PortalBTCTokenProcessor struct {

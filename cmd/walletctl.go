@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/incognitochain/incognito-chain/wallet"
+	"github.com/levietcuong2602/incognito-chain/wallet"
 )
 
 var walletObj *wallet.Wallet

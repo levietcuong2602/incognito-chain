@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/incognitochain/incognito-chain/config"
-	testsuite "github.com/incognitochain/incognito-chain/testsuite"
+	"github.com/levietcuong2602/incognito-chain/config"
+	testsuite "github.com/levietcuong2602/incognito-chain/testsuite"
 )
 
 func Test_CrossShard() {

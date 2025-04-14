@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/config"
-	metadataCommon "github.com/incognitochain/incognito-chain/metadata/common"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/config"
+	metadataCommon "github.com/levietcuong2602/incognito-chain/metadata/common"
 )
 
 type AddToken struct {

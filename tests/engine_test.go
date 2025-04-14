@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/incognitochain/incognito-chain/rpcserver/rpcservice"
+	"github.com/levietcuong2602/incognito-chain/rpcserver/rpcservice"
 	"log"
 	"testing"
 )

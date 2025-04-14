@@ -4,7 +4,7 @@ import (
 	"crypto/rand"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 	"github.com/stretchr/testify/assert"
 )
 

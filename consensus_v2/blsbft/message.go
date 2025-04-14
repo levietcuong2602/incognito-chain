@@ -2,12 +2,12 @@ package blsbft
 
 import (
 	"encoding/json"
-	"github.com/incognitochain/incognito-chain/blockchain/types"
-	"github.com/incognitochain/incognito-chain/config"
-	portalprocessv4 "github.com/incognitochain/incognito-chain/portal/portalv4/portalprocess"
+	"github.com/levietcuong2602/incognito-chain/blockchain/types"
+	"github.com/levietcuong2602/incognito-chain/config"
+	portalprocessv4 "github.com/levietcuong2602/incognito-chain/portal/portalv4/portalprocess"
 
-	"github.com/incognitochain/incognito-chain/common"
-	signatureschemes2 "github.com/incognitochain/incognito-chain/consensus_v2/signatureschemes"
+	"github.com/levietcuong2602/incognito-chain/common"
+	signatureschemes2 "github.com/levietcuong2602/incognito-chain/consensus_v2/signatureschemes"
 )
 
 const (

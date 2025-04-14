@@ -7,10 +7,10 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/common/base58"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
-	"github.com/incognitochain/incognito-chain/wallet"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/wallet"
 	. "github.com/stretchr/testify/assert"
 )
 

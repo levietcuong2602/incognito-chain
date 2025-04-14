@@ -3,14 +3,14 @@ package bridge
 import (
 	"encoding/base64"
 	"encoding/json"
-	"github.com/incognitochain/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/config"
 	"strconv"
 
 	rCommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
-	metadataCommon "github.com/incognitochain/incognito-chain/metadata/common"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
+	metadataCommon "github.com/levietcuong2602/incognito-chain/metadata/common"
 	"github.com/pkg/errors"
 )
 

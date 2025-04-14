@@ -1,12 +1,12 @@
 package incognitokey
 
 import (
-	"github.com/incognitochain/incognito-chain/privacy/key"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_v1/schnorr"
+	"github.com/levietcuong2602/incognito-chain/privacy/key"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_v1/schnorr"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
 )
 
 // KeySet is real raw data of wallet account, which user can use to

@@ -2,7 +2,7 @@ package wallet
 
 import (
 	"fmt"
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

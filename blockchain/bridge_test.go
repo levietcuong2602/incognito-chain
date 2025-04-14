@@ -9,8 +9,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common/base58"
-	"github.com/incognitochain/incognito-chain/mocks"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/mocks"
 	"github.com/pkg/errors"
 )
 

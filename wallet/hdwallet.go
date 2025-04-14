@@ -6,10 +6,10 @@ import (
 	"crypto/sha512"
 	"errors"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/common/base58"
-	"github.com/incognitochain/incognito-chain/incognitokey"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 )
 
 // burnAddress1BytesDecode is a decoded bytes array of old burning address "15pABFiJVeh9D5uiQEhQX4SVibGGbdAVipQxBdxkmDqAJaoG1EdFKHBrNfs"

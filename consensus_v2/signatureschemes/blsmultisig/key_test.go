@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 // genKeyAndGetBytes take a number of for-loop for test flow KeyGen -> Bytes -> Check Key-bytes length

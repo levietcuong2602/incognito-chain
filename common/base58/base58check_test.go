@@ -3,7 +3,7 @@ package base58
 import (
 	"bytes"
 	"github.com/btcsuite/btcutil/base58"
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

@@ -2,13 +2,13 @@ package finishsync
 
 import (
 	"encoding/json"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/instruction"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/instruction"
 	"reflect"
 	"sync"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 )
 
 var (

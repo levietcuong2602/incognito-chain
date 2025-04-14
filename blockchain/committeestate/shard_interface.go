@@ -1,10 +1,10 @@
 package committeestate
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/incognitokey"
-	"github.com/incognitochain/incognito-chain/instruction"
-	"github.com/incognitochain/incognito-chain/metadata"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/instruction"
+	"github.com/levietcuong2602/incognito-chain/metadata"
 )
 
 //ShardCommitteeState :

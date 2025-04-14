@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	consensus "github.com/incognitochain/incognito-chain/common/consensus"
+	consensus "github.com/levietcuong2602/incognito-chain/common/consensus"
 	mock "github.com/stretchr/testify/mock"
 )
 

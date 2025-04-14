@@ -2,7 +2,7 @@ package committeestate
 
 import (
 	"fmt"
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

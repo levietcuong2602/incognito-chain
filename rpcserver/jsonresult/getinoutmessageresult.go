@@ -1,9 +1,9 @@
 package jsonresult
 
 import (
-	"github.com/incognitochain/incognito-chain/peer"
-	"github.com/incognitochain/incognito-chain/utils"
-	"github.com/incognitochain/incognito-chain/wire"
+	"github.com/levietcuong2602/incognito-chain/peer"
+	"github.com/levietcuong2602/incognito-chain/utils"
+	"github.com/levietcuong2602/incognito-chain/wire"
 )
 
 type GetInOutMessageResult struct {

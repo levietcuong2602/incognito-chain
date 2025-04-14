@@ -3,8 +3,8 @@ package portaltokens
 import (
 	"fmt"
 	"github.com/binance-chain/go-sdk/types/msg"
-	"github.com/incognitochain/incognito-chain/metadata"
-	"github.com/incognitochain/incognito-chain/relaying/bnb"
+	"github.com/levietcuong2602/incognito-chain/metadata"
+	"github.com/levietcuong2602/incognito-chain/relaying/bnb"
 )
 
 type PortalBNBTokenProcessor struct {

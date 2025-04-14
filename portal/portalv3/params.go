@@ -2,9 +2,9 @@ package portalv3
 
 import (
 	"errors"
-	"github.com/incognitochain/incognito-chain/common"
-	portalcommonv3 "github.com/incognitochain/incognito-chain/portal/portalv3/common"
-	portaltokensv3 "github.com/incognitochain/incognito-chain/portal/portalv3/portaltokens"
+	"github.com/levietcuong2602/incognito-chain/common"
+	portalcommonv3 "github.com/levietcuong2602/incognito-chain/portal/portalv3/common"
+	portaltokensv3 "github.com/levietcuong2602/incognito-chain/portal/portalv3/portaltokens"
 	"time"
 )
 

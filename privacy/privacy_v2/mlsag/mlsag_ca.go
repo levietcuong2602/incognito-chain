@@ -6,8 +6,8 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 )
 
 // SignConfidentialAsset uses the private key in this Mlsag to sign a message (which is the transaction hash).

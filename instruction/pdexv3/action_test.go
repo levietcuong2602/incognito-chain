@@ -3,7 +3,7 @@ package pdexv3
 import (
 	"testing"
 
-	metadataPdexv3 "github.com/incognitochain/incognito-chain/metadata/pdexv3"
+	metadataPdexv3 "github.com/levietcuong2602/incognito-chain/metadata/pdexv3"
 	. "github.com/stretchr/testify/assert"
 )
 

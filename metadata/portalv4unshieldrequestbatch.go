@@ -1,6 +1,6 @@
 package metadata
 
-import "github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
+import "github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
 
 type PortalUnshieldRequestBatchContent struct {
 	BatchID       string // Hash(beaconHeight || UnshieldIDs)

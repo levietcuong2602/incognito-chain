@@ -1,8 +1,8 @@
 package jsonresult
 
 import (
-	"github.com/incognitochain/incognito-chain/blockchain"
-	"github.com/incognitochain/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/blockchain"
+	"github.com/levietcuong2602/incognito-chain/config"
 )
 
 type GetMiningInfoResult struct {

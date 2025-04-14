@@ -2,7 +2,7 @@ package incdb
 
 import (
 	"fmt"
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 	"github.com/pkg/errors"
 	"path"
 	"strconv"

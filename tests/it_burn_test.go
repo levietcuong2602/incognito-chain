@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/rpcserver/rpcservice"
+	"github.com/levietcuong2602/incognito-chain/rpcserver/rpcservice"
 )
 
 func TestBurnPrivateETH(t *testing.T) {

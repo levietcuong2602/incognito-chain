@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 	"github.com/stretchr/testify/assert"
 )
 

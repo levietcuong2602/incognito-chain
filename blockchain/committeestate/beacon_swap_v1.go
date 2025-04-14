@@ -1,7 +1,7 @@
 package committeestate
 
 import (
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 	"math"
 	"sort"
 )

@@ -1,6 +1,6 @@
 package serialnumberprivacy
 
-import "github.com/incognitochain/incognito-chain/common"
+import "github.com/levietcuong2602/incognito-chain/common"
 
 type SerialnumberprivacyLogger struct {
 	Log common.Logger

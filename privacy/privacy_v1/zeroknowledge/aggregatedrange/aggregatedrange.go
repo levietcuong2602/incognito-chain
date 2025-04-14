@@ -2,11 +2,11 @@ package aggregatedrange
 
 import (
 	"fmt"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_v1/zeroknowledge/aggregatedrange/bulletproofs"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_v1/zeroknowledge/aggregatedrange/bulletproofs"
 
-	errhandler "github.com/incognitochain/incognito-chain/privacy/errorhandler"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_util"
+	errhandler "github.com/levietcuong2602/incognito-chain/privacy/errorhandler"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_util"
 	"github.com/pkg/errors"
 )
 

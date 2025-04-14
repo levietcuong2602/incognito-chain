@@ -4,8 +4,8 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
-	"github.com/incognitochain/incognito-chain/privacy"
-	"github.com/incognitochain/incognito-chain/wallet"
+	"github.com/levietcuong2602/incognito-chain/privacy"
+	"github.com/levietcuong2602/incognito-chain/wallet"
 	"golang.org/x/crypto/sha3"
 	"strconv"
 )

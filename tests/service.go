@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/incognitochain/incognito-chain/rpcserver/rpcservice"
+	"github.com/levietcuong2602/incognito-chain/rpcserver/rpcservice"
 
-	"github.com/incognitochain/incognito-chain/rpcserver/jsonresult"
+	"github.com/levietcuong2602/incognito-chain/rpcserver/jsonresult"
 )
 
 func (client *Client) getBlockChainInfo() (*jsonresult.GetBlockChainInfoResult, *rpcservice.RPCError) {

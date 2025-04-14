@@ -1,4 +1,4 @@
-module github.com/incognitochain/incognito-chain
+module github.com/levietcuong2602/incognito-chain
 
 go 1.13
 
@@ -75,5 +75,3 @@ require (
 )
 
 replace github.com/tendermint/go-amino => github.com/binance-chain/bnc-go-amino v0.14.1-binance.1
-
-replace github.com/incognitochain/incognito-chain => github.com/levietcuong2602/incognito-chain v0.0.0-20250413171943-8279c77ba5fe

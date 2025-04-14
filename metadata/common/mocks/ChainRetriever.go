@@ -4,13 +4,13 @@ package mocks
 
 import (
 	chaincfg "github.com/btcsuite/btcd/chaincfg"
-	btcrelaying "github.com/incognitochain/incognito-chain/relaying/btc"
+	btcrelaying "github.com/levietcuong2602/incognito-chain/relaying/btc"
 
-	common "github.com/incognitochain/incognito-chain/metadata/common"
+	common "github.com/levietcuong2602/incognito-chain/metadata/common"
 
-	incdb "github.com/incognitochain/incognito-chain/incdb"
+	incdb "github.com/levietcuong2602/incognito-chain/incdb"
 
-	incognito_chaincommon "github.com/incognitochain/incognito-chain/common"
+	incognito_chaincommon "github.com/levietcuong2602/incognito-chain/common"
 
 	mock "github.com/stretchr/testify/mock"
 

@@ -1,7 +1,7 @@
 package zkp
 
 import (
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 	"github.com/pkg/errors"
 )
 

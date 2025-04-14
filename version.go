@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/incognitochain/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/config"
 )
 
 // semanticAlphabet

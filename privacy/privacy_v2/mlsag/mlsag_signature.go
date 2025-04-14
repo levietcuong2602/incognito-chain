@@ -4,7 +4,7 @@ package mlsag
 
 import (
 	"errors"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 )
 
 // Sig is the ring signature that appears on transactions.

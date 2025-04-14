@@ -10,9 +10,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/common/base58"
-	"github.com/incognitochain/incognito-chain/consensus_v2/signatureschemes/bridgesig"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/consensus_v2/signatureschemes/bridgesig"
 )
 
 const (

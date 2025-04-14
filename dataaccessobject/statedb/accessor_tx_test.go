@@ -1,7 +1,7 @@
 package statedb
 
 import (
-	_ "github.com/incognitochain/incognito-chain/incdb/lvdb"
+	_ "github.com/levietcuong2602/incognito-chain/incdb/lvdb"
 )
 
 //

@@ -1,8 +1,8 @@
 package bulletproofs
 
 import (
-	"github.com/incognitochain/incognito-chain/privacy/operation"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_util"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_util"
 	"github.com/pkg/errors"
 )
 

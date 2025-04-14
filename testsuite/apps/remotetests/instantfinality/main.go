@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/incognitochain/incognito-chain/testsuite/apps/remotetests"
+	"github.com/levietcuong2602/incognito-chain/testsuite/apps/remotetests"
 )
 
 func main() {

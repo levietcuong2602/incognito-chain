@@ -1,7 +1,7 @@
 package peer
 
 import (
-	"github.com/incognitochain/incognito-chain/wire"
+	"github.com/levietcuong2602/incognito-chain/wire"
 	net "github.com/libp2p/go-libp2p-net"
 )
 

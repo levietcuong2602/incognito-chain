@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	incdb "github.com/incognitochain/incognito-chain/incdb"
+	incdb "github.com/levietcuong2602/incognito-chain/incdb"
 	mock "github.com/stretchr/testify/mock"
 )
 

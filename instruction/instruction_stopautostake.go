@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 )
 
 type StopAutoStakeInstruction struct {

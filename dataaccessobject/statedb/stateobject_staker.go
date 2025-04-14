@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/incognitochain/incognito-chain/privacy/key"
+	"github.com/levietcuong2602/incognito-chain/privacy/key"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 // @NOTE this struct is view object only

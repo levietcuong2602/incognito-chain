@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/incognitochain/incognito-chain/blockchain"
-	"github.com/incognitochain/incognito-chain/peer"
-	"github.com/incognitochain/incognito-chain/wire"
+	"github.com/levietcuong2602/incognito-chain/blockchain"
+	"github.com/levietcuong2602/incognito-chain/peer"
+	"github.com/levietcuong2602/incognito-chain/wire"
 	"testing"
 )
 

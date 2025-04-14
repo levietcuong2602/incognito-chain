@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	incognito_chaincommon "github.com/incognitochain/incognito-chain/common"
+	incognito_chaincommon "github.com/levietcuong2602/incognito-chain/common"
 	mock "github.com/stretchr/testify/mock"
 )
 

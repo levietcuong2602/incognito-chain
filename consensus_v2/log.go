@@ -1,6 +1,6 @@
 package consensus_v2
 
-import "github.com/incognitochain/incognito-chain/common"
+import "github.com/levietcuong2602/incognito-chain/common"
 
 type consensusLogger struct {
 	Log common.Logger

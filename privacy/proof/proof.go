@@ -1,12 +1,12 @@
 package proof
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/privacy/coin"
-	"github.com/incognitochain/incognito-chain/privacy/env"
-	errhandler "github.com/incognitochain/incognito-chain/privacy/errorhandler"
-	"github.com/incognitochain/incognito-chain/privacy/key"
-	"github.com/incognitochain/incognito-chain/privacy/proof/agg_interface"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/privacy/coin"
+	"github.com/levietcuong2602/incognito-chain/privacy/env"
+	errhandler "github.com/levietcuong2602/incognito-chain/privacy/errorhandler"
+	"github.com/levietcuong2602/incognito-chain/privacy/key"
+	"github.com/levietcuong2602/incognito-chain/privacy/proof/agg_interface"
 )
 
 // Paymentproof

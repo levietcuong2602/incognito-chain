@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/incognitochain/incognito-chain/metadata/rpccaller"
-	"github.com/incognitochain/incognito-chain/utils"
+	"github.com/levietcuong2602/incognito-chain/metadata/rpccaller"
+	"github.com/levietcuong2602/incognito-chain/utils"
 	"github.com/jessevdk/go-flags"
 	"github.com/spf13/viper"
 )

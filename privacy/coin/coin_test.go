@@ -4,14 +4,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/incognitokey"
-	errhandler "github.com/incognitochain/incognito-chain/privacy/errorhandler"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
+	errhandler "github.com/levietcuong2602/incognito-chain/privacy/errorhandler"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 	"github.com/stretchr/testify/assert"
 	"math/big"
 
-	"github.com/incognitochain/incognito-chain/privacy/key"
+	"github.com/levietcuong2602/incognito-chain/privacy/key"
 	"testing"
 )
 

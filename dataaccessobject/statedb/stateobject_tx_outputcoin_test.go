@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 func storeOutputCoin(initRoot common.Hash, db DatabaseAccessWarper, limit int, shardID byte) (common.Hash, map[common.Hash]*OutputCoinState, map[string][][]byte) {

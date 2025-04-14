@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/incdb"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/incdb"
 )
 
 func StoreBeaconConfirmInstantFinalityShardBlock(db incdb.KeyValueWriter, sid byte, index uint64, hash common.Hash) error {

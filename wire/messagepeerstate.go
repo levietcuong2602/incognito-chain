@@ -5,8 +5,8 @@ import (
 
 	peer "github.com/libp2p/go-libp2p-peer"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 )
 
 const (

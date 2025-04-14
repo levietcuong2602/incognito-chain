@@ -1,7 +1,7 @@
 package lvdb
 
 import (
-	"github.com/incognitochain/incognito-chain/databasemp"
+	"github.com/levietcuong2602/incognito-chain/databasemp"
 	"github.com/pkg/errors"
 	"github.com/syndtr/goleveldb/leveldb"
 )

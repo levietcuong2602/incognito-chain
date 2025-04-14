@@ -3,7 +3,7 @@ package peer
 import (
 	"sync"
 
-	"github.com/incognitochain/incognito-chain/wire"
+	"github.com/levietcuong2602/incognito-chain/wire"
 	peer "github.com/libp2p/go-libp2p-peer"
 )
 

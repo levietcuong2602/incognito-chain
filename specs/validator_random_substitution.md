@@ -24,7 +24,7 @@ Additionally, for the validator's own benefits, this design should also consider
 
 ## Code change notes
 
-The implementation will mostly affect only the beacon chain. The code for the beacon chain is in the [blockchain](https://github.com/incognitochain/incognito-chain/tree/master/blockchain) package.
+The implementation will mostly affect only the beacon chain. The code for the beacon chain is in the [blockchain](https://github.com/levietcuong2602/incognito-chain/tree/master/blockchain) package.
 
 ## The parameters
 

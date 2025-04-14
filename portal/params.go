@@ -5,13 +5,13 @@ import (
 	"time"
 
 	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/incognitochain/incognito-chain/config"
-	"github.com/incognitochain/incognito-chain/portal/portalrelaying"
-	"github.com/incognitochain/incognito-chain/portal/portalv3"
-	portalcommonv3 "github.com/incognitochain/incognito-chain/portal/portalv3/common"
-	portaltokensv3 "github.com/incognitochain/incognito-chain/portal/portalv3/portaltokens"
-	"github.com/incognitochain/incognito-chain/portal/portalv4"
-	portaltokensv4 "github.com/incognitochain/incognito-chain/portal/portalv4/portaltokens"
+	"github.com/levietcuong2602/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/portal/portalrelaying"
+	"github.com/levietcuong2602/incognito-chain/portal/portalv3"
+	portalcommonv3 "github.com/levietcuong2602/incognito-chain/portal/portalv3/common"
+	portaltokensv3 "github.com/levietcuong2602/incognito-chain/portal/portalv3/portaltokens"
+	"github.com/levietcuong2602/incognito-chain/portal/portalv4"
+	portaltokensv4 "github.com/levietcuong2602/incognito-chain/portal/portalv4/portaltokens"
 )
 
 type PortalParams struct {

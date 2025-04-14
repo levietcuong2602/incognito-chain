@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/incognitochain/incognito-chain/blockchain"
-	"github.com/incognitochain/incognito-chain/config"
-	testsuite "github.com/incognitochain/incognito-chain/testsuite"
+	"github.com/levietcuong2602/incognito-chain/blockchain"
+	"github.com/levietcuong2602/incognito-chain/config"
+	testsuite "github.com/levietcuong2602/incognito-chain/testsuite"
 )
 
 func printAllView(beaconChain *blockchain.BeaconChain) {

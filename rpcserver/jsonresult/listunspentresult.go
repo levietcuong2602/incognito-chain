@@ -3,13 +3,13 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/incognitochain/incognito-chain/privacy"
-	"github.com/incognitochain/incognito-chain/privacy/coin"
+	"github.com/levietcuong2602/incognito-chain/privacy"
+	"github.com/levietcuong2602/incognito-chain/privacy/coin"
 	"log"
 	"math/big"
 	"strconv"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
 )
 type ICoinInfo interface {
 	GetVersion() uint8

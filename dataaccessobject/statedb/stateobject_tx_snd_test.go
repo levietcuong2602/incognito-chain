@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
-	_ "github.com/incognitochain/incognito-chain/incdb"
+	"github.com/levietcuong2602/incognito-chain/common"
+	_ "github.com/levietcuong2602/incognito-chain/incdb"
 )
 
 func storeSNDerivator(initRoot common.Hash, db DatabaseAccessWarper, limit int) (common.Hash, map[common.Hash]*SNDerivatorState, map[common.Hash][][]byte) {

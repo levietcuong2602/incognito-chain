@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 )
 
 func TestSwapShardInstruction_ToString(t *testing.T) {

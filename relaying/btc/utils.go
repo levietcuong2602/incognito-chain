@@ -7,7 +7,7 @@ import (
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"
 	"github.com/btcsuite/btcutil"
-	"github.com/incognitochain/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
 	"golang.org/x/crypto/sha3"
 )
 

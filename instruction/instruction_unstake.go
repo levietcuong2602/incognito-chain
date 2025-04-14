@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 )
 
 //UnstakeInstruction : Hold and verify data for unstake action

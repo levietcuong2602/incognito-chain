@@ -18,7 +18,7 @@ The first generation of exchanges includes centralized exchanges like Binance an
 
 ## Trustless 
 
-pDEX is code ([beaconpdeproducer.go](https://github.com/incognitochain/incognito-chain/blob/dev/master/blockchain/beaconpdeproducer.go), [beaconpdeprocess.go](https://github.com/incognitochain/incognito-chain/blob/dev/master/blockchain/beaconpdeprocess.go)) that is deployed to thousands of Nodes powering the Incognito network. It runs entirely on-chain and is completely decentralized.
+pDEX is code ([beaconpdeproducer.go](https://github.com/levietcuong2602/incognito-chain/blob/dev/master/blockchain/beaconpdeproducer.go), [beaconpdeprocess.go](https://github.com/levietcuong2602/incognito-chain/blob/dev/master/blockchain/beaconpdeprocess.go)) that is deployed to thousands of Nodes powering the Incognito network. It runs entirely on-chain and is completely decentralized.
 
 It takes some time to get used to the Automated Market Making mechanism of pDEX. But once you understand it, you'll see that it has some major advantages over traditional exchanges. pDEX borrows heavily from Nick Johnson's [reddit post](https://www.reddit.com/r/ethereum/comments/54l32y/euler_the_simplest_exchange_and_currency/) in 2016, Vitalik Buterin's [reddit post](https://www.reddit.com/r/ethereum/comments/55m04x/lets_run_onchain_decentralized_exchanges_the_way/) in 2016, Hayden Adam's [Uniswap implementation](https://github.com/Uniswap/contracts-vyper/blob/master/contracts/uniswap_exchange.vy) in 2018. 
 

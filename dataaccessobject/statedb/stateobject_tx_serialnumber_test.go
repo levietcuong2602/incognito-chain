@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
-	_ "github.com/incognitochain/incognito-chain/incdb"
+	"github.com/levietcuong2602/incognito-chain/common"
+	_ "github.com/levietcuong2602/incognito-chain/incdb"
 )
 
 func storeSerialNumber(initRoot common.Hash, db DatabaseAccessWarper, limit int, shardID byte) (common.Hash, map[common.Hash]*SerialNumberState, map[common.Hash][][]byte) {

@@ -5,11 +5,11 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/privacy/coin"
+	"github.com/levietcuong2602/incognito-chain/privacy/coin"
 	"strconv"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
 )
 
 type InitTokenResponse struct {

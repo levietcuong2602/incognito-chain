@@ -1,6 +1,6 @@
 package rpcservice
 
-import "github.com/incognitochain/incognito-chain/connmanager"
+import "github.com/levietcuong2602/incognito-chain/connmanager"
 
 type NetworkService struct{
 	ConnMgr *connmanager.ConnManager

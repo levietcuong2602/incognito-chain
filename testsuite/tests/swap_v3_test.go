@@ -2,9 +2,9 @@ package tests
 
 import (
 	"fmt"
-	testsuite "github.com/incognitochain/incognito-chain/testsuite"
-	"github.com/incognitochain/incognito-chain/testsuite/account"
-	"github.com/incognitochain/incognito-chain/testsuite/rpcclient"
+	testsuite "github.com/levietcuong2602/incognito-chain/testsuite"
+	"github.com/levietcuong2602/incognito-chain/testsuite/account"
+	"github.com/levietcuong2602/incognito-chain/testsuite/rpcclient"
 	"testing"
 )
 

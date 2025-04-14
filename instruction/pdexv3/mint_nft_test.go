@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
-	metadataCommon "github.com/incognitochain/incognito-chain/metadata/common"
+	"github.com/levietcuong2602/incognito-chain/common"
+	metadataCommon "github.com/levietcuong2602/incognito-chain/metadata/common"
 	"github.com/stretchr/testify/assert"
 )
 

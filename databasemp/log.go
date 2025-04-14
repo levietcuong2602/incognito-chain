@@ -1,7 +1,7 @@
 package databasemp
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 type DBMemmpoolLogger struct {

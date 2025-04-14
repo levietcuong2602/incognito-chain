@@ -6,10 +6,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/privacy/env"
-	errhandler "github.com/incognitochain/incognito-chain/privacy/errorhandler"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/privacy/env"
+	errhandler "github.com/levietcuong2602/incognito-chain/privacy/errorhandler"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 )
 
 func (proof ConversionProofVer1ToVer2) VerifyV2(vEnv env.ValidationEnviroment, fee uint64) (bool, error) {

@@ -1,6 +1,6 @@
 package jsonresult
 
-import "github.com/incognitochain/incognito-chain/blockchain"
+import "github.com/levietcuong2602/incognito-chain/blockchain"
 
 type GetBestBlockResult struct {
 	BestBlocks map[int]GetBestBlockItem `json:"BestBlocks"`

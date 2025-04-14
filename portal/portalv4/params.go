@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/incognitochain/incognito-chain/common"
-	portaltokensv4 "github.com/incognitochain/incognito-chain/portal/portalv4/portaltokens"
+	"github.com/levietcuong2602/incognito-chain/common"
+	portaltokensv4 "github.com/levietcuong2602/incognito-chain/portal/portalv4/portaltokens"
 )
 
 type PortalParams struct {

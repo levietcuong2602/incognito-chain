@@ -3,8 +3,8 @@ package portalrelaying
 import (
 	"errors"
 
-	bnbrelaying "github.com/incognitochain/incognito-chain/relaying/bnb"
-	btcrelaying "github.com/incognitochain/incognito-chain/relaying/btc"
+	bnbrelaying "github.com/levietcuong2602/incognito-chain/relaying/bnb"
+	btcrelaying "github.com/levietcuong2602/incognito-chain/relaying/btc"
 	bnbTypes "github.com/tendermint/tendermint/types"
 )
 

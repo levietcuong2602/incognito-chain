@@ -1,11 +1,11 @@
 package consensus
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/consensus_v2/signatureschemes"
-	"github.com/incognitochain/incognito-chain/consensus_v2/signatureschemes/blsmultisig"
-	"github.com/incognitochain/incognito-chain/consensus_v2/signatureschemes/bridgesig"
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/consensus_v2/signatureschemes"
+	"github.com/levietcuong2602/incognito-chain/consensus_v2/signatureschemes/blsmultisig"
+	"github.com/levietcuong2602/incognito-chain/consensus_v2/signatureschemes/bridgesig"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 )
 
 type MiningState struct {

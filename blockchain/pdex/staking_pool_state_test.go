@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 func TestStakingPoolState_updateLiquidity(t *testing.T) {

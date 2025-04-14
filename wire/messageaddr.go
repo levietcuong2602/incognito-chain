@@ -3,12 +3,12 @@ package wire
 import (
 	"encoding/json"
 
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 	peer "github.com/libp2p/go-libp2p-peer"
 
 	"time"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 const (

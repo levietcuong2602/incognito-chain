@@ -3,12 +3,12 @@ package metadata
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/config"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
-	"github.com/incognitochain/incognito-chain/privacy"
-	"github.com/incognitochain/incognito-chain/wallet"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
+	"github.com/levietcuong2602/incognito-chain/privacy"
+	"github.com/levietcuong2602/incognito-chain/wallet"
 	"github.com/pkg/errors"
 )
 

@@ -3,7 +3,7 @@ package rpcserver
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/rpcserver/rpcservice"
+	"github.com/levietcuong2602/incognito-chain/rpcserver/rpcservice"
 )
 
 // JsonRequest is a type for raw JSON-RPC 1.0 requests.  The Method field identifies

@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 func storeCommitteeReward(initRoot common.Hash, warperDB DatabaseAccessWarper) (common.Hash, map[common.Hash]*CommitteeRewardState, map[string]map[common.Hash]uint64) {

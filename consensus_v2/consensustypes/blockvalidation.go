@@ -3,7 +3,7 @@ package consensustypes
 import (
 	"encoding/json"
 
-	portalprocessv4 "github.com/incognitochain/incognito-chain/portal/portalv4/portalprocess"
+	portalprocessv4 "github.com/levietcuong2602/incognito-chain/portal/portalv4/portalprocess"
 )
 
 type ValidationData struct {

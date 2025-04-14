@@ -2,11 +2,11 @@ package wire
 
 import (
 	"fmt"
-	"github.com/incognitochain/incognito-chain/metadata"
+	"github.com/levietcuong2602/incognito-chain/metadata"
 	"reflect"
 	"time"
 
-	"github.com/incognitochain/incognito-chain/utils"
+	"github.com/levietcuong2602/incognito-chain/utils"
 	peer "github.com/libp2p/go-libp2p-peer"
 )
 

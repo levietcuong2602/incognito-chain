@@ -1,9 +1,9 @@
 package rpcclient //This file is auto generated. Please do not change if you dont know what you are doing
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/metadata"
-	"github.com/incognitochain/incognito-chain/rpcserver/jsonresult"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/metadata"
+	"github.com/levietcuong2602/incognito-chain/rpcserver/jsonresult"
 )
 
 type PdexV3InitTokenParam struct {

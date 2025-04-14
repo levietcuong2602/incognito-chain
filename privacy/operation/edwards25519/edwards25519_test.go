@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/privacy/operation/edwards25519/field"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation/edwards25519/field"
 )
 
 var B = NewGeneratorPoint()

@@ -1,6 +1,6 @@
 package env
 
-import "github.com/incognitochain/incognito-chain/common"
+import "github.com/levietcuong2602/incognito-chain/common"
 
 type ValidationEnviroment interface {
 	IsPrivacy() bool

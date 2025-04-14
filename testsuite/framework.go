@@ -1,9 +1,9 @@
 package devframework
 
 import (
-	"github.com/incognitochain/incognito-chain/config"
-	"github.com/incognitochain/incognito-chain/portal"
-	"github.com/incognitochain/incognito-chain/testsuite/account"
+	"github.com/levietcuong2602/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/portal"
+	"github.com/levietcuong2602/incognito-chain/testsuite/account"
 	"os"
 )
 

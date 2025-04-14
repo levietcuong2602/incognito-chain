@@ -6,8 +6,8 @@ package bulletproofs
 import (
 	"math"
 
-	"github.com/incognitochain/incognito-chain/privacy/operation/v1"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_util"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation/v1"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_util"
 	"github.com/pkg/errors"
 )
 

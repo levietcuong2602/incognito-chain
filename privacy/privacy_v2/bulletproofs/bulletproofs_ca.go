@@ -3,9 +3,9 @@ package bulletproofs
 import (
 	"fmt"
 
-	"github.com/incognitochain/incognito-chain/privacy/coin"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_util"
+	"github.com/levietcuong2602/incognito-chain/privacy/coin"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_util"
 )
 
 // GetFirstAssetTag is a helper that returns the asset tag field of the first coin from the input.

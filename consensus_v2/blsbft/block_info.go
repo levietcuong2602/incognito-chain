@@ -3,18 +3,18 @@ package blsbft
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/blockchain"
-	"github.com/incognitochain/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/blockchain"
+	"github.com/levietcuong2602/incognito-chain/config"
 	"log"
 	"time"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/common/base58"
-	"github.com/incognitochain/incognito-chain/consensus_v2/signatureschemes/bridgesig"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/consensus_v2/signatureschemes/bridgesig"
 
-	"github.com/incognitochain/incognito-chain/blockchain/types"
-	signatureschemes2 "github.com/incognitochain/incognito-chain/consensus_v2/signatureschemes"
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/blockchain/types"
+	signatureschemes2 "github.com/levietcuong2602/incognito-chain/consensus_v2/signatureschemes"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 )
 
 type ProposeBlockInfo struct {

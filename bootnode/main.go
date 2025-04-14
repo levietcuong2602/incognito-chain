@@ -5,7 +5,7 @@ package main
 import (
 	"log"
 
-	"github.com/incognitochain/incognito-chain/bootnode/server"
+	"github.com/levietcuong2602/incognito-chain/bootnode/server"
 )
 
 var (

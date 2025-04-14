@@ -3,13 +3,13 @@
 package externalmocks
 
 import (
-	committeestate "github.com/incognitochain/incognito-chain/blockchain/committeestate"
-	common "github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
+	committeestate "github.com/levietcuong2602/incognito-chain/blockchain/committeestate"
+	common "github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
 
-	incognitokey "github.com/incognitochain/incognito-chain/incognitokey"
+	incognitokey "github.com/levietcuong2602/incognito-chain/incognitokey"
 
-	key "github.com/incognitochain/incognito-chain/privacy/key"
+	key "github.com/levietcuong2602/incognito-chain/privacy/key"
 
 	mock "github.com/stretchr/testify/mock"
 )

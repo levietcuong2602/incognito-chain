@@ -1,8 +1,8 @@
 package rpcservice
 
 import (
-	"github.com/incognitochain/incognito-chain/blockchain/types"
-	"github.com/incognitochain/incognito-chain/syncker"
+	"github.com/levietcuong2602/incognito-chain/blockchain/types"
+	"github.com/levietcuong2602/incognito-chain/syncker"
 )
 
 type SynkerService struct {

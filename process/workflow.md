@@ -4,13 +4,13 @@ Incognito is open-source and accessible to everyone. Anyone can influence the di
 
 ## Communication Channels
 
-[Github issues](https://github.com/incognitochain/incognito-chain/issues) and [pull requests](https://github.com/incognitochain/incognito-chain/pulls) are the primary communication channels.
+[Github issues](https://github.com/levietcuong2602/incognito-chain/issues) and [pull requests](https://github.com/levietcuong2602/incognito-chain/pulls) are the primary communication channels.
 
 You can also hang out on the Telegram https://t.me/incognitodev.  
 
 ## Development Workflow
 
-Incognito uses a simple development workflow: all changes are done through [pull requests](https://github.com/incognitochain/incognito-chain/pulls) with no exception.
+Incognito uses a simple development workflow: all changes are done through [pull requests](https://github.com/levietcuong2602/incognito-chain/pulls) with no exception.
 
 1. Fork your favorite [Incognito repository](https://github.com/incognitochain)
 2. Create a branch

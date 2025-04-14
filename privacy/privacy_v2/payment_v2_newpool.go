@@ -4,8 +4,8 @@ package privacy_v2
 import (
 	"errors"
 
-	"github.com/incognitochain/incognito-chain/privacy/env"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/env"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 )
 
 func (proof PaymentProofV2) VerifyV2(vEnv env.ValidationEnviroment, fee uint64) (bool, error) {

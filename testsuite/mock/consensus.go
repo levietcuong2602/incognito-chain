@@ -1,11 +1,11 @@
 package mock
 
 import (
-	"github.com/incognitochain/incognito-chain/blockchain/types"
-	"github.com/incognitochain/incognito-chain/common/consensus"
-	"github.com/incognitochain/incognito-chain/consensus_v2"
-	"github.com/incognitochain/incognito-chain/incognitokey"
-	portalprocessv4 "github.com/incognitochain/incognito-chain/portal/portalv4/portalprocess"
+	"github.com/levietcuong2602/incognito-chain/blockchain/types"
+	"github.com/levietcuong2602/incognito-chain/common/consensus"
+	"github.com/levietcuong2602/incognito-chain/consensus_v2"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
+	portalprocessv4 "github.com/levietcuong2602/incognito-chain/portal/portalv4/portalprocess"
 )
 
 type BlockValidation interface {

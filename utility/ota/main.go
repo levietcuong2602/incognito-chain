@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/incognitochain/incognito-chain/wallet"
+	"github.com/levietcuong2602/incognito-chain/wallet"
 )
 
 func main() {

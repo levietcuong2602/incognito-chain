@@ -2,7 +2,7 @@ package pruner
 
 import (
 	"encoding/json"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/rawdbv2"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/rawdbv2"
 	"time"
 )
 

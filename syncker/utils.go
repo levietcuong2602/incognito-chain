@@ -1,15 +1,15 @@
 package syncker
 
 import (
-	"github.com/incognitochain/incognito-chain/blockchain"
-	"github.com/incognitochain/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/blockchain"
+	"github.com/levietcuong2602/incognito-chain/config"
 	"reflect"
 	"time"
 
-	"github.com/incognitochain/incognito-chain/blockchain/types"
+	"github.com/levietcuong2602/incognito-chain/blockchain/types"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 )
 
 const RUNNING_SYNC = "running_sync"

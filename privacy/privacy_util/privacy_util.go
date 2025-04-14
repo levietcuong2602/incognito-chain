@@ -4,8 +4,8 @@ package privacy_util
 import (
 	"math/big"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 )
 
 func ScalarToBigInt(sc *operation.Scalar) *big.Int {

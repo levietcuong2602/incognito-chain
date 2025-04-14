@@ -1,9 +1,9 @@
 package fork
 
 import (
-	"github.com/incognitochain/incognito-chain/blockchain/types"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/multiview"
+	"github.com/levietcuong2602/incognito-chain/blockchain/types"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/multiview"
 )
 
 type forkAction struct {

@@ -1,6 +1,6 @@
 package jsonresult
 
-import "github.com/incognitochain/incognito-chain/dataaccessobject/rawdbv2"
+import "github.com/levietcuong2602/incognito-chain/dataaccessobject/rawdbv2"
 
 type CurrentPDEState struct {
 	WaitingPDEContributions map[string]*rawdbv2.PDEContribution `json:"WaitingPDEContributions"`

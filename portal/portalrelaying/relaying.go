@@ -9,11 +9,11 @@ import (
 
 	"github.com/btcsuite/btcd/wire"
 	"github.com/btcsuite/btcutil"
-	"github.com/incognitochain/incognito-chain/metadata"
-	bnbrelaying "github.com/incognitochain/incognito-chain/relaying/bnb"
-	btcrelaying "github.com/incognitochain/incognito-chain/relaying/btc"
+	"github.com/levietcuong2602/incognito-chain/metadata"
+	bnbrelaying "github.com/levietcuong2602/incognito-chain/relaying/bnb"
+	btcrelaying "github.com/levietcuong2602/incognito-chain/relaying/btc"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 // RelayingHeaderChainState is state of relaying header chains

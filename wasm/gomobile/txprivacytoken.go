@@ -3,9 +3,9 @@ package gomobile
 import (
 	"encoding/base64"
 	"encoding/json"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/metadata"
-	"github.com/incognitochain/incognito-chain/wallet"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/metadata"
+	"github.com/levietcuong2602/incognito-chain/wallet"
 	"github.com/pkg/errors"
 	"math/big"
 )

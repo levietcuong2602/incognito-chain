@@ -3,7 +3,7 @@ package operation
 import (
 	"fmt"
 
-	"github.com/incognitochain/incognito-chain/privacy/operation/edwards25519"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation/edwards25519"
 )
 
 // MultiScalarMultBuilder is a helper struct to make best use of MultiScalarMult functions. The idea is to delay the invocation of Point multiplications

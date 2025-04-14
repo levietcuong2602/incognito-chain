@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/incognitochain/incognito-chain/peerv2/mocks"
+	"github.com/levietcuong2602/incognito-chain/peerv2/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

@@ -3,8 +3,8 @@ package pdexv3
 import (
 	"errors"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/privacy"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/privacy"
 )
 
 type ReceiverInfo struct {

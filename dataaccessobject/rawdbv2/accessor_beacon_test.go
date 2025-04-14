@@ -1,9 +1,9 @@
 package rawdbv2_test
 
 import (
-	"github.com/incognitochain/incognito-chain/blockchain/types"
-	"github.com/incognitochain/incognito-chain/incdb"
-	_ "github.com/incognitochain/incognito-chain/incdb/lvdb"
+	"github.com/levietcuong2602/incognito-chain/blockchain/types"
+	"github.com/levietcuong2602/incognito-chain/incdb"
+	_ "github.com/levietcuong2602/incognito-chain/incdb/lvdb"
 	"io/ioutil"
 	"os"
 )

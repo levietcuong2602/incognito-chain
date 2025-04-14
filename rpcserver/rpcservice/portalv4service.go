@@ -3,8 +3,8 @@ package rpcservice
 import (
 	"encoding/json"
 
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
-	"github.com/incognitochain/incognito-chain/metadata"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
+	"github.com/levietcuong2602/incognito-chain/metadata"
 )
 
 // ============================= Portal v4 ===============================

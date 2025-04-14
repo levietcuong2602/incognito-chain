@@ -3,10 +3,10 @@ package metadata
 import (
 	"encoding/json"
 
-	metadataBridge "github.com/incognitochain/incognito-chain/metadata/bridge"
-	metadataCommon "github.com/incognitochain/incognito-chain/metadata/common"
-	metadataIns "github.com/incognitochain/incognito-chain/metadata/inscriptions"
-	metadataPdexv3 "github.com/incognitochain/incognito-chain/metadata/pdexv3"
+	metadataBridge "github.com/levietcuong2602/incognito-chain/metadata/bridge"
+	metadataCommon "github.com/levietcuong2602/incognito-chain/metadata/common"
+	metadataIns "github.com/levietcuong2602/incognito-chain/metadata/inscriptions"
+	metadataPdexv3 "github.com/levietcuong2602/incognito-chain/metadata/pdexv3"
 	"github.com/pkg/errors"
 )
 

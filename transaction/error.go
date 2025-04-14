@@ -3,8 +3,8 @@ package transaction
 import (
 	"fmt"
 
-	"github.com/incognitochain/incognito-chain/transaction/utils"
-	utils2 "github.com/incognitochain/incognito-chain/utils"
+	"github.com/levietcuong2602/incognito-chain/transaction/utils"
+	utils2 "github.com/levietcuong2602/incognito-chain/utils"
 	"github.com/pkg/errors"
 )
 

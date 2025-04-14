@@ -1,6 +1,6 @@
 package common
 
-import "github.com/incognitochain/incognito-chain/common"
+import "github.com/levietcuong2602/incognito-chain/common"
 
 type PortalCommonLoggerV3 struct {
 	log common.Logger

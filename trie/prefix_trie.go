@@ -1,7 +1,7 @@
 package trie
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 // PrefixTrie wraps a trie with key hashing. In a secure trie, all

@@ -2,7 +2,7 @@ package bulletproofs
 
 import (
 	"errors"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 	"math"
 )
 

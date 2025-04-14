@@ -32,4 +32,4 @@ Based on two assumptions:
 Thus, no one can recompute the private key.  
  
 #### Reference
-[1] https://github.com/incognitochain/incognito-chain/blob/dev/master/utility/generateburnaddress.go
+[1] https://github.com/levietcuong2602/incognito-chain/blob/dev/master/utility/generateburnaddress.go

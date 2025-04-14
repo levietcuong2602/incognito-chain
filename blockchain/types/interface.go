@@ -1,6 +1,6 @@
 package types
 
-import "github.com/incognitochain/incognito-chain/common"
+import "github.com/levietcuong2602/incognito-chain/common"
 
 type BlockPoolInterface interface {
 	GetPrevHash() common.Hash

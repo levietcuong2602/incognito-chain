@@ -2,8 +2,8 @@
 package tx_generic //nolint:revive
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/metadata"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/metadata"
 )
 
 type ValidationEnv struct {

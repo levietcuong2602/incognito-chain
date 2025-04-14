@@ -2,8 +2,8 @@ package bean
 
 import (
 	"errors"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
 )
 
 type CreateRawTxSwitchVer1ToVer2Param struct {

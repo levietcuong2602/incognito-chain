@@ -7,11 +7,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
-	operationV1 "github.com/incognitochain/incognito-chain/privacy/operation/v1"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_util"
-	bulletproofsV1 "github.com/incognitochain/incognito-chain/privacy/privacy_v2/bulletproofs/v1"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
+	operationV1 "github.com/levietcuong2602/incognito-chain/privacy/operation/v1"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_util"
+	bulletproofsV1 "github.com/levietcuong2602/incognito-chain/privacy/privacy_v2/bulletproofs/v1"
 	. "github.com/stretchr/testify/assert"
 )
 

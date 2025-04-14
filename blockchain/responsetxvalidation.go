@@ -1,8 +1,8 @@
 package blockchain
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/metadata"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/metadata"
 )
 
 func (blockchain *BlockChain) verifyMinerCreatedTxBeforeGettingInBlock(

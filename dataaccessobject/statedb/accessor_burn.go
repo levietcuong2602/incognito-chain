@@ -1,8 +1,9 @@
+
 package statedb
 
 import (
 	"fmt"
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 func StoreBurningConfirm(stateDB *StateDB, txID common.Hash, height uint64) error {

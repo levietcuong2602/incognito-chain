@@ -1,8 +1,8 @@
 package blsbft
 
 import (
-	mocksTypes "github.com/incognitochain/incognito-chain/blockchain/types/mocks"
-	"github.com/incognitochain/incognito-chain/common"
+	mocksTypes "github.com/levietcuong2602/incognito-chain/blockchain/types/mocks"
+	"github.com/levietcuong2602/incognito-chain/common"
 	"reflect"
 	"testing"
 	"time"

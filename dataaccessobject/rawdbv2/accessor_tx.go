@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/incdb"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/incdb"
 )
 
 func StoreTransactionIndex(db incdb.KeyValueWriter, txHash common.Hash, blockHash common.Hash, index int) error {

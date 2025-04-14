@@ -5,9 +5,9 @@ import (
 	"crypto/sha256"
 	"math/big"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 
-	"github.com/incognitochain/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
 )
 
 // padByteSlice returns a byte slice of the given size with contents of the

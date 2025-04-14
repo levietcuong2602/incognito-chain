@@ -2,8 +2,8 @@
 package privacy_v2
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	bp "github.com/incognitochain/incognito-chain/privacy/privacy_v2/bulletproofs"
+	"github.com/levietcuong2602/incognito-chain/common"
+	bp "github.com/levietcuong2602/incognito-chain/privacy/privacy_v2/bulletproofs"
 )
 
 type PaymentV2Logger struct {

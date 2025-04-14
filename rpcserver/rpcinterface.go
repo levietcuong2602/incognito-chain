@@ -1,6 +1,6 @@
 package rpcserver
 
-import "github.com/incognitochain/incognito-chain/rpcserver/rpcservice"
+import "github.com/levietcuong2602/incognito-chain/rpcserver/rpcservice"
 
 type httpHandler func(*HttpServer, interface{}, <-chan struct{}) (interface{}, *rpcservice.RPCError)
 type wsHandler func(*WsServer, interface{}, string, chan RpcSubResult, <-chan struct{})

@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/peer"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/peer"
 )
 
 var dataDir string

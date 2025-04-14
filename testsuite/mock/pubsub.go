@@ -1,6 +1,6 @@
 package mock
 
-import "github.com/incognitochain/incognito-chain/pubsub"
+import "github.com/levietcuong2602/incognito-chain/pubsub"
 
 type Pubsub struct{}
 

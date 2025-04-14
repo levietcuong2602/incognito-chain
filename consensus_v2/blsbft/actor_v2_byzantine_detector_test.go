@@ -1,8 +1,8 @@
 package blsbft
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/rawdb_consensus"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/rawdb_consensus"
 	"reflect"
 	"testing"
 )

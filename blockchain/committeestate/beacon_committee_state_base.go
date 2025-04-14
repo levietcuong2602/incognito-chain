@@ -6,16 +6,16 @@ import (
 	"reflect"
 	"sync"
 
-	"github.com/incognitochain/incognito-chain/privacy/key"
+	"github.com/levietcuong2602/incognito-chain/privacy/key"
 
-	"github.com/incognitochain/incognito-chain/blockchain/types"
+	"github.com/levietcuong2602/incognito-chain/blockchain/types"
 
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/incognitokey"
-	"github.com/incognitochain/incognito-chain/instruction"
-	"github.com/incognitochain/incognito-chain/privacy"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/instruction"
+	"github.com/levietcuong2602/incognito-chain/privacy"
 )
 
 type beaconCommitteeStateBase struct {

@@ -5,12 +5,12 @@ import (
 	"encoding/gob"
 	"encoding/json"
 
-	"github.com/incognitochain/incognito-chain/portal/portalv4"
+	"github.com/levietcuong2602/incognito-chain/portal/portalv4"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
-	"github.com/incognitochain/incognito-chain/metadata"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
+	"github.com/levietcuong2602/incognito-chain/metadata"
 )
 
 type CurrentPortalStateV4 struct {

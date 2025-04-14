@@ -4,10 +4,10 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
-	metadataCommon "github.com/incognitochain/incognito-chain/metadata/common"
-	metadataCommonMocks "github.com/incognitochain/incognito-chain/metadata/common/mocks"
-	coinMocks "github.com/incognitochain/incognito-chain/privacy/coin/mocks"
+	"github.com/levietcuong2602/incognito-chain/common"
+	metadataCommon "github.com/levietcuong2602/incognito-chain/metadata/common"
+	metadataCommonMocks "github.com/levietcuong2602/incognito-chain/metadata/common/mocks"
+	coinMocks "github.com/levietcuong2602/incognito-chain/privacy/coin/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

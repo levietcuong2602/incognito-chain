@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"math"
 
-	// "github.com/incognitochain/incognito-chain/privacy/coin"
-	"github.com/incognitochain/incognito-chain/privacy/operation/v1"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_util"
+	// "github.com/levietcuong2602/incognito-chain/privacy/coin"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation/v1"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_util"
 )
 
 // CACommitmentScheme defines the Pedersen Commitment Scheme used for Confidential Asset feature.

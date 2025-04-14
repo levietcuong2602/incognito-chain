@@ -1,8 +1,8 @@
 package hybridencryption
 
 import (
-	"github.com/incognitochain/incognito-chain/privacy/errorhandler"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/errorhandler"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 )
 
 // elGamalPublicKeyOld represents to public key in ElGamal encryption

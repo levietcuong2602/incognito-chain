@@ -3,7 +3,7 @@ package common
 import (
 	"log"
 
-	"github.com/incognitochain/incognito-chain/common/aggregatelog"
+	"github.com/levietcuong2602/incognito-chain/common/aggregatelog"
 	"github.com/pkg/errors"
 )
 

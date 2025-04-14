@@ -7,7 +7,7 @@ package edwards25519
 import (
 	"errors"
 
-	"github.com/incognitochain/incognito-chain/privacy/operation/edwards25519/field"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation/edwards25519/field"
 )
 
 // Point types.

@@ -7,7 +7,7 @@
 ### Prerequisites
 - Install Go >= 1.10
 - Mac, Linux, Window OS
-- Git clone source into $GOPATH/src/github.com/incognitochain/incognito-chain
+- Git clone source into $GOPATH/src/github.com/levietcuong2602/incognito-chain
 - Run `go get -v`
 ### Build and RUN
 - Run `cd ./bootnode`

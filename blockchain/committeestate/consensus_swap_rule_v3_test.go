@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/blockchain/signaturecounter"
-	"github.com/incognitochain/incognito-chain/instruction"
+	"github.com/levietcuong2602/incognito-chain/blockchain/signaturecounter"
+	"github.com/levietcuong2602/incognito-chain/instruction"
 )
 
 func Test_swapRuleV3_Process(t *testing.T) {

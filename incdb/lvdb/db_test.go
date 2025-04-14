@@ -6,9 +6,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/incdb"
-	_ "github.com/incognitochain/incognito-chain/incdb/lvdb"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/incdb"
+	_ "github.com/levietcuong2602/incognito-chain/incdb/lvdb"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -3,9 +3,9 @@ package server
 import (
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/common/base58"
-	"github.com/incognitochain/incognito-chain/consensus_v2/blsbft"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common/base58"
+	"github.com/levietcuong2602/incognito-chain/consensus_v2/blsbft"
 )
 
 func TestRpcServer_AddOrUpdatePeer(t *testing.T) {

@@ -3,7 +3,7 @@ package trie
 import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 	"io"
 	"strings"
 )

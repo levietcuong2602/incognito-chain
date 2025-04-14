@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/incognitochain/incognito-chain/privacy/operation/v1"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation/v1"
 )
 
 type InnerProductWitness struct {

@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 type UTXO struct {

@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 const MAX_SHARD_NUMBER = 255

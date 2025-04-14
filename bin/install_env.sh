@@ -41,7 +41,7 @@ mkdir ~/go/src/github.com/ninjadotorg -p
 cd ~/go/src/github.com/ninjadotorg
 if [ ! -d incognito ]; then
     echo "Clone incognito..."
-    git clone https://github.com/incognitochain/incognito-chain -b master
+    git clone https://github.com/levietcuong2602/incognito-chain -b master
     echo "Clone incognito... DONE"
 else
     echo "incognito directory is existed"
@@ -53,4 +53,4 @@ cd incognito
 dep ensure -v
 echo "Install i packages... DONE"
 
-cd ~/go/src/github.com/incognitochain/incognito-chain/bin
+cd ~/go/src/github.com/levietcuong2602/incognito-chain/bin

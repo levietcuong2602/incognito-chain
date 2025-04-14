@@ -7,8 +7,8 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/privacy/operation/edwards25519"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation/edwards25519"
 )
 
 // Scalar is a wrapper for `edwards25519.Scalar`, representing an integer modulo group order

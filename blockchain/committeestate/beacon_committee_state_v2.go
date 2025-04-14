@@ -1,13 +1,13 @@
 package committeestate
 
 import (
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
 	"reflect"
 	"sync"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/instruction"
-	"github.com/incognitochain/incognito-chain/privacy"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/instruction"
+	"github.com/levietcuong2602/incognito-chain/privacy"
 )
 
 type BeaconCommitteeStateV2 struct {

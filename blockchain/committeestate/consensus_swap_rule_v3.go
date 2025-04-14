@@ -2,9 +2,9 @@ package committeestate
 
 import (
 	"fmt"
-	"github.com/incognitochain/incognito-chain/blockchain/signaturecounter"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/instruction"
+	"github.com/levietcuong2602/incognito-chain/blockchain/signaturecounter"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/instruction"
 	"math/big"
 )
 

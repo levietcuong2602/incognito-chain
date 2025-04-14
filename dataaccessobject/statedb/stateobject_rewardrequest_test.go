@@ -6,7 +6,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 func storeRewardRequest(initRoot common.Hash, warperDB DatabaseAccessWarper, epoch uint64, shardIDs []byte) (common.Hash, map[common.Hash]*RewardRequestState) {

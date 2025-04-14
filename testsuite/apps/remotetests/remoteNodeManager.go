@@ -2,11 +2,11 @@ package remotetests
 
 import (
 	"fmt"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/consensus_v2"
-	"github.com/incognitochain/incognito-chain/consensus_v2/signatureschemes"
-	devframework "github.com/incognitochain/incognito-chain/testsuite"
-	"github.com/incognitochain/incognito-chain/testsuite/account"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/consensus_v2"
+	"github.com/levietcuong2602/incognito-chain/consensus_v2/signatureschemes"
+	devframework "github.com/levietcuong2602/incognito-chain/testsuite"
+	"github.com/levietcuong2602/incognito-chain/testsuite/account"
 	"github.com/spf13/viper"
 	"time"
 )

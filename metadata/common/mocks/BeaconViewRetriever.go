@@ -3,14 +3,14 @@
 package mocks
 
 import (
-	common "github.com/incognitochain/incognito-chain/common"
-	incdb "github.com/incognitochain/incognito-chain/incdb"
+	common "github.com/levietcuong2602/incognito-chain/common"
+	incdb "github.com/levietcuong2602/incognito-chain/incdb"
 
-	incognitokey "github.com/incognitochain/incognito-chain/incognitokey"
+	incognitokey "github.com/levietcuong2602/incognito-chain/incognitokey"
 
 	mock "github.com/stretchr/testify/mock"
 
-	statedb "github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
+	statedb "github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
 
 	testing "testing"
 )

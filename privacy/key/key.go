@@ -3,7 +3,7 @@ package key
 import (
 	"encoding/hex"
 	"errors"
-	"github.com/incognitochain/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 )
 
 func SliceToArray(slice []byte) [operation.Ed25519KeySize]byte {

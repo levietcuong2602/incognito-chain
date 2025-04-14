@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 func TestUtils(t *testing.T) {

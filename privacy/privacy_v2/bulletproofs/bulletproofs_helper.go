@@ -3,8 +3,8 @@ package bulletproofs
 import (
 	"fmt"
 
-	"github.com/incognitochain/incognito-chain/privacy/operation"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_util"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_util"
 )
 
 // ConvertIntToBinary represents a integer number in binary

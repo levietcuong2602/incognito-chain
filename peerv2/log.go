@@ -1,6 +1,6 @@
 package peerv2
 
-import "github.com/incognitochain/incognito-chain/common"
+import "github.com/levietcuong2602/incognito-chain/common"
 
 type Peerv2Logger struct {
 	common.Logger

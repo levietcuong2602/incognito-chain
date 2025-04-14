@@ -2,7 +2,7 @@ package peer
 
 import (
 	"fmt"
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 	swarm "github.com/libp2p/go-libp2p-swarm"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"

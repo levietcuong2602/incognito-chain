@@ -3,7 +3,7 @@ package btcrelaying
 import (
 	"container/list"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 	"io/ioutil"
 	"os"
 	"path/filepath"

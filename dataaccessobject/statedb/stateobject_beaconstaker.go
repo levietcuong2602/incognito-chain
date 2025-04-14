@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"sort"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/privacy/key"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/privacy/key"
 	"github.com/pkg/errors"
 )
 

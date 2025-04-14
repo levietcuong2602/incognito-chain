@@ -3,8 +3,8 @@
 package externalmocks
 
 import (
-	committeestate "github.com/incognitochain/incognito-chain/blockchain/committeestate"
-	common "github.com/incognitochain/incognito-chain/common"
+	committeestate "github.com/levietcuong2602/incognito-chain/blockchain/committeestate"
+	common "github.com/levietcuong2602/incognito-chain/common"
 
 	mock "github.com/stretchr/testify/mock"
 )

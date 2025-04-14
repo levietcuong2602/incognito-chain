@@ -1,6 +1,6 @@
 package metrics
 
-import "github.com/incognitochain/incognito-chain/common"
+import "github.com/levietcuong2602/incognito-chain/common"
 
 type MetricLogger struct {
 	Log common.Logger

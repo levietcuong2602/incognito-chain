@@ -5,8 +5,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/privacy/operation"
-	"github.com/incognitochain/incognito-chain/privacy/privacy_util"
+	"github.com/levietcuong2602/incognito-chain/privacy/operation"
+	"github.com/levietcuong2602/incognito-chain/privacy/privacy_util"
 )
 
 func TestConvert(t *testing.T) {

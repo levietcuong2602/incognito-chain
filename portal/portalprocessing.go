@@ -1,13 +1,13 @@
 package portal
 
 import (
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
-	"github.com/incognitochain/incognito-chain/metadata"
-	metadataCommon "github.com/incognitochain/incognito-chain/metadata/common"
-	"github.com/incognitochain/incognito-chain/portal/portalrelaying"
-	portalprocessv3 "github.com/incognitochain/incognito-chain/portal/portalv3/portalprocess"
-	portalprocessv4 "github.com/incognitochain/incognito-chain/portal/portalv4/portalprocess"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
+	"github.com/levietcuong2602/incognito-chain/metadata"
+	metadataCommon "github.com/levietcuong2602/incognito-chain/metadata/common"
+	"github.com/levietcuong2602/incognito-chain/portal/portalrelaying"
+	portalprocessv3 "github.com/levietcuong2602/incognito-chain/portal/portalv3/portalprocess"
+	portalprocessv4 "github.com/levietcuong2602/incognito-chain/portal/portalv4/portalprocess"
 )
 
 func CollectPortalInstructions(pm *PortalManager, metaType int, action []string, shardID byte) bool {

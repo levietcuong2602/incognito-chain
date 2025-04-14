@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/common"
 )
 
 func TestAcceptWithdrawLiquidity_FromStringSlice(t *testing.T) {

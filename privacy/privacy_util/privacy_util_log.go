@@ -1,7 +1,7 @@
 //nolint:revive // skip linter for this package name
 package privacy_util
 
-import "github.com/incognitochain/incognito-chain/common"
+import "github.com/levietcuong2602/incognito-chain/common"
 
 type PrivacyUtilLogger struct {
 	Log common.Logger

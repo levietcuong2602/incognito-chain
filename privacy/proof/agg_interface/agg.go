@@ -1,7 +1,7 @@
 //nolint:revive // skip linter for this legacy package name
 package agg_interface
 
-import "github.com/incognitochain/incognito-chain/privacy/operation"
+import "github.com/levietcuong2602/incognito-chain/privacy/operation"
 
 type AggregatedRangeProof interface {
 	Init()

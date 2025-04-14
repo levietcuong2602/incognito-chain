@@ -2,19 +2,19 @@ package committeestate
 
 import (
 	"fmt"
-	"github.com/incognitochain/incognito-chain/wallet"
+	"github.com/levietcuong2602/incognito-chain/wallet"
 	"reflect"
 	"strings"
 	"sync"
 	"testing"
 
-	"github.com/incognitochain/incognito-chain/blockchain/committeestate/mocks"
-	"github.com/incognitochain/incognito-chain/blockchain/signaturecounter"
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
-	"github.com/incognitochain/incognito-chain/incognitokey"
-	"github.com/incognitochain/incognito-chain/instruction"
-	"github.com/incognitochain/incognito-chain/privacy"
+	"github.com/levietcuong2602/incognito-chain/blockchain/committeestate/mocks"
+	"github.com/levietcuong2602/incognito-chain/blockchain/signaturecounter"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/dataaccessobject/statedb"
+	"github.com/levietcuong2602/incognito-chain/incognitokey"
+	"github.com/levietcuong2602/incognito-chain/instruction"
+	"github.com/levietcuong2602/incognito-chain/privacy"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

@@ -4,8 +4,8 @@ package main
 // 	b64 "encoding/base64"
 
 // 	"github.com/btcsuite/btcutil/base58"
-// 	"github.com/incognitochain/incognito-chain/privacy/coin"
-// 	"github.com/incognitochain/incognito-chain/privacy/operation"
+// 	"github.com/levietcuong2602/incognito-chain/privacy/coin"
+// 	"github.com/levietcuong2602/incognito-chain/privacy/operation"
 
 // 	"encoding/json"
 // 	"fmt"

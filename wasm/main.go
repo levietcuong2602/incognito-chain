@@ -3,7 +3,7 @@
 package main
 
 import (
-	"github.com/incognitochain/incognito-chain/wasm/gomobile"
+	"github.com/levietcuong2602/incognito-chain/wasm/gomobile"
 	"syscall/js"
 )
 

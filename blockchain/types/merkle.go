@@ -3,14 +3,14 @@ package types
 import (
 	"bytes"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/privacy/coin"
+	"github.com/levietcuong2602/incognito-chain/privacy/coin"
 	"math"
 	"sort"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/metadata"
-	"github.com/incognitochain/incognito-chain/privacy"
-	"github.com/incognitochain/incognito-chain/transaction"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/metadata"
+	"github.com/levietcuong2602/incognito-chain/privacy"
+	"github.com/levietcuong2602/incognito-chain/transaction"
 )
 
 // BuildKeccak256MerkleTree creates a merkle tree using Keccak256 hash func.

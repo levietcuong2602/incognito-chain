@@ -3,10 +3,10 @@ package rpcserver
 import (
 	"errors"
 
-	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/config"
-	"github.com/incognitochain/incognito-chain/rpcserver/jsonresult"
-	"github.com/incognitochain/incognito-chain/rpcserver/rpcservice"
+	"github.com/levietcuong2602/incognito-chain/common"
+	"github.com/levietcuong2602/incognito-chain/config"
+	"github.com/levietcuong2602/incognito-chain/rpcserver/jsonresult"
+	"github.com/levietcuong2602/incognito-chain/rpcserver/rpcservice"
 )
 
 /*
