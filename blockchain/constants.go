@@ -6,22 +6,32 @@ import (
 	"github.com/levietcuong2602/incognito-chain/metrics"
 )
 
-//Network fixed params
+// Network fixed params
 var SFV3_MinShardCommitteeSize = 8
 
 const (
 	// SHARD_BLOCK_VERSION is the current latest supported block version.
-	VERSION                            = 1
-	RANDOM_NUMBER                      = 3
-	SHARD_BLOCK_VERSION                = 1
-	DefaultMaxBlkReqPerPeer            = 900
-	MinCommitteeSize                   = 3 // min size to run bft
-	WorkerNumber                       = 5
-	MAX_S2B_BLOCK                      = 30
-	MAX_BEACON_BLOCK                   = 20
-	LowerBoundPercentForIncDAO         = 3
-	UpperBoundPercentForIncDAO         = 10
-	TestRandom                         = true
+	VERSION                    = 1
+	RANDOM_NUMBER              = 3
+	SHARD_BLOCK_VERSION        = 1
+	DefaultMaxBlkReqPerPeer    = 900
+	MinCommitteeSize           = 3 // min size to run bft
+	WorkerNumber               = 5
+	MAX_S2B_BLOCK              = 30
+	MAX_BEACON_BLOCK           = 20
+	LowerBoundPercentForIncDAO = 3
+	UpperBoundPercentForIncDAO = 10
+
+	TestRandom        = true // System will auto generate the random number
+	TestnetEpoch      = 20   // An epoch = 20 beacon blocks
+	TestnetRandomTime = 10   // At beacon blocks 10th, the random number will be generated
+
+	TestNetShardCommitteeSize     = 6 // Maximum number of committee in a shard
+	TestNetMinShardCommitteeSize  = 4 // Minimum number of committee in a shard
+	TestNetBeaconCommitteeSize    = 4 // Beacon committee size
+	TestNetMinBeaconCommitteeSize = 4 // Minimum number of committee in beacon
+	TestNetActiveShards           = 2 // Number of Shard in Incognito Blockchain
+
 	ValidateTimeForSpamRequestTxs      = 1581565837 // GMT: Thursday, February 13, 2020 3:50:37 AM. From this time, block will be checked spam request-reward tx
 	TransactionBatchSize               = 30
 	SpareTime                          = 1000             // in mili-second

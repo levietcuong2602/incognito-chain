@@ -3,12 +3,13 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"path/filepath"
+
 	"github.com/levietcuong2602/incognito-chain/incdb"
 	_ "github.com/levietcuong2602/incognito-chain/incdb/lvdb"
 	"github.com/levietcuong2602/incognito-chain/privacy/coin"
 	"github.com/levietcuong2602/incognito-chain/transaction"
 	"github.com/levietcuong2602/incognito-chain/wallet"
-	"path/filepath"
 )
 
 func main() {
@@ -23,20 +24,20 @@ func main() {
 	initGenesisTx(db)
 
 	// init thank tx
-	initThankTx(db)
+	// initThankTx(db)
 }
 
 func initGenesisTx(db incdb.Database) {
 	var initTxs []string
 	testUserkeyList := map[string]uint64{
-		"112t8rnXBS7jJ4iqFon5rM66ex1Fc7sstNrJA9iMKgNURMUf3rywYfJ4c5Kpxw1BgL1frj9Nu5uL5vpemn9mLUW25CD1w7khX88WdauTVyKa": uint64(5000000000000000),
+		"112t8rnXUiPCmJ19QxbmyVYvbTPM6UcN6aJZ95mgWmb1tVGexMn6BXNHAdtK1bMP4aTspD8EcmPPJhUyc66jLBmuG4ck8rjV1VNKvzXWk44m": uint64(5000000000000000),
 	}
 	for privateKey, initAmount := range testUserkeyList {
 
 		testUserKey, _ := wallet.Base58CheckDeserialize(privateKey)
 		testUserKey.KeySet.InitFromPrivateKey(&testUserKey.KeySet.PrivateKey)
 
-		testSalaryTX := transaction.Tx{}
+		testSalaryTX := transaction.TxVersion1{}
 
 		// TODO Privacy
 		testSalaryTX.InitTxSalary(initAmount, coin.NewTxRandom(), &testUserKey.KeySet.PaymentAddress, &testUserKey.KeySet.PrivateKey, db, nil)
@@ -56,7 +57,7 @@ func initThankTx(db incdb.Database) {
 		testUserKey, _ := wallet.Base58CheckDeserialize(privateKey)
 		testUserKey.KeySet.InitFromPrivateKey(&testUserKey.KeySet.PrivateKey)
 
-		testSalaryTX := transaction.Tx{}
+		testSalaryTX := transaction.TxVersion1{}
 
 		// TODO Privacy
 		testSalaryTX.InitTxSalary(0, coin.NewTxRandom(), &testUserKey.KeySet.PaymentAddress, &testUserKey.KeySet.PrivateKey, db, nil)
