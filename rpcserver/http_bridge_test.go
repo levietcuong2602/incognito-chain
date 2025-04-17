@@ -49,7 +49,7 @@ func TestHttpServer_handleCreateAndSendTxWithIssuingETHReq(t *testing.T) {
 		{
 			name: "Valid issuing ETH request",
 			params: []interface{}{
-				"112t8rnXB47RhSdyVRU41TEf78nxbtWGtmjuVrf9J9GSHFN9GdKxeFTnRrGbzciY7vrVdrCHQZGQSDrNTVDYqXiQPzsWZKtThrE15wKQ1Qrh",                                     // Private key
+				"112t8rnZDRztVgPjbYQiXS7mJgaTzn66NvHD7Vus2SrhSAY611AzADsPFzKjKQCKWTgbkgYrCPo9atvSMoCf9KT23Sc7Js9RKhzbNJkxpJU6",                                     // Private key
 				map[string]interface{}{"SenderAddress": "12RxahVABnAVCGP3LGwCn8jkQxgw7z1x14wztHzn455TTVpi1wBq9YGwkRMQg3J4e657AbAnCvYCJSdA9czBUNuCKwGSRQt55Xwz8WA"}, // Receiver address
 				1.0,  // Fee
 				true, // Privacy
@@ -216,6 +216,7 @@ func TestHttpServer_handleCreateAndSendTxWithIssuingETHReq(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
+			common.MaxShardNumber = 8
 			// Setup mocks for this test case
 			tc.mockSetup()
 
