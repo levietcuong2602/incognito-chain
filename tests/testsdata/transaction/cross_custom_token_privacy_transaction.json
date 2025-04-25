@@ -1,0 +1,155 @@
+[
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "createandsendprivacycustomtokentransaction",
+      "context": false,
+      "params": [
+        "112t8rq19Uu7UGbTApZzZwCAvVszAgRNAzHzr3p8Cu75jPH3h5AUtRXMKiqF3hw8NbEfeLcjtbpeUvJfw4tGj7pbqwDYngc8wB13Gf77o33f",
+        {},
+        20,
+        1,
+        {
+          "Privacy": true,
+          "TokenID": "",
+          "TokenName": "ABC17644",
+          "TokenSymbol": "ABC17644",
+          "TokenTxType": 0,
+          "TokenAmount": 1000,
+          "TokenReceivers": {
+            "12S42qYc9pzsfWoxPZ21sVihEHJxYfNzEp1SXNnxvr7CGYMHNWX12ZaQkzcwvTYKAnhiVsDWwSqz5jFo6xuwzXZmz7QX1TnJaWnwEyX": 1000
+          },
+          "TokenFee": 0
+        }
+      ]
+    },
+    "output": {
+      "error": null,
+      "response": {
+        "TokenID": "80cca14be325b0b762b484db716370126a7407b7debe11f1076032a59689e19d",
+        "TokenName": "ABC17644",
+        "TokenAmount": 1000
+      }
+    },
+    "store": {
+      "TxID1": "TxID"
+    }
+  },
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "subcribependingtransaction",
+      "context": true,
+      "params": ["TxID1"],
+      "type": "ws",
+      "wait": 600
+    },
+    "output": {
+      "error": null,
+      "response": {}
+    }
+  },
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "getbalanceprivacycustomtoken",
+      "context": false,
+      "params": ["112t8rq19Uu7UGbTApZzZwCAvVszAgRNAzHzr3p8Cu75jPH3h5AUtRXMKiqF3hw8NbEfeLcjtbpeUvJfw4tGj7pbqwDYngc8wB13Gf77o33f", "80cca14be325b0b762b484db716370126a7407b7debe11f1076032a59689e19d"]
+    },
+    "output": {
+      "error": null,
+      "response": 1000
+    }
+  },
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "createandsendprivacycustomtokentransaction",
+      "context": false,
+      "params": [
+        "112t8rq19Uu7UGbTApZzZwCAvVszAgRNAzHzr3p8Cu75jPH3h5AUtRXMKiqF3hw8NbEfeLcjtbpeUvJfw4tGj7pbqwDYngc8wB13Gf77o33f",
+        {},
+        20,
+        1,
+        {
+          "Privacy": true,
+          "TokenID": "80cca14be325b0b762b484db716370126a7407b7debe11f1076032a59689e19d",
+          "TokenName": "ABC17644",
+          "TokenSymbol": "ABC17644",
+          "TokenTxType": 1,
+          "TokenAmount": 1000,
+          "TokenReceivers": {
+            "12RyAEaUz4sErApu1f23PEydvotxDnC5gHoWDy5Th7JQuoT57oUowk8eSQN44ojPj3wZ5sEYFcLeFU5R8zgiXkSbAuY367Tek31gM1z": 300
+          },
+          "TokenFee": 0
+        }
+      ]
+    },
+    "output": {
+      "error": null,
+      "response": {}
+    },
+    "store": {
+      "TxID2": "TxID"
+    }
+  },
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "subcribependingtransaction",
+      "context": true,
+      "params": [
+        "TxID2"
+      ],
+      "type": "ws",
+      "wait": 600
+    },
+    "output": {
+      "error": null,
+      "response": {}
+    }
+  },
+  {
+    "node": "shard1-0",
+    "input": {
+      "command": "subcribecrosscustomtokenprivacybyprivatekey",
+      "context": false,
+      "params": ["112t8rr4sE2L8WzsVNEN9WsiGcMTDCmEH9TC1ZK8517cxURRFNoWoStYQTgqXpiAMU4gzmkmnWahHdGvQqFaY1JTVsn3nHfD5Ppgz8hQDiVC"],
+      "type": "ws",
+      "wait": 1000
+    },
+    "output": {
+      "error": null,
+      "response": {
+        "ReceiverShardID": 1,
+        "TokenID": "80cca14be325b0b762b484db716370126a7407b7debe11f1076032a59689e19d",
+        "PaymentAddress": "12RyAEaUz4sErApu1f23PEydvotxDnC5gHoWDy5Th7JQuoT57oUowk8eSQN44ojPj3wZ5sEYFcLeFU5R8zgiXkSbAuY367Tek31gM1z",
+        "Value": 300
+      }
+    }
+  },
+  {
+    "node": "shard0-0",
+    "input": {
+      "command": "getbalanceprivacycustomtoken",
+      "context": false,
+      "params": ["112t8rq19Uu7UGbTApZzZwCAvVszAgRNAzHzr3p8Cu75jPH3h5AUtRXMKiqF3hw8NbEfeLcjtbpeUvJfw4tGj7pbqwDYngc8wB13Gf77o33f", "80cca14be325b0b762b484db716370126a7407b7debe11f1076032a59689e19d"]
+    },
+    "output": {
+      "error": null,
+      "response": 700
+    }
+  },
+  {
+    "node": "shard1-0",
+    "input": {
+      "command": "getbalanceprivacycustomtoken",
+      "context": false,
+      "params": ["112t8rr4sE2L8WzsVNEN9WsiGcMTDCmEH9TC1ZK8517cxURRFNoWoStYQTgqXpiAMU4gzmkmnWahHdGvQqFaY1JTVsn3nHfD5Ppgz8hQDiVC", "80cca14be325b0b762b484db716370126a7407b7debe11f1076032a59689e19d"]
+    },
+    "output": {
+      "error": null,
+      "response": 300
+    }
+  }
+]
