@@ -80,3 +80,4 @@ logs/
 log/
 run_node_dcs.sh
 config/local-dcs
+data
