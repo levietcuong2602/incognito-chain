@@ -1,0 +1,22 @@
+{
+  "client": [
+    "TestMakeRPCRequest"
+  ],
+  "blockchain": [
+    "TestGetBlockChainInfo"
+  ],
+  "transaction": [
+    "TestCreateAndSendNormalTransaction",
+    "TestCreateAndSendCustomTokenPrivacyTransaction"
+  ],
+  "crossshard": [
+    "TestCreateAndSendCrossNormalTransaction",
+    "TestCreateAndSendCrossCustomTokenPrivacyTransaction"
+  ],
+  "stakeshard": [
+    "TestStakeShard"
+  ],
+  "stakebeacon": [
+    "TestStakeBeacon"
+  ]
+}
