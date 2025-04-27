@@ -6,13 +6,14 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/proto"
-	"github.com/incognitochain/incognito-chain/wallet"
 	"io"
 	"io/ioutil"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/incognitochain/incognito-chain/proto"
+	"github.com/incognitochain/incognito-chain/wallet"
 
 	"github.com/incognitochain/incognito-chain/dataaccessobject/stats"
 	coinIndexer "github.com/incognitochain/incognito-chain/transaction/coin_indexer"
@@ -164,7 +165,13 @@ func (blockchain *BlockChain) InitMissingCounter() {
 	beaconViews := blockchain.BeaconChain.GetMultiView()
 	firstBeaconHeightOfEpoch := GetFirstBeaconHeightInEpoch(beaconViews.GetBestView().GetBlock().GetCurrentEpoch())
 
-	ch, err := blockchain.config.Highway.RequestBeaconBlocksViaStream(context.Background(), "", firstBeaconHeightOfEpoch, beaconViews.GetBestView().GetHeight())
+	// Cannot sync the Genesis Block from Highway, must use the Genesis Block configuration from the defined settings.
+	toBlock := beaconViews.GetBestView().GetHeight()
+	if firstBeaconHeightOfEpoch == common.GenesisBlockHeight && toBlock == common.GenesisBlockHeight {
+		return
+	}
+
+	ch, err := blockchain.config.Highway.RequestBeaconBlocksViaStream(context.Background(), "", firstBeaconHeightOfEpoch, toBlock)
 	for {
 		select {
 		case blk := <-ch:
@@ -1212,7 +1219,7 @@ func (blockchain *BlockChain) AddFinishedSyncValidators(committeePublicKeys []st
 
 }
 
-//receive feature report from other node, add to list feature stat if node is
+// receive feature report from other node, add to list feature stat if node is
 func (blockchain *BlockChain) ReceiveFeatureReport(timestamp int, committeePublicKeys []string, signatures [][]byte, features []string) {
 	committeePublicKeyStructs, _ := incognitokey.CommitteeBase58KeyListToStruct(committeePublicKeys)
 	signBytes := []byte{}
