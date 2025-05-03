@@ -32,20 +32,20 @@ var Testnet2InitTx = []byte(`[
 
 var LocalInitTx = []byte(`
 {
-    "initial_incognito": [
-        {
-            "Version": 1,
-            "Type": "s",
-            "LockTime": 1570159128,
-            "Fee": 0,
-            "Info": null,
-            "SigPubKey": "5xVSzcZpA3uHmBO5ejENk13iayexILopySACdieLugA=",
-            "Sig": "oMJPBLxKgTnfQhMgfvvH68ed0UTuTfl3ofOoWgk8dgvfhovgvued9HH4dXz60rY32H4Y4c85Zd8bSXSnvNhZAA==",
-            "Proof": "AAAAAAAAAbAAriDnFVLNxmkDe4eYE7l6MQ2TXeJrJ7EguinJIAJ2J4u6ACARCc1/qyLEePe1zSthzmRSqf2VNOlo036JwtDgbNg24yAb6hGuk1tRBVMO4ruHaNEasY09ZiBc4iuK/dpDSyNTCCABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDMoX8yNBbY68SO44umD1CMfz/r0T4YiXhDgDgT6+k4BgdY0V4XYoAAAAAAAAAAAAA=",
-            "PubKeyLastByteSender": 0,
-            "Metadata": null
-        }
-    ]
+  "initial_incognito": [
+    {
+      "Version": 1,
+      "Type": "s",
+      "LockTime": 1746119391,
+      "Fee": 0,
+      "Info": null,
+      "SigPubKey": "qEQvjc0xSeLeijla+kwW+jVInwq1Ba+vg3olCqBqPpg=",
+      "Sig": "b5CKOfSR5jFBPrQv5Z+myrO2bOaeEhLOOAmtGpviEA3jDl8hiTkBmBoy3UwEO9v7Lfu0l3MPeWGiIOgQRrzsBw==",
+      "Proof": "AAAAAAAAAbEAryCoRC+NzTFJ4t6KOVr6TBb6NUifCrUFr6+DeiUKoGo+mCAbHxrOlYW8VN/OkDXNOf2nl49I0M7CW+HVLp+++k2qdSASc5QWQpN0RDY79ruIOvlXvIpqzv7qqPZiT2oH4TN9ASABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCV2beF7JX/zQSL8QZKu+8QhTLdowW0zaWP+qjlLOcAAAgN4Lazp2QAAAAAAAAAAAAA",
+      "PubKeyLastByteSender": 0,
+      "Metadata": null
+    }
+  ]
 }`)
 
 var LocalDCSInitTx = []byte(`{
