@@ -10,9 +10,9 @@ import (
 )
 
 func main() {
-	numberOfKey := 6                              // Number of keyset that you want to be generated
+	numberOfKey := 23                             // Number of keyset that you want to be generated
 	randomString := []byte("incognitoblockchain") // A random string used to create keyset. The same string create the same keyset
-	numberOfShard := common.MaxShardNumber        // Number of Shard in Incognito Chain
+	numberOfShard := 8                            // Number of Shard in Incognito Chain
 	// numberOfShard := 2
 
 	for j := 0; j < numberOfShard; j++ {
