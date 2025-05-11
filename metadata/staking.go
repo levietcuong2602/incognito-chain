@@ -6,7 +6,6 @@ import (
 	"fmt"
 
 	"github.com/incognitochain/incognito-chain/common"
-	"github.com/incognitochain/incognito-chain/config"
 	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
 	"github.com/incognitochain/incognito-chain/incognitokey"
 	"github.com/incognitochain/incognito-chain/wallet"
@@ -49,8 +48,8 @@ func NewStakingMetadata(
 	}, nil
 }
 
-//	+ no need to IsInBase58ShortFormat because error is already check below by FromString
-//	+ what IsInBase58ShortFormat does is the same as FromString does but for an array
+// + no need to IsInBase58ShortFormat because error is already check below by FromString
+// + what IsInBase58ShortFormat does is the same as FromString does but for an array
 func (sm *StakingMetadata) ValidateMetadataByItself() bool {
 	rewardReceiverPaymentAddress := sm.RewardReceiverPaymentAddress
 	rewardReceiverWallet, err := wallet.Base58CheckDeserialize(rewardReceiverPaymentAddress)
@@ -120,10 +119,10 @@ func (stakingMetadata StakingMetadata) ValidateSanityData(chainRetriever ChainRe
 		return false, false, errors.New("Error Staking tx should transfer PRV only")
 	}
 	amount := burnCoin.GetValue()
-	if stakingMetadata.Type == ShardStakingMeta && amount != config.Param().StakingAmountShard {
+	if stakingMetadata.Type == ShardStakingMeta && amount != 0 {
 		return false, false, errors.New("invalid Stake Shard Amount")
 	}
-	if stakingMetadata.Type == BeaconStakingMeta && amount != config.Param().StakingAmountShard*3 {
+	if stakingMetadata.Type == BeaconStakingMeta && amount != 0 {
 		return false, false, errors.New("invalid Stake Beacon Amount")
 	}
 
