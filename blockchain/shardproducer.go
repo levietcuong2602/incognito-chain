@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"reflect"
 	"strconv"
 	"strings"
@@ -13,6 +14,7 @@ import (
 	"github.com/incognitochain/incognito-chain/blockchain/pdex"
 	"github.com/incognitochain/incognito-chain/dataaccessobject/rawdbv2"
 	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
+	"github.com/incognitochain/incognito-chain/utils"
 
 	"github.com/incognitochain/incognito-chain/config"
 
@@ -32,40 +34,40 @@ import (
 )
 
 // NewBlockShard Create New block Shard:
-//	1. Identify Beacon State for this Shard Block: Beacon Hash & Beacon Height & Epoch
-//		+ Get Beacon Block (B) from Beacon Best State (from Beacon Chain of Shard Node)
-//		+ Beacon Block (B) must have the same epoch With New Shard Block (S):
-//		+ If Beacon Block (B) have different height previous shard block PS (previous of S)
-//		Then Beacon Block (B) epoch greater than Shard Block (S) epoch exact 1 value
-//		BUT This only works if Shard Best State have the Beacon Height divisible by epoch
-//		+ Ex: 1 epoch has 50 block
-//		Example 1:
-//			shard block with
-//				height 10,
-//				epoch: 1,
-//				beacon block height: 49
-//			then shard block with
-//				height 11 must have
-//				epoch: 1,
-//				beacon block height: must be 49 or 50
-//		Example 2:
-//			shard block with
-//				height 10,
-//				epoch: 1,
-//				beacon block height: 50
-//			then shard block with
-//				height is 11 can have 2 option:
-//				a. epoch: 1, if beacon block height remain 50
-//				b. epoch: 2, and beacon block must in range from 51-100
-//				Can have beacon block with height > 100
-//	2. Build Shard Block Body:
-//		a. Get Cross Transaction from other shard && Build Cross Shard Tx Custom Token Transaction (if exist)
-//		b. Get Transactions for New Block
-//		c. Process Assign Instructions from Beacon Blocks
-//		c. Generate Instructions
-//	3. Build Shard Block Essential Data for Header
-//	4. Update Cloned ShardBestState with New Shard Block
-//	5. Create Root Hash from New Shard Block and updated Clone Shard Beststate Data
+//  1. Identify Beacon State for this Shard Block: Beacon Hash & Beacon Height & Epoch
+//     + Get Beacon Block (B) from Beacon Best State (from Beacon Chain of Shard Node)
+//     + Beacon Block (B) must have the same epoch With New Shard Block (S):
+//     + If Beacon Block (B) have different height previous shard block PS (previous of S)
+//     Then Beacon Block (B) epoch greater than Shard Block (S) epoch exact 1 value
+//     BUT This only works if Shard Best State have the Beacon Height divisible by epoch
+//     + Ex: 1 epoch has 50 block
+//     Example 1:
+//     shard block with
+//     height 10,
+//     epoch: 1,
+//     beacon block height: 49
+//     then shard block with
+//     height 11 must have
+//     epoch: 1,
+//     beacon block height: must be 49 or 50
+//     Example 2:
+//     shard block with
+//     height 10,
+//     epoch: 1,
+//     beacon block height: 50
+//     then shard block with
+//     height is 11 can have 2 option:
+//     a. epoch: 1, if beacon block height remain 50
+//     b. epoch: 2, and beacon block must in range from 51-100
+//     Can have beacon block with height > 100
+//  2. Build Shard Block Body:
+//     a. Get Cross Transaction from other shard && Build Cross Shard Tx Custom Token Transaction (if exist)
+//     b. Get Transactions for New Block
+//     c. Process Assign Instructions from Beacon Blocks
+//     c. Generate Instructions
+//  3. Build Shard Block Essential Data for Header
+//  4. Update Cloned ShardBestState with New Shard Block
+//  5. Create Root Hash from New Shard Block and updated Clone Shard Beststate Data
 func (blockchain *BlockChain) NewBlockShard(curView *ShardBestState,
 	version int, proposer string, round int, start int64,
 	committees []incognitokey.CommitteePublicKey,
@@ -113,7 +115,7 @@ func (blockchain *BlockChain) NewBlockShard(curView *ShardBestState,
 	if err := shardBestState.cloneShardBestStateFrom(curView); err != nil {
 		return nil, err
 	}
-	BLogger.log.Infof("Producing block: %d", shardBestState.ShardHeight+1)
+	log.Printf("Producing block: %d", shardBestState.ShardHeight+1)
 	currentPendingValidators := shardBestState.GetShardPendingValidator()
 
 	getBeaconFinalHeightForProcess := func() uint64 {
@@ -139,7 +141,7 @@ func (blockchain *BlockChain) NewBlockShard(curView *ShardBestState,
 		}
 	} else {
 		if beaconProcessHeight <= shardBestState.BeaconHeight {
-			Logger.log.Info("Waiting For Beacon Produce Block beaconProcessHeight %+v shardBestState.BeaconHeight %+v",
+			log.Printf("Waiting For Beacon Produce Block beaconProcessHeight %+v shardBestState.BeaconHeight %+v",
 				beaconProcessHeight, shardBestState.BeaconHeight)
 			time.Sleep(time.Duration(shardBestState.GetCurrentTimeSlot()/5) * time.Second)
 			beaconProcessHeight = getBeaconFinalHeightForProcess()
@@ -195,7 +197,7 @@ func (blockchain *BlockChain) NewBlockShard(curView *ShardBestState,
 	}
 
 	epoch := beaconBlock.Header.Epoch
-	Logger.log.Infof("Get Beacon Block With Height %+v, Shard BestState %+v", beaconProcessHeight, shardBestState.BeaconHeight)
+	log.Printf("Get Beacon Block With Height %+v, Shard BestState %+v", beaconProcessHeight, shardBestState.BeaconHeight)
 	//Fetch beacon block from height
 	beaconBlocks, err := FetchBeaconBlockFromHeight(blockchain, shardBestState.BeaconHeight+1, beaconProcessHeight)
 	if err != nil {
@@ -268,7 +270,7 @@ func (blockchain *BlockChain) NewBlockShard(curView *ShardBestState,
 	}
 
 	if len(shardInstructions) != 0 {
-		Logger.log.Info("Shard Producer: Instruction", shardInstructions)
+		log.Printf("Shard Producer: Instruction", shardInstructions)
 	}
 
 	newShardBlock.BuildShardBlockBody(shardInstructions, crossTransactions, transactionsForNewBlock)
@@ -416,9 +418,25 @@ func (blockGenerator *BlockGenerator) getTransactionForNewBlock(
 			curView,
 			totalTxsReminder,
 		)
-		if len(txsToAdd) == 0 {
-			Logger.log.Info("Creating empty block...")
+
+		// In thông tin transaction
+		utils.LogPrintf("\n=== getPendingTransaction TRANSACTIONS FOR BLOCK (Shard %d) ===\n", shardID)
+		utils.LogPrintf("\n=== getPendingTransactionTotal txs: %d, Removing txs: %d\n", len(txsToAdd), len(txToRemove))
+
+		// In thông tin transaction vào file
+		utils.LogPrintf("\n=== getPendingTransaction TRANSACTIONS FOR BLOCK (Shard %d) ===\n", shardID)
+
+		// In chi tiết từng transaction được thêm vào
+		for i, tx := range txsToAdd {
+			utils.LogPrintf("\n[TX %d/%d] ", i+1, len(txsToAdd))
+			PrintTxDetails(tx, "  ")
 		}
+
+		if len(txsToAdd) > 0 {
+			utils.LogPrintf("SHARD %v | Crawling %v txs for block %v cost %v",
+				shardID, len(txsToAdd), curView.ShardHeight+1, time.Since(st))
+		}
+
 		go blockGenerator.txPool.RemoveTx(txToRemove, false)
 	} else {
 		txsToAdd = chain.TxPool.GetTxsTranferForNewBlock(
@@ -430,15 +448,178 @@ func (blockGenerator *BlockGenerator) getTransactionForNewBlock(
 			blockCreationLeftOver,
 			totalTxsReminder,
 		)
+
+		// In thông tin transaction
+		utils.LogPrintf("\n=== GetTxsTranferForNewBlock TRANSACTIONS FOR BLOCK (Shard %d) ===\n", shardID)
+		utils.LogPrintf("\n=== GetTxsTranferForNewBlock txs: %d\n", len(txsToAdd))
+
+		// In chi tiết từng transaction được thêm vào
+		for i, tx := range txsToAdd {
+			utils.LogPrintf("\n[TX %d/%d] ", i+1, len(txsToAdd))
+			PrintTxDetails(tx, "  ")
+		}
+
 	}
 	if len(txsToAdd) > 0 {
-		Logger.log.Infof("SHARD %v | Crawling %v txs for block %v cost %v", shardID, len(txsToAdd), curView.ShardHeight+1, time.Since(st))
+		log.Printf("SHARD %v | Crawling %v txs for block %v cost %v", shardID, len(txsToAdd), curView.ShardHeight+1, time.Since(st))
 	}
 	txsToAdd = append(txsToAdd, responseTxsBeacon...)
 	if len(errInstructions) > 0 {
 		Logger.log.Error("List error instructions, which can not create tx", errInstructions)
 	}
 	return txsToAdd, nil
+}
+
+// Hàm PrintTxDetails cập nhật
+func PrintTxDetails(tx metadata.Transaction, prefix string) {
+
+	// Sử dụng txLogger để ghi vào file
+	utils.LogPrintf("\n%s === TX DETAILS: %s ===\n", prefix, tx.Hash().String())
+	utils.LogPrintf("%s Type: %s\n", prefix, tx.GetType())
+	utils.LogPrintf("%s Version: %d\n", prefix, tx.GetVersion())
+	utils.LogPrintf("%s LockTime: %d\n", prefix, tx.GetLockTime())
+	utils.LogPrintf("%s Fee: %d\n", prefix, tx.GetTxFee())
+	utils.LogPrintf("%s FeeToken: %d\n", prefix, tx.GetTxFeeToken())
+	utils.LogPrintf("%s Size: %d bytes\n", prefix, tx.GetTxActualSize())
+	utils.LogPrintf("%s IsPrivacy: %t\n", prefix, tx.IsPrivacy())
+	utils.LogPrintf("%s MetadataType: %d\n", prefix, tx.GetMetadataType())
+	utils.LogPrintf("%s SenderAddrLastByte: 0x%x\n", prefix, tx.GetSenderAddrLastByte())
+
+	// Print TokenID
+	tokenID := tx.GetTokenID()
+	if tokenID != nil {
+		utils.LogPrintf("%s TokenID: %s\n", prefix, tokenID.String())
+	} else {
+		utils.LogPrintf("%s TokenID: PRV (nil)\n", prefix)
+	}
+
+	// Print SigPubKey
+	sigPubKey := tx.GetSigPubKey()
+	if sigPubKey != nil {
+		if len(sigPubKey) > 32 {
+			utils.LogPrintf("%s SigPubKey: %x...%x\n", prefix, sigPubKey[:16], sigPubKey[len(sigPubKey)-16:])
+		} else {
+			utils.LogPrintf("%s SigPubKey: %x\n", prefix, sigPubKey)
+		}
+	} else {
+		utils.LogPrintf("%s SigPubKey: nil\n", prefix)
+	}
+
+	// Print Signature
+	sig := tx.GetSig()
+	if sig != nil {
+		if len(sig) > 32 {
+			utils.LogPrintf("%s Signature: %x...%x\n", prefix, sig[:16], sig[len(sig)-16:])
+		} else {
+			utils.LogPrintf("%s Signature: %x\n", prefix, sig)
+		}
+	} else {
+		utils.LogPrintf("%s Signature: nil\n", prefix)
+	}
+
+	// Print Info
+	info := tx.GetInfo()
+	if info != nil && len(info) > 0 {
+		if len(info) > 32 {
+			utils.LogPrintf("%s Info: %x...%x\n", prefix, info[:16], info[len(info)-16:])
+		} else {
+			utils.LogPrintf("%s Info: %x\n", prefix, info)
+		}
+	} else {
+		utils.LogPrintf("%s Info: nil\n", prefix)
+	}
+
+	// Print metadata if present
+	meta := tx.GetMetadata()
+	if meta != nil {
+		utils.LogPrintf("%s Metadata: Type=%d\n", prefix, meta.GetType())
+	} else {
+		utils.LogPrintf("%s Metadata: nil\n", prefix)
+	}
+
+	// Print receiver information
+	receivers, amounts := tx.GetReceivers()
+	if len(receivers) > 0 {
+		utils.LogPrintf("%s Receivers (%d):\n", prefix, len(receivers))
+		for i, receiver := range receivers {
+			amount := uint64(0)
+			if i < len(amounts) {
+				amount = amounts[i]
+			}
+			if receiver != nil {
+				if len(receiver) > 32 {
+					utils.LogPrintf("%s   - Addr: %x...%x, Amount: %d\n", prefix, receiver[:16], receiver[len(receiver)-16:], amount)
+				} else {
+					utils.LogPrintf("%s   - Addr: %x, Amount: %d\n", prefix, receiver, amount)
+				}
+			}
+		}
+	} else {
+		utils.LogPrintf("%s Receivers: none\n", prefix)
+	}
+
+	// Print serial numbers
+	serials := tx.ListSerialNumbersHashH()
+	if len(serials) > 0 {
+		utils.LogPrintf("%s SerialNumbers (%d):\n", prefix, len(serials))
+		for i, sn := range serials {
+			utils.LogPrintf("%s   - SN[%d]: %s\n", prefix, i, sn.String())
+		}
+	}
+
+	// Print OTA hashes
+	otaHashes := tx.ListOTAHashH()
+	if len(otaHashes) > 0 {
+		utils.LogPrintf("%s OTAHashes (%d):\n", prefix, len(otaHashes))
+		for i, ota := range otaHashes {
+			utils.LogPrintf("%s   - OTA[%d]: %s\n", prefix, i, ota.String())
+		}
+	}
+
+	// Print transfer data
+	isTransfer, data, value, tokenID := tx.GetTransferData()
+	if isTransfer {
+		transferMsg := fmt.Sprintf("%s Transfer Data: Value=%d", prefix, value)
+		if tokenID != nil {
+			transferMsg += fmt.Sprintf(", TokenID=%s", tokenID.String())
+		}
+		if data != nil && len(data) > 0 {
+			if len(data) > 32 {
+				transferMsg += fmt.Sprintf(", Data=%x...%x", data[:16], data[len(data)-16:])
+			} else {
+				transferMsg += fmt.Sprintf(", Data=%x", data)
+			}
+		}
+		utils.LogPrintln(transferMsg)
+	}
+
+	// Print mint data
+	isMint, mintedCoin, mintTokenID, err := tx.GetTxMintData()
+	if err == nil && isMint {
+		mintMsg := fmt.Sprintf("%s Mint Data: ", prefix)
+		if mintTokenID != nil {
+			mintMsg += fmt.Sprintf("TokenID=%s, ", mintTokenID.String())
+		}
+		if mintedCoin != nil {
+			mintMsg += fmt.Sprintf("Value=%d", mintedCoin.GetValue())
+		}
+		utils.LogPrintln(mintMsg)
+	}
+
+	// Print burn data
+	isBurn, burnedCoin, burnTokenID, err := tx.GetTxBurnData()
+	if err == nil && isBurn {
+		burnMsg := fmt.Sprintf("%s Burn Data: ", prefix)
+		if burnTokenID != nil {
+			burnMsg += fmt.Sprintf("TokenID=%s, ", burnTokenID.String())
+		}
+		if burnedCoin != nil {
+			burnMsg += fmt.Sprintf("Value=%d", burnedCoin.GetValue())
+		}
+		utils.LogPrintln(burnMsg)
+	}
+
+	utils.LogPrintf("%s === END TX DETAILS ===\n\n", prefix)
 }
 
 // buildResponseTxsFromBeaconInstructions builds response txs from beacon instructions
@@ -798,9 +979,13 @@ func (blockGenerator *BlockGenerator) getPendingTransaction(
 	startTime := time.Now()
 	sourceTxns := blockGenerator.GetPendingTxsV2(shardID)
 	var elasped int64
-	Logger.log.Infof("Number of transaction get from Block Generator: %v; Maximum txs in this block %v", len(sourceTxns), maxTxs)
+	utils.LogPrintf("Number of transaction get from Block Generator: %v; Maximum txs in this block %v", len(sourceTxns), maxTxs)
+	utils.LogPrintf("Number of pending tx: %v", len(blockGenerator.PendingTxs))
+
 	isEmpty := blockGenerator.chain.config.TempTxPool.EmptyPool()
-	if !isEmpty {
+	utils.LogPrintf("Is empty: %v", isEmpty)
+	if isEmpty && len(blockGenerator.PendingTxs) == 0 {
+		utils.LogPrintf("SHARD %+v | TempTxPool is empty", shardID)
 		return []metadata.Transaction{}, []metadata.Transaction{}, 0
 	}
 	currentSize := uint64(0)
@@ -813,7 +998,7 @@ func (blockGenerator *BlockGenerator) getPendingTransaction(
 		preparedTxForNewBlock = append(preparedTxForNewBlock, tx)
 		elasped = time.Since(startTime).Nanoseconds()
 		if elasped >= maxBlockCreationTimeLeftTime {
-			Logger.log.Info("Shard Producer/Elapsed, Break: ", elasped)
+			utils.LogPrintf("Shard Producer/Elapsed, Break: ", elasped)
 			break
 		}
 	}
@@ -821,12 +1006,18 @@ func (blockGenerator *BlockGenerator) getPendingTransaction(
 	for index, tx := range preparedTxForNewBlock {
 		elasped = time.Since(startTime).Nanoseconds()
 		if elasped >= maxBlockCreationTimeLeftTime {
-			Logger.log.Info("Shard Producer/Elapsed, Break: ", elasped)
+			utils.LogPrintf("Shard Producer/Elapsed, Break: ", elasped)
 			break
 		}
 		listBatchTxs = append(listBatchTxs, tx)
 		if ((index+1)%TransactionBatchSize == 0) || (index == len(preparedTxForNewBlock)-1) {
 			tempTxDesc, err := blockGenerator.chain.config.TempTxPool.MaybeAcceptBatchTransactionForBlockProducing(shardID, listBatchTxs, int64(beaconHeight), curView)
+			for _, tmpTxDesc := range tempTxDesc {
+				utils.LogPrintf("==> 1. SHARD %+v | MaybeAcceptBatchTransactionForBlockProducing %+v", shardID, int64(beaconHeight))
+				PrintTxDetails(tmpTxDesc.Tx, "SHARD "+strconv.Itoa(int(shardID)))
+				utils.LogPrintf("tempTxDesc.Height: ", tmpTxDesc.Height)
+			}
+
 			if err != nil {
 				Logger.log.Errorf("SHARD %+v | Verify Batch Transaction for new block error %+v", shardID, err)
 				for _, tx2 := range listBatchTxs {
@@ -837,7 +1028,14 @@ func (blockGenerator *BlockGenerator) getPendingTransaction(
 					if txShardID != shardID {
 						continue
 					}
+
+					utils.LogPrintf("SHARD %+v | MaybeAcceptTransactionForBlockProducing %+v", shardID, int64(beaconHeight))
 					tempTxDesc, err := blockGenerator.chain.config.TempTxPool.MaybeAcceptTransactionForBlockProducing(tx2, int64(beaconHeight), curView)
+
+					utils.LogPrintln("+========== MaybeAcceptTransactionForBlockProducing after ==================")
+					PrintTxDetails(tempTxDesc.Tx, "SHARD "+strconv.Itoa(int(shardID)))
+					utils.LogPrintf("tempTxDesc.Height: ", tempTxDesc.Height)
+
 					if err != nil {
 						txToRemove = append(txToRemove, tx2)
 						continue
@@ -855,6 +1053,7 @@ func (blockGenerator *BlockGenerator) getPendingTransaction(
 					txsToAdd = append(txsToAdd, tempTx)
 				}
 			}
+
 			for _, tempToAddTxDesc := range tempTxDesc {
 				tempTx := tempToAddTxDesc.Tx
 				totalFee += tempTx.GetTxFee()

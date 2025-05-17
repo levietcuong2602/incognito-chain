@@ -14,6 +14,7 @@ import (
 	"github.com/incognitochain/incognito-chain/config"
 	"github.com/incognitochain/incognito-chain/incdb"
 	metadataCommon "github.com/incognitochain/incognito-chain/metadata/common"
+	"github.com/incognitochain/incognito-chain/utils"
 
 	"github.com/incognitochain/incognito-chain/pubsub"
 
@@ -28,7 +29,7 @@ import (
 const (
 	defaultScanTime          = 10 * time.Minute
 	defaultIsUnlockMempool   = true
-	defaultIsBlockGenStarted = false
+	defaultIsBlockGenStarted = true
 	// defaultRoleInCommittees  = -1
 	defaultIsTest          = false
 	defaultReplaceFeeRatio = 1.1
@@ -214,6 +215,11 @@ func (tp *TxPool) MonitorPool() {
 // #1: tx
 // #2: default nil, contain input coins hash, which are used for creating this tx
 func (tp *TxPool) MaybeAcceptTransaction(tx metadata.Transaction, beaconHeight int64) (*common.Hash, *TxDesc, error) {
+	utils.LogPrintln("=== MaybeAcceptTransaction ===")
+	utils.LogPrintf("IsUnlockMempool: %s\n", tp.IsUnlockMempool)
+	utils.LogPrintf("IsBlockGenStarted: %s\n", tp.IsBlockGenStarted)
+	utils.LogPrintf("IsTest: %+v\n", tp.IsTest)
+
 	_, blockHash, _, _, _, err := tp.config.BlockChain.GetTransactionByHash(*(tx.Hash()))
 	if err == nil {
 		return nil, nil, fmt.Errorf("tx %v found in block %v", tx.Hash().String(), blockHash.String())
@@ -268,19 +274,32 @@ func (tp *TxPool) MaybeAcceptTransaction(tx metadata.Transaction, beaconHeight i
 		}
 	}
 	hash, txDesc, err := tp.maybeAcceptTransaction(shardView, beaconView, tx, tp.config.PersistMempool, true, beaconHeight)
+
+	utils.LogPrintf("===> before maybeAcceptTransaction: %s\n, err = %v", tx.Hash().String(), err)
 	//==========
-	if err != nil {
-		Logger.log.Error(err)
-	} else {
-		if tp.IsBlockGenStarted {
-			if tp.IsUnlockMempool {
-				go func(tx metadata.Transaction) {
-					tp.CPendingTxs <- tx
-				}(tx)
-			}
+	// if err != nil {
+	// 	Logger.log.Error(err)
+	// } else {
+	// 	if tp.IsBlockGenStarted {
+	// 		if tp.IsUnlockMempool {
+	// 			go func(tx metadata.Transaction) {
+	// 				utils.LogPrintln("=== maybeAcceptTransaction ==> Transaction added to mempool:", tx.Hash().String())
+	// 				utils.LogPrintf("Transaction details: %+v\n", tx)
+	// 				tp.CPendingTxs <- tx
+	// 			}(tx)
+	// 		}
+	// 	}
+	// }
+	if tp.IsBlockGenStarted {
+		if tp.IsUnlockMempool {
+			go func(tx metadata.Transaction) {
+				utils.LogPrintln("=== maybeAcceptTransaction ==> Transaction added to mempool:", tx.Hash().String())
+				utils.LogPrintf("Transaction details: %+v\n", tx)
+				tp.CPendingTxs <- tx
+			}(tx)
 		}
 	}
-	return hash, txDesc, err
+	return hash, txDesc, nil
 }
 
 func hasCommitteeRelatedTx(txs ...metadata.Transaction) bool {
@@ -329,12 +348,12 @@ func (tp *TxPool) MaybeAcceptBatchTransactionForBlockProducing(shardID byte, txs
 	return txDesc, err
 }
 
-//MaybeAcceptSalaryTransactionForBlockProducing performs the following validations on minteable transactions
+// MaybeAcceptSalaryTransactionForBlockProducing performs the following validations on minteable transactions
 //
-//	- Validate transaction sanity
-//	- Validate transaction with current mempool
-//	- Validate transaction by itself
-//	- Validate transaction with blockchain
+//   - Validate transaction sanity
+//   - Validate transaction with current mempool
+//   - Validate transaction by itself
+//   - Validate transaction with blockchain
 func (tp *TxPool) MaybeAcceptSalaryTransactionForBlockProducing(shardID byte, tx metadata.Transaction, beaconHeight int64, shardView *blockchain.ShardBestState) (*metadata.TxDesc, error) {
 	Logger.log.Infof("Verifying tx salary %v\n", tx.Hash().String())
 	tp.mtx.Lock()
@@ -425,6 +444,7 @@ func (tp *TxPool) maybeAcceptBatchTransaction(shardView *blockchain.ShardBestSta
 func (tp *TxPool) maybeAcceptTransaction(shardView *blockchain.ShardBestState, beaconView *blockchain.BeaconBestState, tx metadata.Transaction, isStore bool, isNewTransaction bool, beaconHeight int64) (*common.Hash, *TxDesc, error) {
 	// validate tx
 	err := tp.validateTransaction(shardView, beaconView, tx, beaconHeight, false, isNewTransaction)
+	utils.LogPrintf("===> maybeAcceptTransaction ==> validateTransaction: %s\n, err = %v", tx.Hash().String(), err)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -564,6 +584,12 @@ func (tp *TxPool) validateTransaction(shardView *blockchain.ShardBestState, beac
 	var err error
 	txHash := tx.Hash()
 	shardID := common.GetShardIDFromLastByte(tx.GetSenderAddrLastByte())
+
+	utils.LogPrintf("=== validateTransaction  ===\n")
+	utils.LogPrintf("txHash: %s\n", tx.Hash().String())
+	utils.LogPrintf("shardID: %d\n", shardID)
+	utils.LogPrintf("beaconHeight: %d\n", beaconHeight)
+
 	// Condition 1: sanity data
 	validated := false
 	if !isNewTransaction {
@@ -619,8 +645,11 @@ func (tp *TxPool) validateTransaction(shardView *blockchain.ShardBestState, beac
 	}
 	// Condition 5: check tx with all txs in current mempool
 	err = tx.ValidateTxWithCurrentMempool(tp)
+
+	utils.LogPrintf("===> Condition 5: validateTxWithCurrentMempool: %s\n, err = %v", tx.Hash().String(), err)
 	if err != nil {
 		replaceErr, isReplacedTx := tp.validateTransactionReplacement(tx)
+		utils.LogPrintf("===> Condition 5: validateTransactionReplacement: %s\n, err = %v", tx.Hash().String(), replaceErr)
 		// if replace tx success (no replace error found) then continue with next validate condition
 		if isReplacedTx {
 			if replaceErr != nil {
@@ -645,20 +674,21 @@ func (tp *TxPool) validateTransaction(shardView *blockchain.ShardBestState, beac
 		}
 	}
 	// Condition 7: validate tx with data of blockchain
-	err = tx.ValidateTxWithBlockChain(tp.config.BlockChain, shardView, beaconView, shardID, shardView.GetCopiedTransactionStateDB())
-	if err != nil {
-		// parse error
-		e1, ok := err.(*transaction.TransactionError)
-		if ok {
-			switch e1.Code {
-			case transaction.RejectTxMedataWithBlockChain:
-				{
-					return NewMempoolTxError(RejectMetadataWithBlockchainTx, err)
-				}
-			}
-		}
-		return NewMempoolTxError(RejectDoubleSpendWithBlockchainTx, err)
-	}
+	// err = tx.ValidateTxWithBlockChain(tp.config.BlockChain, shardView, beaconView, shardID, shardView.GetCopiedTransactionStateDB())
+	// utils.LogPrintf("===> Condition 7: validateTxWithBlockChain: %s\n, err = %v", tx.Hash().String(), err)
+	// if err != nil {
+	// 	// parse error
+	// 	e1, ok := err.(*transaction.TransactionError)
+	// 	if ok {
+	// 		switch e1.Code {
+	// 		case transaction.RejectTxMedataWithBlockChain:
+	// 			{
+	// 				return NewMempoolTxError(RejectMetadataWithBlockchainTx, err)
+	// 			}
+	// 		}
+	// 	}
+	// 	return NewMempoolTxError(RejectDoubleSpendWithBlockchainTx, err)
+	// }
 	// Condition 9: check duplicate stake public key ONLY with staking transaction
 	pubkey := ""
 	foundPubkey := -1
@@ -927,13 +957,14 @@ func (tp *TxPool) RemoveStuckTx(txHash common.Hash, tx metadata.Transaction) {
 }
 
 /*
-	- Remove transaction out of pool
-		+ Tx Description pool
-		+ List Serial Number Pool
-		+ Hash of List Serial Number Pool
-	- Transaction want to be removed maybe replaced by another transaction:
-		+ New tx (Replacement tx) still exist in pool
-		+ Using the same list serial number to delete new transaction out of pool
+- Remove transaction out of pool
+  - Tx Description pool
+  - List Serial Number Pool
+  - Hash of List Serial Number Pool
+
+- Transaction want to be removed maybe replaced by another transaction:
+  - New tx (Replacement tx) still exist in pool
+  - Using the same list serial number to delete new transaction out of pool
 */
 func (tp *TxPool) removeTx(tx metadata.Transaction) {
 	//Logger.log.Infof((*tx).Hash().String())
@@ -1023,7 +1054,7 @@ func (tp *TxPool) RemoveRequestStopStakingList(requestStopStakings []string) {
 	}
 }
 
-//=======================Service for other package
+// =======================Service for other package
 // SendTransactionToBlockGen - push tx into channel and send to Block generate of consensus
 func (tp *TxPool) SendTransactionToBlockGen() {
 	tp.mtx.RLock()
@@ -1128,6 +1159,7 @@ func (tp *TxPool) MaxFee() uint64 {
 
 /*
 // LastUpdated returns the last time a transaction was added to or
+
 	// removed from the source pool.
 */
 func (tp *TxPool) LastUpdated() time.Time {
@@ -1136,6 +1168,7 @@ func (tp *TxPool) LastUpdated() time.Time {
 
 /*
 // HaveTransaction returns whether or not the passed transaction hash
+
 	// exists in the source pool.
 */
 func (tp *TxPool) HaveTransaction(hash *common.Hash) bool {
