@@ -71,7 +71,7 @@ var (
 	ConfidentialAssetName = "CA"
 	PDEXCoinID            = Hash{6}
 	PDEXCoinName          = "PDEX"
-	MaxShardNumber        = 0
+	MaxShardNumber        = 2
 )
 
 // CONSENSUS

@@ -4,11 +4,11 @@ genesis_param:
   initial_incognito:
   - Version: 1
     Type: "s"
-    LockTime: 1570159128
-    SigPubKey: "5xVSzcZpA3uHmBO5ejENk13iayexILopySACdieLugA="
+    LockTime: 1746119391
+    SigPubKey: "qEQvjc0xSeLeijla+kwW+jVInwq1Ba+vg3olCqBqPpg="
     Fee: 0
-    Sig: "oMJPBLxKgTnfQhMgfvvH68ed0UTuTfl3ofOoWgk8dgvfhovgvued9HH4dXz60rY32H4Y4c85Zd8bSXSnvNhZAA=="
-    Proof: "AAAAAAAAAbAAriDnFVLNxmkDe4eYE7l6MQ2TXeJrJ7EguinJIAJ2J4u6ACARCc1/qyLEePe1zSthzmRSqf2VNOlo036JwtDgbNg24yAb6hGuk1tRBVMO4ruHaNEasY09ZiBc4iuK/dpDSyNTCCABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDMoX8yNBbY68SO44umD1CMfz/r0T4YiXhDgDgT6+k4BgdY0V4XYoAAAAAAAAAAAAA="
+    Sig: "b5CKOfSR5jFBPrQv5Z+myrO2bOaeEhLOOAmtGpviEA3jDl8hiTkBmBoy3UwEO9v7Lfu0l3MPeWGiIOgQRrzsBw=="
+    Proof: "AAAAAAAAAbEAryCoRC+NzTFJ4t6KOVr6TBb6NUifCrUFr6+DeiUKoGo+mCAbHxrOlYW8VN/OkDXNOf2nl49I0M7CW+HVLp+++k2qdSASc5QWQpN0RDY79ruIOvlXvIpqzv7qqPZiT2oH4TN9ASABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCV2beF7JX/zQSL8QZKu+8QhTLdowW0zaWP+qjlLOcAAAgN4Lazp2QAAAAAAAAAAAAA"
     PubKeyLastByteSender: 0
   fee_per_tx_kb: 0
   consensus_algorithm: "bls"
@@ -16,23 +16,23 @@ genesis_param:
   tx_stake: "d0e731f55fa6c49f602807a6686a7ac769de4e04882bb5eaf8f4fe209f46535d"
 
 committee_size:
-  max_shard_committee_size: 4
+  max_shard_committee_size: 32
   min_shard_committee_size: 4
   min_beacon_committee_size: 4
-  max_beacon_committee_size: 7
+  max_beacon_committee_size: 4
   init_shard_committee_size: 4
   init_beacon_committee_size: 4
   shard_committee_size_key_list_v2: 4
   beacon_committee_size_key_list_v2: 4
   number_of_fixed_shard_block_validators: 4
   increase_max_shard_committee_size:
-  - 1000000000000: 48
+    - 1000000000000: 48
 block_time:
-  min_beacon_block_interval: 40s
-  max_beacon_block_creation: 20s
-  min_shard_block_interval: 40s
-  max_shard_block_creation: 20s
-staking_amount_shard: 1750000000000
+  min_beacon_block_interval: 10s
+  max_beacon_block_creation: 8s
+  min_shard_block_interval: 10s
+  max_shard_block_creation: 6s
+staking_amount_shard: 0
 active_shards: 2
 basic_reward: 400000000
 max_reward: 95000000000000000
@@ -68,36 +68,36 @@ consensus_param:
   timeslot: 10
   epoch_break_point_swap_new_key:
   # read from file key list v2
-  - 1e+9
+    - 1e+9
 beacon_height_break_point_burn_addr: 2
 eth_remove_bridge_sig_epoch: 0
 replace_staking_tx_height: 1
 bc_height_break_point_new_zkp: 2
-bc_height_break_point_privacy_v2: 1
+bc_height_break_point_privacy_v2: 2823446
 coin_v2_lowest_height: 1
 enable_feature_flags:
-- PortalRelaying: 1
-- PortalV3: 0
-- PortalV4: 1
+  - PortalRelaying: 1
+  - PortalV3: 0
+  - PortalV4: 1
 portal_v3_height: 1e+9
 tx_pool_version: 0
 geth_param:
   host:
-  - "https://goerli.infura.io/v3/3544588d65864af7aaab0e945ec54a01"
+    - "https://goerli.infura.io/v3/3544588d65864af7aaab0e945ec54a01"
 bsc_param:
   host:
-  - "https://data-seed-prebsc-1-s1.binance.org:8545"
-  - "https://data-seed-prebsc-1-s2.binance.org:8545"
-  - "https://data-seed-prebsc-2-s2.binance.org:8545"
-  - "https://data-seed-prebsc-2-s3.binance.org:8545"
+    - "https://data-seed-prebsc-1-s1.binance.org:8545"
+    - "https://data-seed-prebsc-1-s2.binance.org:8545"
+    - "https://data-seed-prebsc-2-s2.binance.org:8545"
+    - "https://data-seed-prebsc-2-s3.binance.org:8545"
 plg_param:
   host:
-  - "https://polygon-mumbai.g.alchemy.com/v2/V8SP0S8Q-sT35ca4VKH3Iwyvh8K8wTRn"
-  - "https://rpc-mumbai.maticvigil.com"
-  - "https://matic-mumbai.chainstacklabs.com"
+    - "https://polygon-mumbai.g.alchemy.com/v2/V8SP0S8Q-sT35ca4VKH3Iwyvh8K8wTRn"
+    - "https://rpc-mumbai.maticvigil.com"
+    - "https://matic-mumbai.chainstacklabs.com"
 ftm_param:
   host:
-  - "https://rpc.testnet.fantom.network"
+    - "https://rpc.testnet.fantom.network"
 pdex_param:
   pdex_v3_break_point_height: 11
   protocol_fund_address: "12svfkP6w5UDJDSCwqH978PvqiqBxKmUnA9em9yAYWYJVRv7wuXY1qhhYpPAm4BDz2mLbFrRmdK3yRhnTqJCZXKHUmoi7NV83HCH2YFpctHNaDdkSiQshsjw2UFUuwdEvcidgaKmF3VJpY5f8RdN"
@@ -108,8 +108,8 @@ pdex_param:
     trading_protocol_fee_percent: 0
     trading_staking_pool_reward_percent: 10
     staking_pool_share:
-    - "0000000000000000000000000000000000000000000000000000000000000004": 10
-    - "0000000000000000000000000000000000000000000000000000000000000006": 20
+      - "0000000000000000000000000000000000000000000000000000000000000004": 10
+      - "0000000000000000000000000000000000000000000000000000000000000006": 20
     mint_nft_require_amount: 1000000000
     max_orders_per_nft: 10
     auto_withdraw_order_limit_amount: 10
@@ -121,36 +121,36 @@ batch_commit_sync_mode_param:
   trie_node_limit: 536870912
   trie_img_limit: 5242880
 auto_enable_feature:
-- instantfinality:
-    min_trigger: 1
-    force_trigger: 1e+9
-    require_percentage: 90
-- maxcommitteesize48:
-    min_trigger: 1e+9
-    force_trigger: 1e+9
-    require_percentage: 100
-- unified_token_202205021100:
-    min_trigger: 5
-    force_trigger: 1000000000
-    require_percentage: 90
-# - unified_token_202205051530:
-#     min_trigger: 15
-#     force_trigger: 1000000000
-#     require_percentage: 90
-- blocktime20:
-    min_trigger: 2000
-    force_trigger: 1000000000
-    require_percentage: 90
-- blocktime10:
-    min_trigger: 10892003
-    force_trigger: 1000000000
-    require_percentage: 90
+  - instantfinality:
+      min_trigger: 1
+      force_trigger: 1e+9
+      require_percentage: 90
+  - maxcommitteesize48:
+      min_trigger: 1e+9
+      force_trigger: 1e+9
+      require_percentage: 100
+  - unified_token_202205021100:
+      min_trigger: 5
+      force_trigger: 1000000000
+      require_percentage: 90
+  # - unified_token_202205051530:
+  #     min_trigger: 15
+  #     force_trigger: 1000000000
+  #     require_percentage: 90
+  - blocktime20:
+      min_trigger: 2000
+      force_trigger: 1000000000
+      require_percentage: 90
+  - blocktime10:
+      min_trigger: 10892003
+      force_trigger: 1000000000
+      require_percentage: 90
 blocktime_param:
-- "blocktimedef": 40
-- "blocktime20": 20
-- "blocktime10": 10
+  - "blocktimedef": 40
+  - "blocktime20": 20
+  - "blocktime10": 10
 feature_version:
-- blocktime20: 9
+  - blocktime20: 9
 
 transactions_param:
   lowerbound: 15

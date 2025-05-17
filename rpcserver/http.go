@@ -260,6 +260,12 @@ func (httpServer *HttpServer) ProcessRpcRequest(w http.ResponseWriter, r *http.R
 				return
 			}
 			err := recover()
+			fmt.Println("Body:", string(body))
+			fmt.Println("Method:", req.Method)
+			fmt.Println("Params:", req.Params)
+			fmt.Println("ID:", req.Id)
+			fmt.Println("Result:", result)
+			fmt.Println("Error:", err)
 			if err != nil {
 				errMsg := fmt.Sprintf("Recovery error message: %v", err)
 				Logger.log.Error(errMsg)

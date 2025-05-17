@@ -82,6 +82,11 @@ func mainMaster(serverChan chan<- *Server) error {
 	// logger variables may be used.
 	initLogRotator(cfg.LogFileName)
 
+	utils.InitTxLogger("logs", "tx_log.log")
+	utils.LogPrintf("Log file: %s", cfg.LogFileName)
+	defer func() {
+		utils.CloseTxLogger()
+	}()
 	// Parse, validate, and set debug log level(s).
 	if err := parseAndSetDebugLevels(cfg.LogLevel); err != nil {
 		fmt.Fprintln(os.Stderr, err)
