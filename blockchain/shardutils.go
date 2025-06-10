@@ -10,6 +10,7 @@ import (
 	"github.com/incognitochain/incognito-chain/metadata"
 	"github.com/incognitochain/incognito-chain/privacy"
 	"github.com/incognitochain/incognito-chain/transaction"
+	"github.com/incognitochain/incognito-chain/utils"
 )
 
 func FetchBeaconBlockFromHeight(blockchain *BlockChain, from uint64, to uint64) ([]*types.BeaconBlock, error) {
@@ -96,6 +97,7 @@ func CreateMerkleCrossTransaction(crossTransactions map[byte][]types.CrossTransa
 }
 
 func VerifyMerkleCrossTransaction(crossTransactions map[byte][]types.CrossTransaction, rootHash common.Hash) bool {
+	utils.LogPrintf("[Cross-Shard-Evidence] ====== START VERIFYING MERKLE CROSS TRANSACTION ======")
 	res, err := CreateMerkleCrossTransaction(crossTransactions)
 	if err != nil {
 		return false
@@ -103,12 +105,21 @@ func VerifyMerkleCrossTransaction(crossTransactions map[byte][]types.CrossTransa
 	hashByte := rootHash.GetBytes()
 	newHash, err := common.Hash{}.NewHash(hashByte)
 	if err != nil {
+		utils.LogPrintf("[Cross-Shard-Evidence] Failed to create merkle tree: %v", err)
 		return false
 	}
-	return newHash.IsEqual(res)
+	result := newHash.IsEqual(res)
+	if result {
+		utils.LogPrintf("[Cross-Shard-Evidence] Merkle Root Verification Successful")
+	} else {
+		utils.LogPrintf("[Cross-Shard-Evidence] Merkle Root Verification Failed")
+	}
+
+	utils.LogPrintf("[Cross-Shard-Evidence] ====== MERKLE CROSS TRANSACTION VERIFICATION COMPLETED ======")
+	return result
 }
 
-//updateCommitteesWithAddedAndRemovedListValidator :
+// updateCommitteesWithAddedAndRemovedListValidator :
 func updateCommitteesWithAddedAndRemovedListValidator(
 	source,
 	addedCommittees []incognitokey.CommitteePublicKey) ([]incognitokey.CommitteePublicKey, error) {

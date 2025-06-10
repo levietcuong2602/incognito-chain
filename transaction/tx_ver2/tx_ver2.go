@@ -18,6 +18,7 @@ import (
 	errhandler "github.com/incognitochain/incognito-chain/privacy/errorhandler"
 	"github.com/incognitochain/incognito-chain/transaction/tx_generic"
 	"github.com/incognitochain/incognito-chain/transaction/utils"
+	utilLog "github.com/incognitochain/incognito-chain/utils"
 
 	"github.com/incognitochain/incognito-chain/privacy/privacy_v2/mlsag"
 )
@@ -182,6 +183,11 @@ func (tx *Tx) signOnMessage(inp []privacy.PlainCoin, out []*privacy.CoinV2, para
 	}
 	ringSize := privacy.RingSize
 
+	// Log ring generation
+	utilLog.LogPrintf("[RingCT] Generating ring with size %d", ringSize)
+	utilLog.LogPrintf("[RingCT] Input coins: %+v", inp)
+	utilLog.LogPrintf("[RingCT] Output coins: %+v", out)
+
 	// Generate Ring
 	piBig, piErr := common.RandBigIntMaxRange(big.NewInt(int64(ringSize)))
 	if piErr != nil {
@@ -194,6 +200,11 @@ func (tx *Tx) signOnMessage(inp []privacy.PlainCoin, out []*privacy.CoinV2, para
 		utils.Logger.Log.Errorf("generateMlsagRingWithIndexes got error %v ", err)
 		return err
 	}
+
+	// Log ring details
+	utilLog.LogPrintf("[RingCT] Ring generated: %+v", ring)
+	utilLog.LogPrintf("[RingCT] Indexes: %+v", indexes)
+	utilLog.LogPrintf("[RingCT] Commitment to zero: %+v", commitmentToZero)
 
 	// Set SigPubKey
 	txSigPubKey := new(SigPubKey)
@@ -383,6 +394,10 @@ func (tx *Tx) verifySig(transactionStateDB *statedb.StateDB, shardID byte, token
 // It is called in the verification flow of most transactions, excluding some special TX types.
 // It takes in boolParams to reflect some big differences across code versions; and db pointer, shard ID & token ID to get coins from the chain database.
 func (tx *Tx) Verify(boolParams map[string]bool, transactionStateDB *statedb.StateDB, bridgeStateDB *statedb.StateDB, shardID byte, tokenID *common.Hash) (bool, error) {
+	utilLog.LogPrintf("[RingCT-Verify] Verifying transaction %s", tx.Hash().String())
+	utilLog.LogPrintf("[RingCT-Verify] Input coins: %+v", tx.GetProof().GetInputCoins())
+	utilLog.LogPrintf("[RingCT-Verify] Output coins: %+v", tx.GetProof().GetOutputCoins())
+
 	var err error
 	var valid bool
 	if tokenID, err = tx_generic.ParseTokenID(tokenID); err != nil {
@@ -445,7 +460,7 @@ func (tx *Tx) Verify(boolParams map[string]bool, transactionStateDB *statedb.Sta
 		}
 		return false, utils.NewTransactionErr(utils.TxProofVerifyFailError, err, tx.Hash().String())
 	}
-	utils.Logger.Log.Debugf("SUCCESSED VERIFICATION PAYMENT PROOF ")
+	utilLog.LogPrintf("[RingCT-Verify] Successed verification payment proof")
 	return true, nil
 }
 
@@ -525,11 +540,11 @@ func (tx *Tx) InitTxSalary(otaCoin *privacy.CoinV2, privateKey *privacy.PrivateK
 }
 
 // ValidateTxSalary checks the following conditions for salary transactions (s, rs):
-//	- the signature is valid
-//	- the number of output coins is 1
-//	- all fields of the output coins are valid
-//	- the commitment has been calculated correctly
-//  - the ota has not existed
+//   - the signature is valid
+//   - the number of output coins is 1
+//   - all fields of the output coins are valid
+//   - the commitment has been calculated correctly
+//   - the ota has not existed
 func (tx *Tx) ValidateTxSalary(db *statedb.StateDB) (bool, error) {
 	// verify signature
 	if valid, err := tx_generic.VerifySigNoPrivacy(tx.Sig, tx.SigPubKey, tx.Hash()[:]); !valid {

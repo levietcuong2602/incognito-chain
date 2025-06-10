@@ -39,7 +39,7 @@ import (
 //	SlashStateDBRootHash       common.Hash
 //}
 
-//[]byte = string help rebuild from multiple mode
+// []byte = string help rebuild from multiple mode
 // it must compatible with old code
 type ShardRootHashv2 struct {
 	ConsensusStateDBRootHash   statedb.RebuildInfo
@@ -105,7 +105,7 @@ func (shardBestState *ShardBestState) GetCopiedConsensusStateDB() *statedb.State
 	return shardBestState.consensusStateDB.Copy()
 }
 
-//for test only
+// for test only
 func (shardBestState *ShardBestState) SetTransactonDB(h common.Hash, txDB *statedb.StateDB) {
 	shardBestState.transactionStateDB = txDB
 	shardBestState.TransactionStateDBRootHash = h
@@ -331,7 +331,7 @@ func (shardBestState *ShardBestState) SetMinShardCommitteeSize(minShardCommittee
 	return false
 }
 
-//MarshalJSON - remember to use lock
+// MarshalJSON - remember to use lock
 func (shardBestState *ShardBestState) MarshalJSON() ([]byte, error) {
 	type Alias ShardBestState
 	b, err := json.Marshal(&struct {
@@ -361,7 +361,7 @@ func (shardBestState ShardBestState) GetShardID() byte {
 	return shardBestState.ShardID
 }
 
-//cloneShardBestStateFrom - remember to use lock
+// cloneShardBestStateFrom - remember to use lock
 func (shardBestState *ShardBestState) cloneShardBestStateFrom(target *ShardBestState) error {
 	tempMarshal, err := json.Marshal(target)
 	if err != nil {
@@ -465,12 +465,12 @@ func InitShardCommitteeState(
 	}
 }
 
-//ShardCommitteeEngine : getter of shardCommitteeState ...
+// ShardCommitteeEngine : getter of shardCommitteeState ...
 func (shardBestState *ShardBestState) ShardCommitteeEngine() committeestate.ShardCommitteeState {
 	return shardBestState.shardCommitteeState
 }
 
-//CommitteeEngineVersion ...
+// CommitteeEngineVersion ...
 func (shardBestState *ShardBestState) CommitteeStateVersion() int {
 	return shardBestState.shardCommitteeState.Version()
 }
@@ -738,7 +738,7 @@ func GetProposerByTimeSlot(ts int64, committeeLen int) int {
 // 	return subsetID
 // }
 
-//TODO
+// TODO
 func GetSubsetIDFromProposerTimeV2(proposerTimeSlot int64, validators int) int {
 	proposerIndex := GetProposerByTimeSlot(proposerTimeSlot, validators)
 	subsetID := GetSubsetID(proposerIndex)

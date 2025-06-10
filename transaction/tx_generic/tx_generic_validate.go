@@ -11,6 +11,7 @@ import (
 	"github.com/incognitochain/incognito-chain/metadata"
 	"github.com/incognitochain/incognito-chain/privacy"
 	"github.com/incognitochain/incognito-chain/transaction/utils"
+	utilLog "github.com/incognitochain/incognito-chain/utils"
 )
 
 func VerifyTxCreatedByMiner(tx metadata.Transaction, mintdata *metadata.MintData, shardID byte, bcr metadata.ChainRetriever, accumulatedValues *metadata.AccumulatedValues, retriever metadata.ShardViewRetriever, viewRetriever metadata.BeaconViewRetriever) (bool, error) {
@@ -109,7 +110,9 @@ func MdValidateWithBlockChain(tx metadata.Transaction, chainRetriever metadata.C
 func MdValidate(tx metadata.Transaction, hasPrivacy bool, transactionStateDB *statedb.StateDB, bridgeStateDB *statedb.StateDB, shardID byte) (bool, error) {
 	meta := tx.GetMetadata()
 	if meta != nil {
+		utilLog.LogPrintf("MdValidate ====> ValidateMetadataByItself: Type = %v, IssuingRequest = %v", meta.GetType(), metadata.IssuingRequestMeta)
 		validMetadata := meta.ValidateMetadataByItself()
+		utilLog.LogPrintf("MdValidate ====> ValidateMetadataByItself: %v", validMetadata)
 		if validMetadata {
 			return validMetadata, nil
 		}
@@ -123,6 +126,7 @@ func MdValidateSanity(tx metadata.Transaction, chainRetriever metadata.ChainRetr
 	if meta != nil {
 		isValid, ok, err := meta.ValidateSanityData(chainRetriever, shardViewRetriever, beaconViewRetriever, beaconHeight, tx)
 		if err != nil || !ok || !isValid {
+			utilLog.LogPrintf("MdValidateSanity: %s\n, isValid = %v, ok = %v, err = %v", tx.Hash().String(), isValid, ok, err)
 			return ok, err
 		}
 	}

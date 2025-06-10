@@ -11,6 +11,7 @@ import (
 	"github.com/incognitochain/incognito-chain/rpcserver/bean"
 	"github.com/incognitochain/incognito-chain/rpcserver/jsonresult"
 	"github.com/incognitochain/incognito-chain/rpcserver/rpcservice"
+	"github.com/incognitochain/incognito-chain/utils"
 	"github.com/pkg/errors"
 )
 
@@ -192,15 +193,33 @@ func (httpServer *HttpServer) handleCreateRawTxWithIssuingEVMReq(params interfac
 		return nil, rpcErr
 	}
 
+	// Print metadata each field
+	utils.LogPrintln("handleCreateRawTxWithIssuingEVMReq ====> NewIssuingEVMRequestFromMap")
+	utils.LogPrintf("BlockHash: %s", meta.BlockHash)
+	utils.LogPrintf("TxIndex: %d", meta.TxIndex)
+	utils.LogPrintf("ProofStrs: %v", meta.ProofStrs)
+	utils.LogPrintf("IncTokenID: %s", meta.IncTokenID)
+	utils.LogPrintf("NetworkID: %d", meta.NetworkID)
+
 	// create new param to build raw tx from param interface
 	createRawTxParam, errNewParam := bean.NewCreateRawTxParam(params)
 	if errNewParam != nil {
 		return nil, rpcservice.NewRPCError(rpcservice.RPCInvalidParamsError, errNewParam)
 	}
 
+	// Print createRawTxParam each field
+	utils.LogPrintln("handleCreateRawTxWithIssuingEVMReq ====> NewCreateRawTxParam")
+	utils.LogPrintf("SenderKeySet: %v", createRawTxParam.SenderKeySet)
+	utils.LogPrintf("ShardIDSender: %d", createRawTxParam.ShardIDSender)
+	utils.LogPrintf("PaymentInfos: %v", createRawTxParam.PaymentInfos)
+	utils.LogPrintf("EstimateFeeCoinPerKb: %d", createRawTxParam.EstimateFeeCoinPerKb)
+	utils.LogPrintf("HasPrivacyCoin: %v", createRawTxParam.HasPrivacyCoin)
+	utils.LogPrintf("Info: %s", string(createRawTxParam.Info))
+
 	tx, err1 := httpServer.txService.BuildRawTransaction(createRawTxParam, meta)
 	if err1 != nil {
-		Logger.log.Error(err1)
+		utils.LogPrintln("handleCreateRawTxWithIssuingEVMReq ====> BuildRawTransaction")
+		utils.LogPrintf("Error: %v", err1)
 		return nil, rpcservice.NewRPCError(rpcservice.UnexpectedError, err1)
 	}
 
@@ -217,7 +236,7 @@ func (httpServer *HttpServer) handleCreateRawTxWithIssuingEVMReq(params interfac
 }
 
 func (httpServer *HttpServer) handleCreateAndSendTxWithIssuingETHReq(params interface{}, closeChan <-chan struct{}) (interface{}, *rpcservice.RPCError) {
-	data, err := httpServer.handleCreateRawTxWithIssuingEVMReq(params, closeChan, metadata.IssuingETHRequestMeta)
+	data, err := httpServer.handleCreateRawTxWithIssuingEVMReq(params, closeChan, metadata.IssuingRequestMeta)
 	if err != nil {
 		return nil, rpcservice.NewRPCError(rpcservice.UnexpectedError, err)
 	}

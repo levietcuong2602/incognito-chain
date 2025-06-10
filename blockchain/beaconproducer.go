@@ -18,6 +18,7 @@ import (
 	"github.com/incognitochain/incognito-chain/portal"
 	portalprocessv3 "github.com/incognitochain/incognito-chain/portal/portalv3/portalprocess"
 	"github.com/incognitochain/incognito-chain/syncker/finishsync"
+	"github.com/incognitochain/incognito-chain/utils"
 )
 
 type duplicateKeyStakeInstruction struct {
@@ -157,7 +158,7 @@ func (blockchain *BlockChain) NewBlockBeacon(
 	return newBeaconBlock, nil
 }
 
-//beacon should only generate bridge (unshield) instruction when curView is finality (generate instructions from checkpoint to curView)
+// beacon should only generate bridge (unshield) instruction when curView is finality (generate instructions from checkpoint to curView)
 func (blockchain *BlockChain) shouldBeaconGenerateBridgeInstruction(curView *BeaconBestState) bool {
 	if curView.GetBlock().Hash().IsEqual(blockchain.BeaconChain.GetFinalView().GetBlock().Hash()) {
 		return true
@@ -443,6 +444,7 @@ func (blockchain *BlockChain) GenerateBeaconBlockBody(
 
 // GetShardStateFromBlock get state (information) from shard-to-beacon block
 // state will be presented as instruction
+//
 //	Return Params:
 //	1. ShardState
 //	2. Stake Instruction
@@ -545,7 +547,7 @@ func (curView *BeaconBestState) getAcceptBlockRewardInstruction(
 	}
 }
 
-//GenerateInstruction generate instruction for new beacon block
+// GenerateInstruction generate instruction for new beacon block
 func (curView *BeaconBestState) GenerateInstruction(
 	newBeaconHeight uint64,
 	shardInstruction *shardInstruction,
@@ -1000,6 +1002,8 @@ func (beaconBestState *BeaconBestState) processStakeInstructionFromShardBlock(
 	shardInstructions *shardInstruction, validStakePublicKeys []string, allCommitteeValidatorCandidate []string) (
 	*shardInstruction, *duplicateKeyStakeInstruction) {
 
+	utils.LogPrintf("[PoS-Evidence] === START PROCESSING STAKE INSTRUCTION === ")
+
 	duplicateKeyStakeInstruction := &duplicateKeyStakeInstruction{}
 	newShardInstructions := shardInstructions
 	newStakeInstructions := []*instruction.StakeInstruction{}
@@ -1071,6 +1075,8 @@ func (beaconBestState *BeaconBestState) processStakeInstructionFromShardBlock(
 	}
 
 	newShardInstructions.stakeInstructions = newStakeInstructions
+
+	utils.LogPrintf("[PoS-Evidence] ====== STAKE INSTRUCTION PROCESSING COMPLETED ======")
 	return newShardInstructions, duplicateKeyStakeInstruction
 }
 

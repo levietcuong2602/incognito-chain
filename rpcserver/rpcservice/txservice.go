@@ -12,6 +12,7 @@ import (
 
 	"github.com/incognitochain/incognito-chain/privacy/coin"
 	"github.com/incognitochain/incognito-chain/privacy/key"
+	"github.com/incognitochain/incognito-chain/utils"
 
 	"github.com/incognitochain/incognito-chain/blockchain/types"
 
@@ -611,7 +612,9 @@ func (txService TxService) BuildRawTransaction(
 	params *bean.CreateRawTxParam,
 	meta metadata.Metadata,
 ) (metadata.Transaction, *RPCError) {
-	Logger.log.Infof("Build Raw Transaction Params: \n %+v", params)
+	utils.LogPrintln("BuildRawTransaction ====> BuildRawTransaction")
+	utils.LogPrintf("Params: %+v", params)
+	utils.LogPrintf("Meta: %+v", meta)
 	// get output coins to spend and real fee
 	inputCoins, realFee, err1 := txService.chooseOutsCoinByKeyset(
 		params.PaymentInfos, params.EstimateFeeCoinPerKb, 0,
@@ -634,6 +637,8 @@ func (txService TxService) BuildRawTransaction(
 	)
 	tx, err := transaction.NewTransactionFromParams(txPrivacyParams)
 	if err != nil {
+		utils.LogPrintln("BuildRawTransaction ====> NewTransactionFromParams")
+		utils.LogPrintf("Error: %v", err)
 		return nil, NewRPCError(CreateTxDataError, err)
 	}
 	if err := tx.Init(txPrivacyParams); err != nil {
@@ -682,8 +687,10 @@ func (txService TxService) SendRawTransaction(txB58Check string) (wire.Message, 
 	}
 	// Unmarshal from json data to object tx
 	tx, err := transaction.NewTransactionFromJsonBytes(rawTxBytes)
+	utils.LogPrintf("SendRawTransaction ====> NewTransactionFromJsonBytes: tx version = %v", tx.GetVersion())
 	if err != nil {
 		Logger.log.Errorf("Send Raw Transaction Error: %+v", err)
+		utils.LogPrintf("Send Raw Transaction Error: %+v", err)
 		return nil, nil, byte(0), NewRPCError(JsonDataOfTxInvalid, err)
 	}
 
@@ -728,6 +735,7 @@ func (txService TxService) SendRawTransaction(txB58Check string) (wire.Message, 
 			}
 		} else {
 			Logger.log.Errorf("Can not get shard chain for this shard ID %v", sID)
+			utils.LogPrintf("Can not get shard chain for this shard ID %v", sID)
 		}
 	} else {
 		txDB := sView.GetCopiedTransactionStateDB()
@@ -738,6 +746,7 @@ func (txService TxService) SendRawTransaction(txB58Check string) (wire.Message, 
 		hash, _, err = txService.TxMemPool.MaybeAcceptTransaction(tx, beaconHeigh)
 		if err != nil {
 			Logger.log.Errorf("Send Raw Transaction Error, try add tx into mempool of node: %+v", err)
+			utils.LogPrintf("Send Raw Transaction Error, try add tx into mempool of node: %+v", err)
 			mempoolErr, ok := err.(*mempool.MempoolTxError)
 			if ok {
 				switch mempoolErr.Code {
@@ -783,10 +792,12 @@ func (txService TxService) SendRawTransaction(txB58Check string) (wire.Message, 
 		}
 	}
 	Logger.log.Debugf("New transaction hash: %+v \n", *hash)
+	utils.LogPrintf("New transaction hash: %+v \n", *hash)
 	// Create tx message for broadcasting
 	txMsg, err := wire.MakeEmptyMessage(wire.CmdTx)
 	if err != nil {
 		Logger.log.Errorf("Send Raw Transaction Error, Create tx message for broadcasting: %+v", err)
+		utils.LogPrintf("Send Raw Transaction Error, Create tx message for broadcasting: %+v", err)
 		return nil, nil, byte(0), NewRPCError(SendTxDataError, err)
 	}
 	txMsg.(*wire.MessageTx).Transaction = tx
@@ -2236,7 +2247,7 @@ func (txService TxService) BuildRawDefragmentAccountTransaction(params interface
 	return tx, nil
 }
 
-//calculateOutputCoinsByMinValue
+// calculateOutputCoinsByMinValue
 func (txService TxService) calculateOutputCoinsByMinValue(outCoins []coin.PlainCoin, maxVal uint64, maxDefragmentQuantityTemp int) ([]coin.PlainCoin, uint64) {
 	outCoinsTmp := make([]coin.PlainCoin, 0)
 	amount := uint64(0)

@@ -1,5 +1,6 @@
-//nolint:gocritic,revive // skip some linters since this file has some capitalized, underscored
 // variable names to match names in the crypto protocol
+//
+//nolint:gocritic,revive // skip some linters since this file has some capitalized, underscored
 package mlsag
 
 import (
@@ -8,6 +9,7 @@ import (
 
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/privacy/operation"
+	utilLog "github.com/incognitochain/incognito-chain/utils"
 )
 
 // SignConfidentialAsset uses the private key in this Mlsag to sign a message (which is the transaction hash).
@@ -34,6 +36,9 @@ func (mlsag *Mlsag) SignConfidentialAsset(message []byte) (*Sig, error) {
 
 // VerifyConfidentialAsset does verification of a (Confidential Asset) ring signature on a message.
 func VerifyConfidentialAsset(sig *Sig, K *Ring, message []byte) (bool, error) {
+	utilLog.LogPrintf("[RingCT-MLSAG-CA] Verifying ring signature")
+	utilLog.LogPrintf("[RingCT-MLSAG-CA] Ring size: %d", len(K.keys))
+	utilLog.LogPrintf("[RingCT-MLSAG-CA] Message: %x", message)
 	if len(message) != common.HashSize {
 		return false, errors.New("Cannot mlsag verify the message because its length is not 32, maybe it has not been hashed")
 	}
@@ -41,6 +46,8 @@ func VerifyConfidentialAsset(sig *Sig, K *Ring, message []byte) (bool, error) {
 	copy(message32byte[:], message)
 	b1 := verifyKeyImages(sig.keyImages)
 	b2, err := verifyRingCA(sig, K, message32byte)
+
+	utilLog.LogPrintf("[RingCT-MLSAG-CA] Verify ring %v failed", b2)
 	return (b1 && b2), err
 }
 

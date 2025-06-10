@@ -11,6 +11,7 @@ import (
 	errhandler "github.com/incognitochain/incognito-chain/privacy/errorhandler"
 	"github.com/incognitochain/incognito-chain/privacy/key"
 	"github.com/incognitochain/incognito-chain/privacy/operation"
+	utilLog "github.com/incognitochain/incognito-chain/utils"
 )
 
 type TxRandom [TxRandomGroupSize]byte
@@ -72,10 +73,11 @@ func (t *TxRandom) SetBytes(b []byte) error {
 	return nil
 }
 
-//nolint:revive // skip linter for this struct name
 // CoinV2 is the struct that will be stored to db
 // If not privacy, mask and amount will be the original randomness and value
 // If has privacy, mask and amount will be as paper monero
+//
+//nolint:revive // skip linter for this struct name
 type CoinV2 struct {
 	// Public
 	version    uint8
@@ -127,7 +129,7 @@ func (c CoinV2) ParseKeyImageWithPrivateKey(privKey key.PrivateKey) (*operation.
 
 // Conceal the amount of coin using the publicView of the receiver
 //
-//	- AdditionalData: must be the publicView of the receiver
+//   - AdditionalData: must be the publicView of the receiver
 func (c *CoinV2) ConcealOutputCoin(additionalData *operation.Point) error {
 	// If this coin is already encrypted or it is created by other person then cannot conceal
 	if c.IsEncrypted() || c.GetSharedConcealRandom() == nil {
@@ -135,6 +137,11 @@ func (c *CoinV2) ConcealOutputCoin(additionalData *operation.Point) error {
 	}
 	publicView := additionalData
 	rK := new(operation.Point).ScalarMult(publicView, c.GetSharedConcealRandom()) // rK = sharedConcealRandom * publicView
+
+	// Log concealment details
+	utilLog.LogPrintf("[RingCT-Coin] Concealing output coin")
+	utilLog.LogPrintf("[RingCT-Coin] Original mask: %+v", c.GetRandomness())
+	utilLog.LogPrintf("[RingCT-Coin] Original amount: %+v", c.GetAmount())
 
 	hash := operation.HashToScalar(rK.ToBytesS()) // hash(rK)
 	hash = operation.HashToScalar(hash.ToBytesS())
@@ -146,6 +153,9 @@ func (c *CoinV2) ConcealOutputCoin(additionalData *operation.Point) error {
 	c.SetAmount(amount)
 	c.SetSharedConcealRandom(nil)
 	c.SetSharedRandom(nil)
+
+	utilLog.LogPrintf("[RingCT-Coin] Concealed mask: %+v", c.GetRandomness())
+	utilLog.LogPrintf("[RingCT-Coin] Concealed amount: %+v", c.GetAmount())
 	return nil
 }
 

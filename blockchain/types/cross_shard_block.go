@@ -12,6 +12,7 @@ import (
 	"github.com/incognitochain/incognito-chain/privacy"
 	"github.com/incognitochain/incognito-chain/privacy/coin"
 	"github.com/incognitochain/incognito-chain/transaction"
+	"github.com/incognitochain/incognito-chain/utils"
 
 	"github.com/incognitochain/incognito-chain/common"
 )
@@ -85,7 +86,7 @@ func (block CrossShardBlock) GetBeaconHeight() uint64 {
 	return block.Header.BeaconHeight
 }
 
-//consensus interface
+// consensus interface
 func (block CrossShardBlock) ProposeHash() *common.Hash {
 	panic("Not implement")
 }
@@ -420,22 +421,48 @@ func CreateCrossShardBlock(shardBlock *ShardBlock, shardID byte) (*CrossShardBlo
 }
 
 // VerifyCrossShardBlockUTXO Calculate Final Hash as Hash of:
-//	1. CrossTransactionFinalHash
-//	2. TxTokenDataVoutFinalHash
-//	3. CrossTxTokenPrivacyData
+//  1. CrossTransactionFinalHash
+//  2. TxTokenDataVoutFinalHash
+//  3. CrossTxTokenPrivacyData
+//
 // These hashes will be calculated as comment in getCrossShardDataHash function
 func VerifyCrossShardBlockUTXO(block *CrossShardBlock) bool {
+	utils.LogPrintf("[Cross-Shard-Evidence] ====== START VERIFYING CROSS SHARD BLOCK UTXO ======")
+
+	// Log cross-shard data
+	utils.LogPrintf("[Cross-Shard-Evidence] Number of Cross Output Coins: %d", len(block.CrossOutputCoin))
+	utils.LogPrintf("[Cross-Shard-Evidence] Number of Cross Token Privacy Data: %d", len(block.CrossTxTokenPrivacyData))
+
 	var outputCoinHash common.Hash
 	var txTokenDataHash common.Hash
 	var txTokenPrivacyDataHash common.Hash
 	outCoins := block.CrossOutputCoin
+
+	// Calculate hashes
 	outputCoinHash = calHashOutCoinCrossShard(outCoins)
+	utils.LogPrintf("[Cross-Shard-Evidence] Output Coin Hash: %s", outputCoinHash.String())
+
 	txTokenDataHash = calHashTxTokenDataHashList()
+	utils.LogPrintf("[Cross-Shard-Evidence] Token Data Hash: %s", txTokenDataHash.String())
+
 	txTokenPrivacyDataList := block.CrossTxTokenPrivacyData
 	txTokenPrivacyDataHash = calHashTxTokenPrivacyDataHashList(txTokenPrivacyDataList)
+	utils.LogPrintf("[Cross-Shard-Evidence] Token Privacy Data Hash: %s", txTokenPrivacyDataHash.String())
+
+	// Verify merkle path
 	tmpByte := append(append(outputCoinHash.GetBytes(), txTokenDataHash.GetBytes()...), txTokenPrivacyDataHash.GetBytes()...)
 	finalHash := common.HashH(tmpByte)
-	return Merkle{}.VerifyMerkleRootFromMerklePath(finalHash, block.MerklePathShard, block.Header.ShardTxRoot, block.ToShardID)
+	utils.LogPrintf("[Cross-Shard-Evidence] Final Hash: %s", finalHash.String())
+
+	result := Merkle{}.VerifyMerkleRootFromMerklePath(finalHash, block.MerklePathShard, block.Header.ShardTxRoot, block.ToShardID)
+	if result {
+		utils.LogPrintf("[Cross-Shard-Evidence] Merkle Path Verification Successful")
+	} else {
+		utils.LogPrintf("[Cross-Shard-Evidence] Merkle Path Verification Failed")
+	}
+
+	utils.LogPrintf("[Cross-Shard-Evidence] ====== CROSS SHARD BLOCK UTXO VERIFICATION COMPLETED ======")
+	return result
 }
 
 func (block CrossShardBlock) Type() string {

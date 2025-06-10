@@ -14,6 +14,7 @@ import (
 	"github.com/incognitochain/incognito-chain/metadata/evmcaller"
 	"github.com/incognitochain/incognito-chain/privacy"
 	"github.com/incognitochain/incognito-chain/rpcserver/jsonresult"
+	"github.com/incognitochain/incognito-chain/utils"
 	"github.com/incognitochain/incognito-chain/wallet"
 	"github.com/pkg/errors"
 )
@@ -211,6 +212,7 @@ func NewBurningRequestMetadata(
 
 func GetETHHeaderByHash(ethBlockHash string) (*types.Header, error) {
 	gethParam := config.Param().GethParam
+	utils.LogPrintf("GetETHHeaderByHash ethBlockHash: %s, host: %s\n", ethBlockHash, gethParam.Host)
 	if len(gethParam.Host) < 1 {
 		return nil, errors.New("Invalid param geth")
 	}

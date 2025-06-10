@@ -8,6 +8,7 @@ import (
 	rCommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/incognitochain/incognito-chain/metadata/rpccaller"
+	"github.com/incognitochain/incognito-chain/utils"
 )
 
 type GetEVMHeaderByHashRes struct {
@@ -177,9 +178,10 @@ func GetEVMHeaderResultMultipleHosts(
 	evmHeaderResult := NewEVMHeaderResult()
 	// try with multiple hosts
 	for _, host := range hosts {
-		Logger.log.Infof("EVMHeader Call request with host: %v for block hash %v", host, evmBlockHash)
+		utils.LogPrintf("EVMHeader Call request with host: %v for block hash %v\n", host, evmBlockHash.Hex())
 		// get evm header
 		evmHeader, err := GetEVMHeaderByHash(evmBlockHash, host)
+		utils.LogPrintf("GetEVMHeaderByHash Call request with host: %v for block hash %v, error: %v\n", host, evmBlockHash.Hex(), err)
 		if err != nil {
 			continue
 		}
@@ -187,11 +189,12 @@ func GetEVMHeaderResultMultipleHosts(
 
 		// check finality
 		currentBlockHeight, err := GetMostRecentEVMBlockHeight(host)
+		utils.LogPrintf("GetMostRecentEVMBlockHeight Call request with host: %v for block hash %v, error: %v\n", host, evmBlockHash.Hex(), err)
 		if err != nil {
 			continue
 		}
 		if currentBlockHeight.Cmp(big.NewInt(0).Add(evmHeaderResult.Header.Number, big.NewInt(int64(minConfirmationBlocks)))) == -1 {
-			Logger.log.Warnf("WARNING: It needs %v confirmation blocks for the process, "+
+			utils.LogPrintf("WARNING: It needs %v confirmation blocks for the process, "+
 				"the requested block (%s) but the latest block (%s)", minConfirmationBlocks,
 				evmHeaderResult.Header.Number.String(), currentBlockHeight.String())
 			evmHeaderResult.IsFinalized = false
@@ -201,13 +204,15 @@ func GetEVMHeaderResultMultipleHosts(
 
 		// check fork
 		evmHeaderByNumber, err := GetEVMHeaderByNumber(evmHeader.Number, host)
+		utils.LogPrintf("GetEVMHeaderByNumber Call request with host: %v for block hash %v, error: %v\n", host, evmBlockHash.Hex(), err)
 		if err != nil {
 			continue
 		}
 		if evmHeaderByNumber.Hash().String() != evmHeader.Hash().String() {
-			Logger.log.Errorf("The requested evm BlockHash %v is being on fork branch!", evmBlockHash.String())
+			utils.LogPrintf("The requested evm BlockHash %v is being on fork branch!", evmBlockHash.String())
 			evmHeaderResult.IsForked = true
 		} else {
+			utils.LogPrintf("evmHeaderResult.IsForked = false %v %v %v %v\n", host, evmBlockHash.Hex(), evmHeaderByNumber.Hash().String(), evmHeader.Hash().String())
 			evmHeaderResult.IsForked = false
 		}
 		return evmHeaderResult, nil

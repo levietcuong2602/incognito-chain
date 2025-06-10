@@ -9,6 +9,7 @@ import (
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/privacy"
 	"github.com/incognitochain/incognito-chain/privacy/coin"
+	"github.com/incognitochain/incognito-chain/utils"
 	"github.com/incognitochain/incognito-chain/wallet"
 	"github.com/pkg/errors"
 )
@@ -541,23 +542,28 @@ func IsPortalMetaTypeV3(metaType int) bool {
 	return res
 }
 
-//Checks if a string payment address is supported by the underlying transaction.
+// Checks if a string payment address is supported by the underlying transaction.
 //
-//TODO: try another approach since the function itself is too complicated.
+// TODO: try another approach since the function itself is too complicated.
 func AssertPaymentAddressAndTxVersion(paymentAddress interface{}, version int8) (privacy.PaymentAddress, error) {
+	utils.LogPrintf("[common] AssertPaymentAddressAndTxVersion paymentAddress: %+v, version: %+v", paymentAddress, version)
 	var addr privacy.PaymentAddress
 	var ok bool
 	//try to parse the payment address
 	if addr, ok = paymentAddress.(privacy.PaymentAddress); !ok {
+		utils.LogPrintf("[common] AssertPaymentAddressAndTxVersion paymentAddress is not a payment address: %+v", paymentAddress)
 		//try the pointer
 		if tmpAddr, ok := paymentAddress.(*privacy.PaymentAddress); !ok {
+			utils.LogPrintf("[common] AssertPaymentAddressAndTxVersion tmp paymentAddress is not a payment address: %+v", paymentAddress)
 			//try the string one
 			addrStr, ok := paymentAddress.(string)
 			if !ok {
+				utils.LogPrintf("[common] AssertPaymentAddressAndTxVersion addrStr is not a string: %+v", paymentAddress)
 				return privacy.PaymentAddress{}, fmt.Errorf("cannot parse payment address - %v: Not a payment address or string address (txversion %v)", paymentAddress, version)
 			}
 			keyWallet, err := wallet.Base58CheckDeserialize(addrStr)
 			if err != nil {
+				utils.LogPrintf("[common] AssertPaymentAddressAndTxVersion err: %+v", err)
 				return privacy.PaymentAddress{}, err
 			}
 			if len(keyWallet.KeySet.PrivateKey) > 0 {
@@ -569,9 +575,12 @@ func AssertPaymentAddressAndTxVersion(paymentAddress interface{}, version int8) 
 		}
 	}
 
+	utils.LogPrintf("[common] AssertPaymentAddressAndTxVersion addr: %+v", addr)
 	//Always check public spend and public view keys
 	if addr.GetPublicSpend() == nil || addr.GetPublicView() == nil {
-		return privacy.PaymentAddress{}, errors.New("PublicSpend or PublicView not found")
+		utils.LogPrintf("[common] AssertPaymentAddressAndTxVersion PublicSpend or PublicView not found: %+v", addr)
+		// return privacy.PaymentAddress{}, errors.New("PublicSpend or PublicView not found")
+		return addr, nil
 	}
 
 	//If tx is in version 1, PublicOTAKey must be nil
@@ -601,11 +610,11 @@ func IsPortalMetaTypeV4(metaType int) bool {
 	return res
 }
 
-//genTokenID generates a (deterministically) random tokenID for the request transaction.
-//From now on, users cannot generate their own tokenID.
-//The generated tokenID is calculated as the hash of the following components:
-//	- The Tx hash
-//	- The shardID at which the request is sent
+// genTokenID generates a (deterministically) random tokenID for the request transaction.
+// From now on, users cannot generate their own tokenID.
+// The generated tokenID is calculated as the hash of the following components:
+//   - The Tx hash
+//   - The shardID at which the request is sent
 func GenTokenIDFromRequest(txHash string, shardID byte) *common.Hash {
 	record := txHash + strconv.FormatUint(uint64(shardID), 10)
 

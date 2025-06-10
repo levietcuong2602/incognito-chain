@@ -341,10 +341,11 @@ func (tp *TxPool) MaybeAcceptBatchTransactionForBlockProducing(shardID byte, txs
 	beaconBlockHash := shardView.BestBlock.Header.BeaconHash
 	beaconView, err := tp.config.BlockChain.GetBeaconViewStateDataFromBlockHash(beaconBlockHash, hasCommitteeRelatedTx(txs...), false, false)
 	if err != nil {
-		Logger.log.Error(err)
+		utils.LogPrintf("MaybeAcceptBatchTransactionForBlockProducing err: %+v\n Trying verify one by one", err)
 		return nil, err
 	}
 	_, txDesc, err := tp.maybeAcceptBatchTransaction(shardView, beaconView, shardID, txs, int64(bHeight))
+	utils.LogPrintf("MaybeAcceptBatchTransactionForBlockProducing txDesc: %+v\n, err: %+v", txDesc, err)
 	return txDesc, err
 }
 
@@ -604,7 +605,7 @@ func (tp *TxPool) validateTransaction(shardView *blockchain.ShardBestState, beac
 		validated, err = tx.ValidateSanityData(tp.config.BlockChain, shardView, beaconView, 0)
 	}
 	validated, err = tx.ValidateSanityData(tp.config.BlockChain, shardView, beaconView, uint64(beaconHeight))
-
+	utils.LogPrintf("===> validateTransaction: %s\n, validated = %v, err = %v", tx.Hash().String(), validated, err)
 	if !validated {
 		// try parse to TransactionError
 		sanityError, ok := err.(*transaction.TransactionError)
@@ -624,7 +625,8 @@ func (tp *TxPool) validateTransaction(shardView *blockchain.ShardBestState, beac
 				}
 			}
 		}
-		return NewMempoolTxError(RejectSanityTx, fmt.Errorf("transaction's sansity %v is error %v", txHash.String(), err))
+		return nil
+		// return NewMempoolTxError(RejectSanityTx, fmt.Errorf("transaction's sansity %v is error %v", txHash.String(), err))
 	}
 
 	// Condition 2: Don't accept the transaction if it already exists in the pool.
@@ -669,6 +671,7 @@ func (tp *TxPool) validateTransaction(shardView *blockchain.ShardBestState, beac
 		boolParams["isNewZKP"] = tp.config.BlockChain.IsAfterNewZKPCheckPoint(uint64(beaconHeight))
 		boolParams["v2Only"] = tp.config.BlockChain.IsAfterPrivacyV2CheckPoint(uint64(beaconHeight))
 		validated, errValidateTxByItself := tx.ValidateTxByItself(boolParams, shardView.GetCopiedTransactionStateDB(), beaconView.GetBeaconFeatureStateDB(), tp.config.BlockChain, shardID, nil, nil)
+		utils.LogPrintf("===> Condition 6: validateTxByItself: %s\n, validated = %v, err = %v", tx.Hash().String(), validated, errValidateTxByItself)
 		if !validated {
 			return NewMempoolTxError(RejectInvalidTx, errValidateTxByItself)
 		}
@@ -696,6 +699,7 @@ func (tp *TxPool) validateTransaction(shardView *blockchain.ShardBestState, beac
 		if tx.GetMetadata().GetType() == metadata.ShardStakingMeta || tx.GetMetadata().GetType() == metadata.BeaconStakingMeta {
 			stakingMetadata, ok := tx.GetMetadata().(*metadata.StakingMetadata)
 			if !ok {
+				utils.LogPrintf("===> Condition 9: GetStakingMetadataError: %s\n, err = %v", tx.Hash().String(), err)
 				return NewMempoolTxError(GetStakingMetadataError, fmt.Errorf("Expect metadata type to be *metadata.StakingMetadata but get %+v", reflect.TypeOf(tx.GetMetadata())))
 			}
 			pubkey = stakingMetadata.CommitteePublicKey
@@ -705,6 +709,7 @@ func (tp *TxPool) validateTransaction(shardView *blockchain.ShardBestState, beac
 		}
 	}
 	if foundPubkey > 0 {
+		utils.LogPrintf("===> Condition 9: RejectDuplicateStakePubkey: %s\n, pubkey = %v", tx.Hash().String(), pubkey)
 		return NewMempoolTxError(RejectDuplicateStakePubkey, fmt.Errorf("This public key already stake and still in pool %+v", pubkey))
 	}
 	// Condition 10: check duplicate request stop auto staking
@@ -714,6 +719,7 @@ func (tp *TxPool) validateTransaction(shardView *blockchain.ShardBestState, beac
 		if tx.GetMetadata().GetType() == metadata.StopAutoStakingMeta {
 			stopAutoStakingMetadata, ok := tx.GetMetadata().(*metadata.StopAutoStakingMetadata)
 			if !ok {
+				utils.LogPrintf("===> Condition 10: GetStakingMetadataError: %s\n, err = %v", tx.Hash().String(), err)
 				return NewMempoolTxError(GetStakingMetadataError, fmt.Errorf("Expect metadata type to be *metadata.StopAutoStakingMetadata but get %+v", reflect.TypeOf(tx.GetMetadata())))
 			}
 			requestedPublicKey = stopAutoStakingMetadata.CommitteePublicKey
@@ -723,6 +729,7 @@ func (tp *TxPool) validateTransaction(shardView *blockchain.ShardBestState, beac
 		}
 	}
 	if foundRequestStopAutoStaking > 0 {
+		utils.LogPrintf("===> Condition 10: RejectDuplicateRequestStopAutoStaking: %s\n, requestedPublicKey = %v", tx.Hash().String(), requestedPublicKey)
 		return NewMempoolTxError(RejectDuplicateRequestStopAutoStaking, fmt.Errorf("This public key already request to stop auto staking and still in pool %+v", requestedPublicKey))
 	}
 	return nil

@@ -4,13 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"path"
+	"sync"
+	"time"
+
 	"github.com/incognitochain/incognito-chain/config"
 	"github.com/incognitochain/incognito-chain/consensus_v2/consensustypes"
 	"github.com/incognitochain/incognito-chain/dataaccessobject/blockstorage"
 	"github.com/incognitochain/incognito-chain/dataaccessobject/flatfile"
-	"path"
-	"sync"
-	"time"
+	"github.com/incognitochain/incognito-chain/utils"
 
 	"github.com/incognitochain/incognito-chain/dataaccessobject/rawdb_consensus"
 
@@ -245,15 +247,15 @@ func (chain *ShardChain) CreateNewBlock(
 	version int, proposer string, round int, startTime int64,
 	committees []incognitokey.CommitteePublicKey,
 	committeeViewHash common.Hash) (types.BlockInterface, error) {
-	Logger.log.Infof("Begin Start New Block Shard %+v", time.Now())
+	utils.LogPrintf("Begin Start New Block Shard %+v", time.Now())
 	curView := chain.GetBestState()
 	newBlock, err := chain.Blockchain.NewBlockShard(
 		curView,
 		version, proposer, round,
 		startTime, committees, committeeViewHash)
-	Logger.log.Infof("Finish New Block Shard %+v", time.Now())
+	utils.LogPrintf("Finish New Block Shard %+v", time.Now())
 	if err != nil {
-		Logger.log.Error(err)
+		utils.LogPrintf("CreateNewBlock err: %+v", err)
 		return nil, err
 	}
 	if version >= types.MULTI_VIEW_VERSION {
@@ -405,7 +407,7 @@ func (chain *ShardChain) InsertAndBroadcastBlockWithPrevValidationData(block typ
 	return chain.InsertWithPrevValidationData(block, newValidationData)
 }
 
-//this get consensus data for beacon
+// this get consensus data for beacon
 func (chain *ShardChain) GetBlockConsensusData() map[int]types.BlockConsensusData {
 	consensusData := map[int]types.BlockConsensusData{}
 	bestViewBlock := chain.multiView.GetBestView().GetBlock().(*types.ShardBlock)
@@ -439,7 +441,7 @@ func (chain *ShardChain) GetBlockConsensusData() map[int]types.BlockConsensusDat
 	return consensusData
 }
 
-//this is only call when insert block successfully, the previous block is replace
+// this is only call when insert block successfully, the previous block is replace
 func (chain *ShardChain) ReplacePreviousValidationData(previousBlockHash common.Hash, previousProposeHash common.Hash, newValidationData string) error {
 	if hasBlock, err := chain.Blockchain.HasShardBlockByHash(previousBlockHash); err != nil {
 		return NewBlockChainError(ReplacePreviousValidationDataError, err)
@@ -502,7 +504,7 @@ func (chain *ShardChain) ReplacePreviousValidationData(previousBlockHash common.
 	return nil
 }
 
-//consensusData contain beacon finality consensus data
+// consensusData contain beacon finality consensus data
 func (chain *ShardChain) VerifyFinalityAndReplaceBlockConsensusData(consensusData types.BlockConsensusData) error {
 	replaceBlockHash := consensusData.BlockHash
 	//retrieve block from database and replace consensus field
@@ -599,7 +601,7 @@ func (chain *ShardChain) GetPortalParamsV4(beaconHeight uint64) portalv4.PortalP
 	return chain.Blockchain.GetPortalParamsV4(beaconHeight)
 }
 
-//CommitteesV2 get committees by block for shardChain
+// CommitteesV2 get committees by block for shardChain
 // Input block must be ShardBlock
 func (chain *ShardChain) GetCommitteeV2(block types.BlockInterface) ([]incognitokey.CommitteePublicKey, error) {
 	var isShardView bool
@@ -623,7 +625,7 @@ func (chain *ShardChain) CommitteeStateVersion() int {
 	return chain.GetBestState().shardCommitteeState.Version()
 }
 
-//BestViewCommitteeFromBlock ...
+// BestViewCommitteeFromBlock ...
 func (chain *ShardChain) BestViewCommitteeFromBlock() common.Hash {
 	return chain.GetBestState().CommitteeFromBlock()
 }
@@ -636,7 +638,7 @@ func (chain *ShardChain) CommitteeEngineVersion() int {
 	return chain.multiView.GetBestView().CommitteeStateVersion()
 }
 
-//ProposerByTimeSlot ...
+// ProposerByTimeSlot ...
 func (chain *ShardChain) GetProposerByTimeSlotFromCommitteeList(ts int64, committees []incognitokey.CommitteePublicKey) (incognitokey.CommitteePublicKey, int) {
 	proposer, proposerIndex := GetProposer(
 		ts,

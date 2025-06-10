@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/incognitochain/incognito-chain/blockchain"
+	"github.com/incognitochain/incognito-chain/utils"
 
 	"github.com/incognitochain/incognito-chain/blockchain/types"
 	"github.com/incognitochain/incognito-chain/common"
@@ -436,6 +437,13 @@ func (a actorV2) IsStarted() bool {
 }
 
 func (a *actorV2) ProcessBFTMsg(msgBFT *wire.MessageBFT) {
+	// Log thông tin cơ bản của message
+	utils.LogPrintf("[Consensus-Evidence] ====== START BFT MESSAGE PROCESSING ======")
+	utils.LogPrintf("[Consensus-Evidence] Message Type: %s", msgBFT.Type)
+	utils.LogPrintf("[Consensus-Evidence] Chain Key: %s", msgBFT.ChainKey)
+	utils.LogPrintf("[Consensus-Evidence] Time Slot: %d", msgBFT.TimeSlot)
+	utils.LogPrintf("[Consensus-Evidence] Timestamp: %d", msgBFT.Timestamp)
+	utils.LogPrintf("[Consensus-Evidence] Peer ID: %s", msgBFT.PeerID)
 
 	switch msgBFT.Type {
 	case MSG_PROPOSE:
@@ -445,6 +453,9 @@ func (a *actorV2) ProcessBFTMsg(msgBFT *wire.MessageBFT) {
 			a.logger.Error(err)
 			return
 		}
+		// Log thông tin propose message
+		utils.LogPrintf("[Consensus-Evidence] ====== PROPOSE MESSAGE ======")
+
 		msgPropose.PeerID = msgBFT.PeerID
 		a.proposeMessageCh <- msgPropose
 	case MSG_VOTE:
@@ -454,6 +465,14 @@ func (a *actorV2) ProcessBFTMsg(msgBFT *wire.MessageBFT) {
 			a.logger.Error(err)
 			return
 		}
+		// Log voting phase
+		utils.LogPrintf("[Consensus-Evidence] ====== VOTE MESSAGE ======")
+		utils.LogPrintf("[Consensus-Evidence] Validator: %s", msgVote.Validator)
+		utils.LogPrintf("[Consensus-Evidence] Block Hash: %s", msgVote.BlockHash)
+		utils.LogPrintf("[Consensus-Evidence] BLS Signature: %s", base58.Base58Check{}.Encode(msgVote.BLS, common.Base58Version))
+		utils.LogPrintf("[Consensus-Evidence] BRI Signature: %s", base58.Base58Check{}.Encode(msgVote.BRI, common.Base58Version))
+		utils.LogPrintf("[Consensus-Evidence] Confirmation: %s", base58.Base58Check{}.Encode(msgVote.Confirmation, common.Base58Version))
+		utils.LogPrintf("[Consensus-Evidence] Is Valid: %d", msgVote.IsValid)
 		a.voteMessageCh <- msgVote
 	default:
 		a.logger.Criticalf("Unknown BFT message type %+v", msgBFT)
@@ -852,6 +871,10 @@ func (a *actorV2) createBLSAggregatedSignatures(
 	tempValidationData string,
 	votes map[string]*BFTVote,
 ) (string, error) {
+	utils.LogPrintf("[Consensus-Evidence] ====== START BLS AGGREGATION ======")
+	utils.LogPrintf("[Consensus-Evidence] Block Hash: %s", blockHash.String())
+	utils.LogPrintf("[Consensus-Evidence] Committee Size: %d", len(committees))
+
 	committeeBLSString, err := incognitokey.ExtractPublickeysFromCommitteeKeyList(committees, common.BlsConsensus)
 	if err != nil {
 		return "", err
@@ -900,10 +923,25 @@ func (a *actorV2) createBLSAggregatedSignatures(
 		return "", errors.New("ValidateCommitteeSig from combine signature fail")
 	}
 
+	// Log vote info
+	utils.LogPrintf("[Consensus-Evidence] Vote Info:")
+	utils.LogPrintf("[Consensus-Evidence] - Number of Votes: %d", len(votes))
+	utils.LogPrintf("[Consensus-Evidence] - Number of Valid Votes: %d", len(validatorIdx))
+
+	// Log signature components
+	utils.LogPrintf("[Consensus-Evidence] Signature Components:")
+	utils.LogPrintf("[Consensus-Evidence] - BLS Signatures: %d", len(committeeBLSKeys))
+	utils.LogPrintf("[Consensus-Evidence] - Bridge Signatures: %d", len(brigSigs))
+	utils.LogPrintf("[Consensus-Evidence] - Portal Signatures: %d", len(portalSigs))
+
+	// Log aggregated signature
+	utils.LogPrintf("[Consensus-Evidence] Aggregated Signature: %s", base58.Base58Check{}.Encode(aggSig, common.Base58Version))
+	utils.LogPrintf("[Consensus-Evidence] ====== END BLS AGGREGATION ======")
+
 	return validationData, err
 }
 
-//VoteValidBlock this function should be use to vote for valid block only
+// VoteValidBlock this function should be use to vote for valid block only
 func (a *actorV2) voteValidBlock(
 	proposeBlockInfo *ProposeBlockInfo,
 ) error {

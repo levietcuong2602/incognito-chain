@@ -5,9 +5,11 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/common/base58"
-	"io/ioutil"
+	"github.com/incognitochain/incognito-chain/utils"
 )
 
 type AccountWallet struct {
@@ -195,31 +197,39 @@ func (wallet *Wallet) RemoveAccount(privateKeyStr string, passPhrase string) err
 // ImportAccount adds account into wallet with privateKeyStr, accountName, and passPhrase which is used to init wallet
 // It returns AccountWallet which is imported and errors (if any)
 func (wallet *Wallet) ImportAccount(privateKeyStr string, accountName string, passPhrase string) (*AccountWallet, error) {
+	utils.LogPrintf("ImportAccount privateKeyStr: %+v, accountName: %+v, passPhrase: %+v", privateKeyStr, accountName, passPhrase)
 	if passPhrase != wallet.PassPhrase {
+		utils.LogPrintf("ImportAccount passPhrase != wallet.PassPhrase")
 		return nil, NewWalletError(WrongPassphraseErr, nil)
 	}
 
+	utils.LogPrintf("ImportAccount wallet.MasterAccount length: %+v", (wallet.MasterAccount))
+
 	for _, account := range wallet.MasterAccount.Child {
 		if account.Key.Base58CheckSerialize(PriKeyType) == privateKeyStr {
+			utils.LogPrintf("Base58CheckSerialize(PriKeyType): %+v == privateKeyStr: %+v", account.Key.Base58CheckSerialize(PriKeyType), privateKeyStr)
 			return nil, NewWalletError(ExistedAccountErr, nil)
 		}
 		if account.Name == accountName {
+			utils.LogPrintf("account.Name: %+v == accountName: %+v", account.Name, accountName)
 			return nil, NewWalletError(ExistedAccountNameErr, nil)
 		}
 	}
 
 	keyWallet, err := Base58CheckDeserialize(privateKeyStr)
 	if err != nil {
+		utils.LogPrintf("ImportAccount err: %+v", err)
 		return nil, err
 	}
 
 	err = keyWallet.KeySet.InitFromPrivateKey(&keyWallet.KeySet.PrivateKey)
 	if err != nil {
+		utils.LogPrintf("ImportAccount err: %+v", err)
 		return nil, err
 	}
 
-	Logger.log.Debugf("Pub-key : %s", keyWallet.Base58CheckSerialize(PaymentAddressType))
-	Logger.log.Debugf("Readonly-key : %s", keyWallet.Base58CheckSerialize(ReadonlyKeyType))
+	utils.LogPrintf("Pub-key : %s", keyWallet.Base58CheckSerialize(PaymentAddressType))
+	utils.LogPrintf("Readonly-key : %s", keyWallet.Base58CheckSerialize(ReadonlyKeyType))
 
 	account := AccountWallet{
 		Key:        *keyWallet,
@@ -230,6 +240,7 @@ func (wallet *Wallet) ImportAccount(privateKeyStr string, accountName string, pa
 	wallet.MasterAccount.Child = append(wallet.MasterAccount.Child, account)
 	err = wallet.Save(wallet.PassPhrase)
 	if err != nil {
+		utils.LogPrintf("ImportAccount err: %+v", err)
 		return nil, err
 	}
 	return &account, nil

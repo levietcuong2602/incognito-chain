@@ -2,9 +2,12 @@ package blsbft
 
 import (
 	"encoding/json"
+
 	"github.com/incognitochain/incognito-chain/blockchain/types"
+	"github.com/incognitochain/incognito-chain/common/base58"
 	"github.com/incognitochain/incognito-chain/config"
 	portalprocessv4 "github.com/incognitochain/incognito-chain/portal/portalv4/portalprocess"
+	"github.com/incognitochain/incognito-chain/utils"
 
 	"github.com/incognitochain/incognito-chain/common"
 	signatureschemes2 "github.com/incognitochain/incognito-chain/consensus_v2/signatureschemes"
@@ -67,6 +70,9 @@ func (s *BFTVote) isEmptyDataForByzantineDetector() bool {
 }
 
 func (s *BFTVote) signVote(key *signatureschemes2.MiningKey) error {
+	utils.LogPrintf("[Consensus-Evidence] ====== START VOTE SIGNING ======")
+	utils.LogPrintf("[Consensus-Evidence] Validator: %s", s.Validator)
+	utils.LogPrintf("[Consensus-Evidence] Block Hash: %s", s.BlockHash)
 
 	data := []byte{}
 
@@ -96,6 +102,19 @@ func (s *BFTVote) signVote(key *signatureschemes2.MiningKey) error {
 	data = common.HashB(data)
 	var err error
 	s.Confirmation, err = key.BriSignData(data)
+
+	// Log signing process
+	utils.LogPrintf("[Consensus-Evidence] Signing Process:")
+	utils.LogPrintf("[Consensus-Evidence] - BLS Key: %s", base58.Base58Check{}.Encode(key.GetPublicKey().MiningPubKey[common.BlsConsensus], common.Base58Version))
+	utils.LogPrintf("[Consensus-Evidence] - BRI Key: %s", base58.Base58Check{}.Encode(key.GetPublicKey().MiningPubKey[common.BridgeConsensus], common.Base58Version))
+
+	// Log signatures
+	utils.LogPrintf("[Consensus-Evidence] Generated Signatures:")
+	utils.LogPrintf("[Consensus-Evidence] - BLS Signature: %s", base58.Base58Check{}.Encode(s.BLS, common.Base58Version))
+	utils.LogPrintf("[Consensus-Evidence] - BRI Signature: %s", base58.Base58Check{}.Encode(s.BRI, common.Base58Version))
+	utils.LogPrintf("[Consensus-Evidence] - Confirmation: %s", base58.Base58Check{}.Encode(s.Confirmation, common.Base58Version))
+	utils.LogPrintf("[Consensus-Evidence] ====== END VOTE SIGNING ======")
+
 	return err
 }
 

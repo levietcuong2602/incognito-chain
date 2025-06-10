@@ -3,6 +3,7 @@ package blsbft
 import (
 	"github.com/incognitochain/incognito-chain/consensus_v2/consensustypes"
 	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/incognitochain/incognito-chain/utils"
 )
 
 /*
@@ -34,6 +35,20 @@ func (a *actorV3) maybeCommit() {
 }
 
 func (a *actorV3) commitBlock(v *ProposeBlockInfo) error {
+	utils.LogPrintf("[Consensus-Evidence] ====== START BLOCK COMMITMENT ======")
+	utils.LogPrintf("[Consensus-Evidence] Block Height: %d", v.block.GetHeight())
+	utils.LogPrintf("[Consensus-Evidence] Block Hash: %s", v.block.Hash().String())
+	utils.LogPrintf("[Consensus-Evidence] Proposer: %s", v.block.GetProposer())
+	// Log committee info
+	utils.LogPrintf("[Consensus-Evidence] Committee Info:")
+	utils.LogPrintf("[Consensus-Evidence] - Committee Size: %d", len(v.Committees))
+	utils.LogPrintf("[Consensus-Evidence] - Signing Committee Size: %d", len(v.SigningCommittees))
+
+	// Log vote info
+	utils.LogPrintf("[Consensus-Evidence] Vote Info:")
+	utils.LogPrintf("[Consensus-Evidence] - Number of Votes: %d", len(v.Votes))
+	utils.LogPrintf("[Consensus-Evidence] - Number of Valid Votes: %d", v.ValidVotes)
+
 	validationData, err := a.createBLSAggregatedSignatures(v.SigningCommittees, v.block.ProposeHash(), v.block.GetValidationField(), v.Votes)
 	if err != nil {
 		return err
@@ -76,6 +91,17 @@ func (a *actorV3) commitBlock(v *ProposeBlockInfo) error {
 		}
 	}
 	loggedCommittee, _ := incognitokey.CommitteeKeyListToString(v.SigningCommittees)
+	// Log finality info
+	utils.LogPrintf("[Consensus-Evidence] Finality Info:")
+	utils.LogPrintf("[Consensus-Evidence] - Finality Height: %d", v.block.GetFinalityHeight())
+
+	// Log validation steps
+	utils.LogPrintf("[Consensus-Evidence] Validation Steps:")
+	utils.LogPrintf("[Consensus-Evidence] - Is Block Valid: %v", v.IsValid)
+	utils.LogPrintf("[Consensus-Evidence] - Is Committee Valid: %v", v.IsCommitted)
+	utils.LogPrintf("[Consensus-Evidence] - Is Signature Valid: %v", v.IsValid)
+	utils.LogPrintf("[Consensus-Evidence] ====== END BLOCK COMMITMENT ======")
+
 	a.logger.Infof("Successfully Insert Block \n "+
 		"ChainID %+v | Height %+v, Hash %+v, Version %+v \n"+
 		"Committee %+v", a.chain, v.block.GetHeight(), v.block.FullHashString(), v.block.GetVersion(), loggedCommittee)

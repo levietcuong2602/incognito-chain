@@ -10,6 +10,7 @@ import (
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/privacy"
 	"github.com/incognitochain/incognito-chain/rpcserver/jsonresult"
+	"github.com/incognitochain/incognito-chain/utils"
 	"github.com/incognitochain/incognito-chain/wallet"
 )
 
@@ -52,9 +53,9 @@ func (walletService WalletService) SubmitKey(keyStr string, accessToken string, 
 	// this function accepts a private key or a hex-encoded OTA key
 	var otaKey privacy.OTAKey
 	keySet, _, err := GetKeySetFromPrivateKeyParams(keyStr)
-	if err != nil || keySet.OTAKey.GetOTASecretKey() == nil{
+	if err != nil || keySet.OTAKey.GetOTASecretKey() == nil {
 		return false, NewRPCError(InvalidSenderViewingKeyError, fmt.Errorf("OTA key not found, error: %v", err))
-	}else{
+	} else {
 		otaKey = keySet.OTAKey
 	}
 
@@ -112,8 +113,10 @@ func (walletService WalletService) DumpPrivkey(param string) wallet.KeySerialize
 }
 
 func (walletService *WalletService) ImportAccount(privateKey string, accountName string, passPhrase string) (wallet.KeySerializedData, error) {
+	utils.LogPrintf("ImportAccount privateKey: %+v, accountName: %+v, passPhrase: %+v", privateKey, accountName, passPhrase)
 	account, err := walletService.Wallet.ImportAccount(privateKey, accountName, passPhrase)
 	if err != nil {
+		utils.LogPrintf("ImportAccount err: %+v", err)
 		return wallet.KeySerializedData{}, err
 	}
 	result := wallet.KeySerializedData{

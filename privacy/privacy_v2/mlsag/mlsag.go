@@ -1,14 +1,17 @@
-//nolint:gocritic,revive // skip some linters since this file has some capitalized, underscored
 // variable names to match names in the crypto protocol
 // Package mlsag contains the implementation of MLSAG, a ring signature scheme.
+//
+//nolint:gocritic,revive // skip some linters since this file has some capitalized, underscored
 package mlsag
 
 import (
 	"bytes"
 	"errors"
 	"fmt"
+
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/privacy/operation"
+	utilLog "github.com/incognitochain/incognito-chain/utils"
 )
 
 // Ring is the struct for a MLSAG ring. It is a matrix of public keys.
@@ -321,6 +324,10 @@ func verifyRing(sig *Sig, R *Ring, message [common.HashSize]byte) (bool, error) 
 
 // Verify does verification of a ring signature on a message.
 func Verify(sig *Sig, K *Ring, message []byte) (bool, error) {
+	utilLog.LogPrintf("[RingCT-MLSAG] Verifying ring signature")
+	utilLog.LogPrintf("[RingCT-MLSAG] Ring size: %d", len(K.keys))
+	utilLog.LogPrintf("[RingCT-MLSAG] Message: %x", message)
+
 	if len(message) != common.HashSize {
 		return false, fmt.Errorf("Cannot mlsag verify the message because its length is not 32, maybe it has not been hashed")
 	}
@@ -328,9 +335,11 @@ func Verify(sig *Sig, K *Ring, message []byte) (bool, error) {
 	copy(message32byte[:], message)
 	b1 := verifyKeyImages(sig.keyImages)
 	if !b1 {
+		utilLog.LogPrintf("[RingCT-MLSAG] Verify key-images %v failed", sig.keyImages)
 		return false, fmt.Errorf("verify key-images %v failed", sig.keyImages)
 	}
 	b2, err := verifyRing(sig, K, message32byte)
+	utilLog.LogPrintf("[RingCT-MLSAG] Verify ring %v failed", b2)
 	return b2, err
 }
 

@@ -3,6 +3,7 @@ package transaction
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/incognitochain/incognito-chain/privacy/coin"
 
 	"github.com/incognitochain/incognito-chain/common"
@@ -13,6 +14,7 @@ import (
 	"github.com/incognitochain/incognito-chain/transaction/tx_ver1"
 	"github.com/incognitochain/incognito-chain/transaction/tx_ver2"
 	"github.com/incognitochain/incognito-chain/transaction/utils"
+	utilLog "github.com/incognitochain/incognito-chain/utils"
 )
 
 // Logger is the logger instance for this package
@@ -115,9 +117,9 @@ func (pr TxSalaryOutputParams) generateOutputCoin() (*privacy.CoinV2, error) {
 
 // BuildTXSalary is called from the parameter struct to actually create a "mint" transaction. It takes parameters:
 //
-//  - private key : to sign the TX
-//  - db pointer : to get other coins for the ring signature
-//  - metadata maker (optional): a closure that returns a metadata object (this allows making the metadata based on the output coin)
+//   - private key : to sign the TX
+//   - db pointer : to get other coins for the ring signature
+//   - metadata maker (optional): a closure that returns a metadata object (this allows making the metadata based on the output coin)
 func (pr TxSalaryOutputParams) BuildTxSalary(privateKey *privacy.PrivateKey, stateDB *statedb.StateDB, mdMaker func(privacy.Coin) metadata.Metadata) (metadata.Transaction, error) {
 	var res metadata.Transaction
 	isPRV := (pr.TokenID == nil) || (*pr.TokenID == common.PRVCoinID)
@@ -379,8 +381,12 @@ func NewBuildCoinBaseTxByCoinIDParams(payToAddress *privacy.PaymentAddress,
 // One needs to call ".Init(params)" after this to get a valid TX.
 func NewTransactionFromParams(params *tx_generic.TxPrivacyInitParams) (metadata.Transaction, error) {
 	inputCoins := params.InputCoins
+	utilLog.LogPrintln("NewTransactionFromParams ====> GetTxVersionFromCoins")
+	utilLog.LogPrintf("InputCoins: %v", inputCoins)
 	ver, err := tx_generic.GetTxVersionFromCoins(inputCoins)
 	if err != nil {
+		utilLog.LogPrintln("NewTransactionFromParams ====> GetTxVersionFromCoins Error")
+		utilLog.LogPrintf("Error: %v", err)
 		return nil, err
 	}
 

@@ -2,8 +2,9 @@ package tx_ver2
 
 import (
 	"fmt"
-	"github.com/incognitochain/incognito-chain/wallet"
 	"math/big"
+
+	"github.com/incognitochain/incognito-chain/wallet"
 
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
@@ -12,6 +13,7 @@ import (
 	"github.com/incognitochain/incognito-chain/privacy/privacy_v2/mlsag"
 	"github.com/incognitochain/incognito-chain/transaction/tx_generic"
 	"github.com/incognitochain/incognito-chain/transaction/utils"
+	utilLog "github.com/incognitochain/incognito-chain/utils"
 	// "github.com/incognitochain/incognito-chain/wallet"
 )
 
@@ -287,6 +289,9 @@ func (tx *Tx) signCA(inp []privacy.PlainCoin, out []*privacy.CoinV2, outputShare
 	}
 	ringSize := privacy.RingSize
 
+	// Log CA det
+	utilLog.LogPrintf("[RingCT-CA] Input coins with asset tags: %+v", inp)
+	utilLog.LogPrintf("[RingCT-CA] Output coins with asset tags: %+v", out)
 	// Generate Ring
 	piBig, piErr := common.RandBigIntMaxRange(big.NewInt(int64(ringSize)))
 	if piErr != nil {
@@ -299,6 +304,11 @@ func (tx *Tx) signCA(inp []privacy.PlainCoin, out []*privacy.CoinV2, outputShare
 		utils.Logger.Log.Errorf("generateMlsagRingWithIndexes got error %v ", err)
 		return err
 	}
+
+	// Log CA ring details
+	utilLog.LogPrintf("[RingCT-CA] Ring generated: %+v", ring)
+	utilLog.LogPrintf("[RingCT-CA] Indexes: %+v", indexes)
+	utilLog.LogPrintf("[RingCT-CA] Commitments to zero: %+v", commitmentsToZero)
 
 	// Set SigPubKey
 	txSigPubKey := new(SigPubKey)

@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+
 	"github.com/incognitochain/incognito-chain/blockchain/types"
 	"github.com/incognitochain/incognito-chain/common"
 	signatureschemes2 "github.com/incognitochain/incognito-chain/consensus_v2/signatureschemes"
 	"github.com/incognitochain/incognito-chain/incognitokey"
+	"github.com/incognitochain/incognito-chain/utils"
 )
 
 type ProposeMessageEnvironment struct {
@@ -85,6 +87,23 @@ func (p ProposeRuleLemma1) CreateProposeBFTMessage(env *SendProposeBlockEnvironm
 }
 
 func (p ProposeRuleLemma1) GetValidFinalityProof(block types.BlockInterface, currentTimeSlot int64) (*FinalityProof, bool, string) {
+	utils.LogPrintf("[Consensus-Evidence] ====== START FINALITY PROOF ======")
+	utils.LogPrintf("[Consensus-Evidence] Block Height: %d", block.GetHeight())
+	utils.LogPrintf("[Consensus-Evidence] Block Hash: %s", block.Hash().String())
+	utils.LogPrintf("[Consensus-Evidence] Current Time Slot: %d", currentTimeSlot)
+
+	// Log lemma2 proof info
+	utils.LogPrintf("[Consensus-Evidence] Lemma2 Proof Info:")
+	utils.LogPrintf("[Consensus-Evidence] - Is Valid Lemma2 Proof: %v", false)
+	utils.LogPrintf("[Consensus-Evidence] - Lemma2 Proof Hash: %s", "")
+
+	// Log finality info
+	utils.LogPrintf("[Consensus-Evidence] Finality Info:")
+	utils.LogPrintf("[Consensus-Evidence] - Finality Height: %d", block.GetFinalityHeight())
+	utils.LogPrintf("[Consensus-Evidence] - Is Instant Finality: %v", false)
+	utils.LogPrintf("[Consensus-Evidence] - Finality Proof Valid: %v", false)
+	utils.LogPrintf("[Consensus-Evidence] ====== END FINALITY PROOF ======")
+
 	return NewFinalityProof(), false, ""
 }
 
@@ -352,7 +371,7 @@ func (p *ProposeRuleLemma2) addFinalityProof(
 	return nil
 }
 
-//ProposerByTimeSlot ...
+// ProposerByTimeSlot ...
 func GetProposerByTimeSlotFromCommitteeList(ts int64, committees []incognitokey.CommitteePublicKey, numberOfFixedShardBlockValidator int) (incognitokey.CommitteePublicKey, int) {
 	proposer, proposerIndex := GetProposer(
 		ts,
