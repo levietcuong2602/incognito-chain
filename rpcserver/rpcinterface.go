@@ -124,7 +124,7 @@ var HttpHandler = map[string]httpHandler{
 	getProposerIndex:           (*HttpServer).handleGetProposerIndex,
 	resetCache:                 (*HttpServer).handleResetCache,
 	handleTestValidate:         (*HttpServer).handleTestValidate,
-	getRootHash: (*HttpServer).handleGetRootHash,
+	getRootHash:                (*HttpServer).handleGetRootHash,
 	//=================================
 
 	// Beststate
@@ -174,15 +174,16 @@ var HttpHandler = map[string]httpHandler{
 	checkPRVPeggingHashIssued:         (*HttpServer).handleCheckPrvPeggingHashIssued,
 
 	// wallet
-	getPublicKeyFromPaymentAddress:        (*HttpServer).handleGetPublicKeyFromPaymentAddress,
-	defragmentAccount:                     (*HttpServer).handleDefragmentAccount,
-	defragmentAccountV2:                   (*HttpServer).handleDefragmentAccountV2,
-	defragmentAccountToken:                (*HttpServer).handleDefragmentAccountToken,
-	defragmentAccountTokenV2:              (*HttpServer).handleDefragmentAccountTokenV2,
-	getStackingAmount:                     (*HttpServer).handleGetStakingAmount,
-	hashToIdenticon:                       (*HttpServer).handleHashToIdenticon,
-	createAndSendBurningRequest:           (*HttpServer).handleCreateAndSendBurningRequest,
-	createAndSendBurningRequestV2:         (*HttpServer).handleCreateAndSendBurningRequestV2,
+	getPublicKeyFromPaymentAddress: (*HttpServer).handleGetPublicKeyFromPaymentAddress,
+	defragmentAccount:              (*HttpServer).handleDefragmentAccount,
+	defragmentAccountV2:            (*HttpServer).handleDefragmentAccountV2,
+	defragmentAccountToken:         (*HttpServer).handleDefragmentAccountToken,
+	defragmentAccountTokenV2:       (*HttpServer).handleDefragmentAccountTokenV2,
+	getStackingAmount:              (*HttpServer).handleGetStakingAmount,
+	hashToIdenticon:                (*HttpServer).handleHashToIdenticon,
+	createAndSendBurningRequest:    (*HttpServer).handleCreateAndSendBurningRequest,
+	createAndSendBurningRequestV2:  (*HttpServer).handleCreateAndSendBurningRequestV2,
+	// khanhdt comment 1
 	createAndSendTxWithIssuingETHReq:      (*HttpServer).handleCreateAndSendTxWithIssuingETHReq,
 	createAndSendTxWithIssuingETHReqV2:    (*HttpServer).handleCreateAndSendTxWithIssuingETHReqV2,
 	createAndSendTxWithIssuingBSCReq:      (*HttpServer).handleCreateAndSendTxWithIssuingBSCReq,

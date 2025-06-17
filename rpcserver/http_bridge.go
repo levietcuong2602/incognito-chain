@@ -225,6 +225,7 @@ func (httpServer *HttpServer) handleCreateAndSendTxWithIssuingETHReq(params inte
 	base58CheckData := tx.Base58CheckData
 	newParam := make([]interface{}, 0)
 	newParam = append(newParam, base58CheckData)
+	// khanhdt comment 2
 	sendResult, err := httpServer.handleSendRawTransaction(newParam, closeChan)
 	if err != nil {
 		return nil, rpcservice.NewRPCError(rpcservice.UnexpectedError, err)

@@ -633,12 +633,12 @@ func (tx *Tx) InitTxSalary(salary uint64, receiverAddr *privacy.PaymentAddress, 
 	return nil
 }
 
-//ValidateTxSalary checks the following conditions for salary transactions (s, rs):
-//	- the signature is valid
-//	- the number of output coins is 1
-//	- all fields of the output coins are valid
-//	- the snd has not existed
-//	- the commitment has been calculated correctly
+// ValidateTxSalary checks the following conditions for salary transactions (s, rs):
+//   - the signature is valid
+//   - the number of output coins is 1
+//   - all fields of the output coins are valid
+//   - the snd has not existed
+//   - the commitment has been calculated correctly
 func (tx Tx) ValidateTxSalary(
 	db *statedb.StateDB,
 ) (bool, error) {
@@ -747,6 +747,7 @@ func (tx Tx) ValidateTransaction(boolParams map[string]bool, transactionStateDB 
 	}
 }
 
+// khanhdt thinking
 func (tx Tx) ValidateTxByItself(boolParams map[string]bool, transactionStateDB *statedb.StateDB, bridgeStateDB *statedb.StateDB, chainRetriever metadata.ChainRetriever, shardID byte, shardViewRetriever metadata.ShardViewRetriever, beaconViewRetriever metadata.BeaconViewRetriever) (bool, error) {
 	prvCoinID := &common.Hash{}
 	err := prvCoinID.SetBytes(common.PRVCoinID[:])
@@ -761,6 +762,7 @@ func (tx Tx) ValidateTxByItself(boolParams map[string]bool, transactionStateDB *
 	if !ok {
 		hasPrivacy = false
 	}
+	// khanhdt comment: 9
 	valid, err = tx_generic.MdValidate(&tx, hasPrivacy, transactionStateDB, bridgeStateDB, shardID)
 	if !valid {
 		return false, err

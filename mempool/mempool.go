@@ -273,6 +273,7 @@ func (tp *TxPool) MaybeAcceptTransaction(tx metadata.Transaction, beaconHeight i
 			return &common.Hash{}, &TxDesc{}, NewMempoolTxError(RejectInvalidTx, fmt.Errorf("%+v is a minteable tx", tx.Hash().String()))
 		}
 	}
+	// khanhdt comment 6
 	hash, txDesc, err := tp.maybeAcceptTransaction(shardView, beaconView, tx, tp.config.PersistMempool, true, beaconHeight)
 
 	utils.LogPrintf("===> before maybeAcceptTransaction: %s\n, err = %v", tx.Hash().String(), err)
@@ -443,6 +444,7 @@ func (tp *TxPool) maybeAcceptBatchTransaction(shardView *blockchain.ShardBestSta
 */
 func (tp *TxPool) maybeAcceptTransaction(shardView *blockchain.ShardBestState, beaconView *blockchain.BeaconBestState, tx metadata.Transaction, isStore bool, isNewTransaction bool, beaconHeight int64) (*common.Hash, *TxDesc, error) {
 	// validate tx
+	// khanhdt comment 7
 	err := tp.validateTransaction(shardView, beaconView, tx, beaconHeight, false, isNewTransaction)
 	utils.LogPrintf("===> maybeAcceptTransaction ==> validateTransaction: %s\n, err = %v", tx.Hash().String(), err)
 	if err != nil {
@@ -668,6 +670,7 @@ func (tp *TxPool) validateTransaction(shardView *blockchain.ShardBestState, beac
 		boolParams["isNewTransaction"] = isNewTransaction
 		boolParams["isNewZKP"] = tp.config.BlockChain.IsAfterNewZKPCheckPoint(uint64(beaconHeight))
 		boolParams["v2Only"] = tp.config.BlockChain.IsAfterPrivacyV2CheckPoint(uint64(beaconHeight))
+		// khanhdt comment 8 đang lỗi ở đây này
 		validated, errValidateTxByItself := tx.ValidateTxByItself(boolParams, shardView.GetCopiedTransactionStateDB(), beaconView.GetBeaconFeatureStateDB(), tp.config.BlockChain, shardID, nil, nil)
 		if !validated {
 			return NewMempoolTxError(RejectInvalidTx, errValidateTxByItself)

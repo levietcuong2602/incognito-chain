@@ -2,6 +2,7 @@ package tx_generic //nolint:revive
 
 import (
 	"fmt"
+	utils2 "github.com/incognitochain/incognito-chain/utils"
 	"time"
 
 	"github.com/incognitochain/incognito-chain/privacy/operation"
@@ -106,8 +107,11 @@ func MdValidateWithBlockChain(tx metadata.Transaction, chainRetriever metadata.C
 	return nil
 }
 
+// khanhdt commnet: 10
 func MdValidate(tx metadata.Transaction, hasPrivacy bool, transactionStateDB *statedb.StateDB, bridgeStateDB *statedb.StateDB, shardID byte) (bool, error) {
+	utils2.LogPrintln("khanhdt commnet tx: ", tx.GetMetadata())
 	meta := tx.GetMetadata()
+
 	if meta != nil {
 		validMetadata := meta.ValidateMetadataByItself()
 		if validMetadata {

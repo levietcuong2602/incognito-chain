@@ -40,7 +40,7 @@ type TxService struct {
 
 type MempoolInterface interface {
 	ValidateSerialNumberHashH(serialNumber []byte) error
-	MaybeAcceptTransaction(tx metadata.Transaction, beaconHeight int64) (*common.Hash, *mempool.TxDesc, error)
+	MaybeAcceptTransaction(tx metadata.Transaction, beaconHeight int64) (*common.Hash, *mempool.TxDesc, error) // khanhdt comment: 5
 	GetTx(txHash *common.Hash) (metadata.Transaction, error)
 	GetClonedPoolCandidate() map[common.Hash]string
 	ListTxs() []string
@@ -735,7 +735,7 @@ func (txService TxService) SendRawTransaction(txB58Check string) (wire.Message, 
 		if err != nil {
 			Logger.log.Errorf("Validate tx %v return err %v", hash, err)
 		}
-		hash, _, err = txService.TxMemPool.MaybeAcceptTransaction(tx, beaconHeigh)
+		hash, _, err = txService.TxMemPool.MaybeAcceptTransaction(tx, beaconHeigh) // khanhdt comment 4
 		if err != nil {
 			Logger.log.Errorf("Send Raw Transaction Error, try add tx into mempool of node: %+v", err)
 			mempoolErr, ok := err.(*mempool.MempoolTxError)

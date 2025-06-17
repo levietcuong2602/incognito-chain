@@ -77,7 +77,7 @@ func (httpServer *HttpServer) handleSendRawTransaction(params interface{}, close
 	if !ok {
 		return nil, rpcservice.NewRPCError(rpcservice.RPCInvalidParamsError, errors.New("base58 check data is invalid"))
 	}
-
+	// khanhdt comment 3
 	txMsg, txHash, LastBytePubKeySender, err := httpServer.txService.SendRawTransaction(base58CheckData)
 	if err != nil {
 		return nil, err
@@ -367,7 +367,7 @@ func (httpServer *HttpServer) handleGetEncodedTransactionsByHashes(params interf
 	return httpServer.txService.GetEncodedTransactionsByHashes(txHashList)
 }
 
-//Get transaction by serial numbers
+// Get transaction by serial numbers
 func (httpServer *HttpServer) handleGetTransactionBySerialNumber(params interface{}, closeChan <-chan struct{}) (interface{}, *rpcservice.RPCError) {
 	var err error
 	arrayParams := common.InterfaceSlice(params)

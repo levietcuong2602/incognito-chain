@@ -3,16 +3,17 @@ package transaction
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/privacy/coin"
 
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
 	"github.com/incognitochain/incognito-chain/metadata"
 	"github.com/incognitochain/incognito-chain/privacy"
+	"github.com/incognitochain/incognito-chain/privacy/coin"
 	"github.com/incognitochain/incognito-chain/transaction/tx_generic"
 	"github.com/incognitochain/incognito-chain/transaction/tx_ver1"
 	"github.com/incognitochain/incognito-chain/transaction/tx_ver2"
 	"github.com/incognitochain/incognito-chain/transaction/utils"
+	utils2 "github.com/incognitochain/incognito-chain/utils"
 )
 
 // Logger is the logger instance for this package
@@ -115,9 +116,9 @@ func (pr TxSalaryOutputParams) generateOutputCoin() (*privacy.CoinV2, error) {
 
 // BuildTXSalary is called from the parameter struct to actually create a "mint" transaction. It takes parameters:
 //
-//  - private key : to sign the TX
-//  - db pointer : to get other coins for the ring signature
-//  - metadata maker (optional): a closure that returns a metadata object (this allows making the metadata based on the output coin)
+//   - private key : to sign the TX
+//   - db pointer : to get other coins for the ring signature
+//   - metadata maker (optional): a closure that returns a metadata object (this allows making the metadata based on the output coin)
 func (pr TxSalaryOutputParams) BuildTxSalary(privateKey *privacy.PrivateKey, stateDB *statedb.StateDB, mdMaker func(privacy.Coin) metadata.Metadata) (metadata.Transaction, error) {
 	var res metadata.Transaction
 	isPRV := (pr.TokenID == nil) || (*pr.TokenID == common.PRVCoinID)
@@ -227,9 +228,11 @@ func NewTransactionFromJsonBytes(data []byte) (metadata.Transaction, error) {
 		return nil, err
 	}
 	if choices.Version1 != nil {
+		utils2.LogPrintln(" choices.Version1")
 		return choices.Version1, nil
 	}
 	if choices.Version2 != nil {
+		utils2.LogPrintln(" choices.Version2")
 		return choices.Version2, nil
 	}
 	return nil, fmt.Errorf("cannot parse TX as PRV transaction")
