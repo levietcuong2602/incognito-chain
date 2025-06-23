@@ -681,6 +681,7 @@ func (txService TxService) SendRawTransaction(txB58Check string) (wire.Message, 
 		return nil, nil, byte(0), NewRPCError(Base58ChedkDataOfTxInvalid, err)
 	}
 	// Unmarshal from json data to object tx
+	// khanhdt comment 0: noi tao ra tx version 1 
 	tx, err := transaction.NewTransactionFromJsonBytes(rawTxBytes)
 	if err != nil {
 		Logger.log.Errorf("Send Raw Transaction Error: %+v", err)
@@ -735,7 +736,8 @@ func (txService TxService) SendRawTransaction(txB58Check string) (wire.Message, 
 		if err != nil {
 			Logger.log.Errorf("Validate tx %v return err %v", hash, err)
 		}
-		hash, _, err = txService.TxMemPool.MaybeAcceptTransaction(tx, beaconHeigh) // khanhdt comment 4
+		// khanhdt comment 4
+		hash, _, err = txService.TxMemPool.MaybeAcceptTransaction(tx, beaconHeigh)
 		if err != nil {
 			Logger.log.Errorf("Send Raw Transaction Error, try add tx into mempool of node: %+v", err)
 			mempoolErr, ok := err.(*mempool.MempoolTxError)
@@ -2236,7 +2238,7 @@ func (txService TxService) BuildRawDefragmentAccountTransaction(params interface
 	return tx, nil
 }
 
-//calculateOutputCoinsByMinValue
+// calculateOutputCoinsByMinValue
 func (txService TxService) calculateOutputCoinsByMinValue(outCoins []coin.PlainCoin, maxVal uint64, maxDefragmentQuantityTemp int) ([]coin.PlainCoin, uint64) {
 	outCoinsTmp := make([]coin.PlainCoin, 0)
 	amount := uint64(0)

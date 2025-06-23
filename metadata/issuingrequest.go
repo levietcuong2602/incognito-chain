@@ -10,6 +10,7 @@ import (
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
 	"github.com/incognitochain/incognito-chain/privacy"
+	utils2 "github.com/incognitochain/incognito-chain/utils"
 	"github.com/incognitochain/incognito-chain/wallet"
 )
 
@@ -216,6 +217,9 @@ func (iReq IssuingRequest) ValidateSanityData(chainRetriever ChainRetriever, sha
 }
 
 func (iReq IssuingRequest) ValidateMetadataByItself() bool {
+	utils2.LogPrintln("khanhdt commnet IssuingRequest ValidateMetadataByItself")
+	utils2.LogPrintln("khanhdt commnet IssuingRequest", iReq.Type, IssuingRequestMeta)
+
 	return iReq.Type == IssuingRequestMeta
 }
 

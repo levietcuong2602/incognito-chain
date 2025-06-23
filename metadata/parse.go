@@ -8,7 +8,7 @@ import (
 	metadataPdexv3 "github.com/incognitochain/incognito-chain/metadata/pdexv3"
 	"github.com/pkg/errors"
 )
-
+//  khanhdt comment: reading 
 func ParseMetadata(meta interface{}) (Metadata, error) {
 
 	if meta == nil {

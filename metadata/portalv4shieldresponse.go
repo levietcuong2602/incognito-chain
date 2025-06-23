@@ -10,6 +10,7 @@ import (
 	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
 	metadataCommon "github.com/incognitochain/incognito-chain/metadata/common"
 	portalcommonv4 "github.com/incognitochain/incognito-chain/portal/portalv4/common"
+	"github.com/incognitochain/incognito-chain/utils"
 	"github.com/incognitochain/incognito-chain/wallet"
 )
 
@@ -59,6 +60,7 @@ func (iRes PortalShieldingResponse) ValidateSanityData(chainRetriever ChainRetri
 }
 
 func (iRes PortalShieldingResponse) ValidateMetadataByItself() bool {
+	utils.LogPrintln("call here PortalShieldingResponse")
 	// The validation just need to check at tx level, so returning true here
 	return iRes.Type == metadataCommon.PortalV4ShieldingResponseMeta
 }

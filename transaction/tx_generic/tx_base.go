@@ -179,7 +179,7 @@ func (tx *TxBase) InitializeTxAndParams(params *TxPrivacyInitParams) error {
 }
 
 // =================== PARSING JSON FUNCTIONS ===================
-
+// khanhdt comment: reading
 func (tx *TxBase) UnmarshalJSON(data []byte) error {
 	// For rolling version
 	type Alias TxBase

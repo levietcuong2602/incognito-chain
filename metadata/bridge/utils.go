@@ -8,6 +8,8 @@ import (
 	"math/big"
 	"strings"
 
+	utils2 "github.com/incognitochain/incognito-chain/utils"
+
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	rCommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -241,13 +243,21 @@ func VerifyProofAndParseEVMReceipt(
 ) (*types.Receipt, error) {
 	// get evm header result
 	evmHeaderResult, err := evmcaller.GetEVMHeaderResult(blockHash, hosts, minEVMConfirmationBlocks, networkPrefix)
+	utils2.LogPrintln("blockHash for GetEVMHenetworkPrefix for GetEVMHeaderResultaderResult", blockHash, blockHash.String())
+	utils2.LogPrintln("hosts for GetEVMHeaderResult", hosts)
+	utils2.LogPrintln("minEVMConfirmationBlocks for GetEVMHeaderResult", minEVMConfirmationBlocks)
+	utils2.LogPrintln("", networkPrefix)
+
 	if err != nil {
+		utils2.LogPrintf("Can not get EVM header result - Error: %+v \n", err)
 		metadataCommon.Logger.Log.Errorf("Can not get EVM header result - Error: %+v", err)
 		return nil, metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestVerifyProofAndParseReceipt, err)
 	}
 
 	// check fork
 	if evmHeaderResult.IsForked {
+		utils2.LogPrintln(metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestVerifyProofAndParseReceipt,
+			fmt.Errorf("EVM Block hash %s is not in main chain", blockHash.String())))
 		metadataCommon.Logger.Log.Errorf("EVM Block hash %s is not in main chain", blockHash.String())
 		return nil, metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestVerifyProofAndParseReceipt,
 			fmt.Errorf("EVM Block hash %s is not in main chain", blockHash.String()))
@@ -255,6 +265,8 @@ func VerifyProofAndParseEVMReceipt(
 
 	// check min confirmation blocks
 	if !evmHeaderResult.IsFinalized {
+		utils2.LogPrintln(metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestVerifyProofAndParseReceipt,
+			fmt.Errorf("EVM block hash %s is not enough confirmation blocks %v", blockHash.String(), minEVMConfirmationBlocks)))
 		metadataCommon.Logger.Log.Errorf("EVM block hash %s is not enough confirmation blocks %v", blockHash.String(), minEVMConfirmationBlocks)
 		return nil, metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestVerifyProofAndParseReceipt,
 			fmt.Errorf("EVM block hash %s is not enough confirmation blocks %v", blockHash.String(), minEVMConfirmationBlocks))
@@ -268,14 +280,23 @@ func VerifyProofAndParseEVMReceipt(
 	for _, proofStr := range proofStrs {
 		proofBytes, err := base64.StdEncoding.DecodeString(proofStr)
 		if err != nil {
+			utils2.LogPrintf("base64.StdEncoding.DecodeString(proofStr)", proofStr)
+
 			return nil, err
 		}
 		nodeList.Put([]byte{}, proofBytes)
 	}
 	proof := nodeList.NodeSet()
+	// khanhdt comment lỗi ở đây này chụ thể  !!!
 	val, _, err := trie.VerifyProof(evmHeaderResult.Header.ReceiptHash, keybuf.Bytes(), proof)
 	if err != nil {
+		headerData, _ := json.Marshal(evmHeaderResult.Header)
+		proofData, _ := json.Marshal(proof)
+		utils2.LogPrintln("evmHeaderResult", string(headerData))
+		utils2.LogPrintln("keybuf.Bytes()", keybuf.Bytes(), keybuf.String())
+		utils2.LogPrintln("proof", proof, proofData)
 		errMsg := fmt.Sprintf("WARNING: EVM issuance proof verification failed: %v", err)
+		utils2.LogPrintln(errMsg)
 		metadataCommon.Logger.Log.Warn(errMsg)
 		return nil, metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestVerifyProofAndParseReceipt, err)
 	}
@@ -296,10 +317,12 @@ func VerifyProofAndParseEVMReceipt(
 	constructedReceipt := new(types.Receipt)
 	err = rlp.DecodeBytes(val, constructedReceipt)
 	if err != nil {
+		utils2.LogPrintf("rlp.DecodeBytes(val, constructedReceipt) failed: %v", err)
 		return nil, metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestVerifyProofAndParseReceipt, err)
 	}
 
 	if constructedReceipt.Status != types.ReceiptStatusSuccessful {
+		utils2.LogPrintf("The constructedReceipt's status is not success: %v", constructedReceipt.Status)
 		return nil, metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestVerifyProofAndParseReceipt, errors.New("The constructedReceipt's status is not success"))
 	}
 

@@ -191,7 +191,7 @@ func (httpServer *HttpServer) handleCreateRawTxWithIssuingEVMReq(params interfac
 		Logger.log.Error(rpcErr)
 		return nil, rpcErr
 	}
-
+	
 	// create new param to build raw tx from param interface
 	createRawTxParam, errNewParam := bean.NewCreateRawTxParam(params)
 	if errNewParam != nil {

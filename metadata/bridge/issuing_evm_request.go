@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	rCommon "github.com/ethereum/go-ethereum/common"
+	utils2 "github.com/incognitochain/incognito-chain/utils"
 
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/incognitochain/incognito-chain/common"
@@ -163,6 +164,8 @@ func (iReq IssuingEVMRequest) ValidateSanityData(chainRetriever metadataCommon.C
 }
 
 func (iReq IssuingEVMRequest) ValidateMetadataByItself() bool {
+	// khanhdt comment
+	utils2.LogPrintln("khanhdt commnet IssuingEVMRequest ValidateMetadataByItself")
 	if iReq.Type != metadataCommon.IssuingETHRequestMeta && iReq.Type != metadataCommon.IssuingBSCRequestMeta &&
 		iReq.Type != metadataCommon.IssuingPRVERC20RequestMeta && iReq.Type != metadataCommon.IssuingPRVBEP20RequestMeta &&
 		iReq.Type != metadataCommon.IssuingPLGRequestMeta && !(iReq.Type == metadataCommon.IssuingUnifiedTokenRequestMeta && iReq.NetworkID != common.DefaultNetworkID) &&
@@ -171,11 +174,11 @@ func (iReq IssuingEVMRequest) ValidateMetadataByItself() bool {
 	}
 	evmReceipt, err := iReq.verifyProofAndParseReceipt()
 	if err != nil {
-		metadataCommon.Logger.Log.Error(metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestValidateTxWithBlockChainError, err))
+		utils2.LogPrintln(metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestValidateTxWithBlockChainError, err))
 		return false
 	}
 	if evmReceipt == nil {
-		metadataCommon.Logger.Log.Error(errors.Errorf("The evm proof's receipt could not be null."))
+		utils2.LogPrintln(errors.Errorf("The evm proof's receipt could not be null."))
 		return false
 	}
 	return true

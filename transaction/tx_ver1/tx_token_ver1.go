@@ -7,13 +7,13 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/incognitochain/incognito-chain/privacy"
-
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
 	"github.com/incognitochain/incognito-chain/metadata"
+	"github.com/incognitochain/incognito-chain/privacy"
 	"github.com/incognitochain/incognito-chain/transaction/tx_generic"
 	"github.com/incognitochain/incognito-chain/transaction/utils"
+	utils2 "github.com/incognitochain/incognito-chain/utils"
 )
 
 type TxToken struct {
@@ -182,7 +182,7 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 	}
 
 	jsb, _ := json.Marshal(tx)
-	utils.Logger.Log.Warnf("TX Creation complete ! The resulting token transaction is : %v, %s\n", tx.Hash().String(), string(jsb))
+	utils2.LogPrintln("TX Creation complete ! The resulting token transaction is : %v, %s\n", tx.Hash().String(), string(jsb))
 	return nil
 }
 

@@ -63,10 +63,11 @@ var calculateSize = metadataCommon.CalculateSize
 
 // export package constants
 const (
-	InvalidMeta                  = metadataCommon.InvalidMeta
-	IssuingRequestMeta           = metadataCommon.IssuingRequestMeta
-	IssuingResponseMeta          = metadataCommon.IssuingResponseMeta
-	ContractingRequestMeta       = metadataCommon.ContractingRequestMeta
+	InvalidMeta            = metadataCommon.InvalidMeta
+	IssuingRequestMeta     = metadataCommon.IssuingRequestMeta
+	IssuingResponseMeta    = metadataCommon.IssuingResponseMeta
+	ContractingRequestMeta = metadataCommon.ContractingRequestMeta
+	// khanhdt commnet: thông tin liên quan đến struct type 80
 	IssuingETHRequestMeta        = metadataCommon.IssuingETHRequestMeta
 	IssuingETHResponseMeta       = metadataCommon.IssuingETHResponseMeta
 	ShardBlockReward             = metadataCommon.ShardBlockReward

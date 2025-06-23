@@ -295,11 +295,14 @@ func DeserializeTransactionJSON(data []byte) (*TxChoice, error) {
 	if err != nil {
 		return nil, err
 	}
+	utils2.LogPrintln("holder", string(data))
 	_, isTokenTx := holder["TxTokenPrivacyData"]
 	_, hasVersionOutside := holder["Version"]
 	var verHolder txJsonDataVersion
 	// unmarshalling error here corresponds to the `else` block below
 	_ = json.Unmarshal(data, &verHolder)
+	//  khanhdt comment: this is a hack to get the version from the JSON
+	// verHolder.Version = utils.TxVersion2Number
 	if hasVersionOutside {
 		switch verHolder.Version {
 		case utils.TxVersion1Number:
@@ -307,11 +310,14 @@ func DeserializeTransactionJSON(data []byte) (*TxChoice, error) {
 				// token ver 1
 				result.TokenVersion1 = &TxTokenVersion1{}
 				err := json.Unmarshal(data, result.TokenVersion1)
+				utils2.LogPrintln("holder 11")
 				return result, err
 			}
 			// tx ver 1
 			result.Version1 = &TxVersion1{}
 			err := json.Unmarshal(data, result.Version1)
+			utils2.LogPrintln("holder 12")
+
 			return result, err
 		case utils.TxVersion2Number: // the same as utils.TxConversionVersion12Number
 			if isTokenTx {
@@ -321,6 +327,8 @@ func DeserializeTransactionJSON(data []byte) (*TxChoice, error) {
 			// tx ver 2
 			result.Version2 = &TxVersion2{}
 			err := json.Unmarshal(data, result.Version2)
+			utils2.LogPrintln("holder 21")
+
 			return result, err
 		default:
 			return nil, fmt.Errorf("error unmarshalling TX from JSON : wrong version of %d", verHolder.Version)

@@ -525,11 +525,11 @@ func (tx *Tx) InitTxSalary(otaCoin *privacy.CoinV2, privateKey *privacy.PrivateK
 }
 
 // ValidateTxSalary checks the following conditions for salary transactions (s, rs):
-//	- the signature is valid
-//	- the number of output coins is 1
-//	- all fields of the output coins are valid
-//	- the commitment has been calculated correctly
-//  - the ota has not existed
+//   - the signature is valid
+//   - the number of output coins is 1
+//   - all fields of the output coins are valid
+//   - the commitment has been calculated correctly
+//   - the ota has not existed
 func (tx *Tx) ValidateTxSalary(db *statedb.StateDB) (bool, error) {
 	// verify signature
 	if valid, err := tx_generic.VerifySigNoPrivacy(tx.Sig, tx.SigPubKey, tx.Hash()[:]); !valid {

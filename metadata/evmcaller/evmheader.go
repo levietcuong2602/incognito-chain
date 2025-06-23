@@ -1,6 +1,7 @@
 package evmcaller
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"math/big"
@@ -58,6 +59,9 @@ func GetEVMHeaderByHash(
 		Logger.log.Warnf("WARNING: an error occured during calling eth_getBlockByHash: %s", err)
 		return nil, NewEVMCallerError(GetEVMHeaderByHashError, fmt.Errorf("An error occured during calling eth_getBlockByHash: %s", err))
 	}
+	printData, _ := json.Marshal(getEVMHeaderByHashRes)
+	fmt.Println("string(printData)", string(printData))
+
 	if getEVMHeaderByHashRes.RPCError != nil {
 		Logger.log.Warnf("WARNING: an error occured during calling eth_getBlockByHash: %s", getEVMHeaderByHashRes.RPCError.Message)
 		return nil, NewEVMCallerError(GetEVMHeaderByHashError, fmt.Errorf("An error occured during calling eth_getBlockByHash: %s", getEVMHeaderByHashRes.RPCError.Message))
@@ -177,7 +181,7 @@ func GetEVMHeaderResultMultipleHosts(
 	evmHeaderResult := NewEVMHeaderResult()
 	// try with multiple hosts
 	for _, host := range hosts {
-		Logger.log.Infof("EVMHeader Call request with host: %v for block hash %v", host, evmBlockHash)
+		// Logger.log.Infof("EVMHeader Call request with host: %v for block hash %v", host, evmBlockHash)
 		// get evm header
 		evmHeader, err := GetEVMHeaderByHash(evmBlockHash, host)
 		if err != nil {
