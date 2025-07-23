@@ -177,7 +177,7 @@ func GetEVMHeaderResultMultipleHosts(
 	evmHeaderResult := NewEVMHeaderResult()
 	// try with multiple hosts
 	for _, host := range hosts {
-		Logger.log.Infof("EVMHeader Call request with host: %v for block hash %v", host, evmBlockHash)
+		// Logger.log.Infof("EVMHeader Call request with host: %v for block hash %v", host, evmBlockHash)
 		// get evm header
 		evmHeader, err := GetEVMHeaderByHash(evmBlockHash, host)
 		if err != nil {
@@ -248,7 +248,7 @@ func GetEVMHeaderResult(
 		// if not existed, call RPC to EVM's node to get EVM block
 		evmHeaderRes, err = GetEVMHeaderResultMultipleHosts(evmBlockHash, hosts, minConfirmationBlocks)
 		if err != nil {
-			Logger.log.Errorf("An error occured during getting evm header result from APIs : %v", err)
+			// Logger.log.Errorf("An error occured during getting evm header result from APIs : %v", err)
 			return nil, NewEVMCallerError(GetEVMHeaderResultFromDBError, fmt.Errorf("An error occured during getting evm header result from APIs : %v", err))
 		}
 	}

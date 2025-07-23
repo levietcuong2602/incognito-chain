@@ -4,6 +4,7 @@ import (
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/incognitokey"
 	"github.com/incognitochain/incognito-chain/privacy"
+	"github.com/incognitochain/incognito-chain/utils"
 	"github.com/pkg/errors"
 )
 
@@ -30,6 +31,7 @@ func NewCreateRawPrivacyTokenTxParam(params interface{}) (*CreateRawPrivacyToken
 	// create basic param for tx
 	txparam, err := NewCreateRawTxParam(params)
 	if err != nil {
+		utils.LogPrintf("NewCreateRawPrivacyTokenTxParam error: %v", err)
 		return nil, err
 	}
 

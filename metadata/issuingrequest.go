@@ -10,6 +10,7 @@ import (
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
 	"github.com/incognitochain/incognito-chain/privacy"
+	"github.com/incognitochain/incognito-chain/utils"
 	"github.com/incognitochain/incognito-chain/wallet"
 )
 
@@ -200,6 +201,7 @@ func (iReq IssuingRequest) ValidateTxWithBlockChain(tx Transaction, chainRetriev
 }
 
 func (iReq IssuingRequest) ValidateSanityData(chainRetriever ChainRetriever, shardViewRetriever ShardViewRetriever, beaconViewRetriever BeaconViewRetriever, beaconHeight uint64, tx Transaction) (bool, bool, error) {
+	utils.LogPrintf("IssuingRequest => ValidateSanityData: iReq.ReceiverAddress %v, tx.GetVersion() %v", iReq.ReceiverAddress, tx.GetVersion())
 	if _, err := AssertPaymentAddressAndTxVersion(iReq.ReceiverAddress, tx.GetVersion()); err != nil {
 		return false, false, err
 	}
@@ -216,6 +218,7 @@ func (iReq IssuingRequest) ValidateSanityData(chainRetriever ChainRetriever, sha
 }
 
 func (iReq IssuingRequest) ValidateMetadataByItself() bool {
+	utils.LogPrintf("IssuingRequest => ValidateMetadataByItself: iReq.Type %v", iReq.Type)
 	return iReq.Type == IssuingRequestMeta
 }
 

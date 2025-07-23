@@ -17,6 +17,7 @@ import (
 	"github.com/incognitochain/incognito-chain/privacy/privacy_v2/mlsag"
 	"github.com/incognitochain/incognito-chain/transaction/tx_generic"
 	"github.com/incognitochain/incognito-chain/transaction/utils"
+	logUtils "github.com/incognitochain/incognito-chain/utils"
 )
 
 // TxTokenDataVersion2 contains the token data
@@ -395,13 +396,14 @@ func (txToken *TxToken) initPRV(feeTx *Tx, params *tx_generic.TxPrivacyInitParam
 
 // Init uses the information in the parameter to create a valid, signed pToken transaction.
 func (txToken *TxToken) Init(paramsInterface interface{}) error {
+	logUtils.LogPrintf("Init txToken: %v", txToken)
 	params, ok := paramsInterface.(*tx_generic.TxTokenParams)
 	if !ok {
 		return fmt.Errorf("cannot init TxCustomTokenPrivacy because params is not correct")
 	}
 
 	if params.TokenParams.Fee > 0 || params.FeeNativeCoin == 0 {
-		utils.Logger.Log.Errorf("only accept tx fee in PRV")
+		logUtils.LogPrintf("only accept tx fee in PRV")
 		return utils.NewTransactionErr(utils.PrivacyTokenInitFeeParamsError, nil, strconv.Itoa(int(params.TokenParams.Fee)))
 	}
 
@@ -417,13 +419,16 @@ func (txToken *TxToken) Init(paramsInterface interface{}) error {
 		params.Info,
 	)
 	jsb, _ := json.Marshal(params.TokenParams)
-	utils.Logger.Log.Infof("Create TX token v2 with token params %s", string(jsb))
+	logUtils.LogPrintf("ValidateTxParams")
 	if err := tx_generic.ValidateTxParams(txPrivacyParams); err != nil {
+		logUtils.LogPrintf("ValidateTxParams error: %v", err)
 		return err
 	}
 	// Init tx and params (tx and params will be changed)
 	tx := new(Tx)
+	logUtils.LogPrintf("InitializeTxAndParams")
 	if err := tx.InitializeTxAndParams(txPrivacyParams); err != nil {
+		logUtils.LogPrintf("InitializeTxAndParams error: %v", err)
 		return err
 	}
 
@@ -431,11 +436,14 @@ func (txToken *TxToken) Init(paramsInterface interface{}) error {
 	// Case 1: tx ptoken transfer with ptoken fee
 	// Case 2: tx Reward
 	// If it is non privacy non input then return
+	logUtils.LogPrintf("IsNonPrivacyNonInput")
 	if check, err := tx.IsNonPrivacyNonInput(txPrivacyParams); check {
+		logUtils.LogPrintf("IsNonPrivacyNonInput error: %v", err)
 		return err
 	}
 
 	// check tx size
+	logUtils.LogPrintf("EstimateTxSize")
 	limitFee := uint64(0)
 	estimateTxSizeParam := tx_generic.NewEstimateTxSizeParam(2, len(params.InputCoin), len(params.PaymentInfo),
 		params.HasPrivacyCoin, nil, params.TokenParams, limitFee)
@@ -444,6 +452,7 @@ func (txToken *TxToken) Init(paramsInterface interface{}) error {
 	}
 
 	// Init PRV Fee
+	logUtils.LogPrintf("InitPRV")
 	inps, outs, err := txToken.initPRV(tx, txPrivacyParams)
 	if err != nil {
 		utils.Logger.Log.Errorf("Cannot init token ver2: err %v", err)
@@ -541,10 +550,10 @@ func (txToken *TxToken) InitTxTokenSalary(otaCoin *privacy.CoinV2, privKey *priv
 }
 
 // ValidateTxSalary checks the following conditions for minteable transactions:
-//	- the signature is valid
-//	- all fields of the output coins are valid: commitment, assetTag, etc,.
-//	- the commitment has been calculated correctly
-//	- the ota has not existed
+//   - the signature is valid
+//   - all fields of the output coins are valid: commitment, assetTag, etc,.
+//   - the commitment has been calculated correctly
+//   - the ota has not existed
 func (txToken *TxToken) ValidateTxSalary(db *statedb.StateDB) (bool, error) {
 	tokenID := &txToken.TokenData.PropertyID
 
@@ -777,7 +786,7 @@ func (txToken TxToken) GetTxActualSize() uint64 {
 	return uint64(math.Ceil(float64(len(jsb)) / 1024))
 }
 
-//-- OVERRIDE--
+// -- OVERRIDE--
 func (txToken TxToken) GetVersion() int8 { return txToken.Tx.Version }
 
 func (txToken *TxToken) SetVersion(version int8) { txToken.Tx.Version = version }

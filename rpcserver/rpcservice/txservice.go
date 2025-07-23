@@ -12,6 +12,7 @@ import (
 
 	"github.com/incognitochain/incognito-chain/privacy/coin"
 	"github.com/incognitochain/incognito-chain/privacy/key"
+	"github.com/incognitochain/incognito-chain/utils"
 
 	"github.com/incognitochain/incognito-chain/blockchain/types"
 
@@ -1144,6 +1145,7 @@ func (txService TxService) BuildRawPrivacyCustomTokenTransaction(
 	params interface{},
 	metaData metadata.Metadata,
 ) (transaction.TransactionToken, *RPCError) {
+	utils.LogPrintf("BuildRawPrivacyCustomTokenTransaction params: %v", params)
 	txParam, errParam := bean.NewCreateRawPrivacyTokenTxParam(params)
 	if errParam != nil {
 		return nil, NewRPCError(RPCInvalidParamsError, errParam)
@@ -1186,16 +1188,28 @@ func (txService TxService) BuildRawPrivacyCustomTokenTransaction(
 		txParam.ShardIDSender, txParam.Info,
 		beaconView.GetBeaconFeatureStateDB())
 
+	utils.LogPrintf("create raw privacy custom token transaction txTokenParams: %v", txTokenParams)
 	tx, errTx := transaction.NewTransactionTokenFromParams(txTokenParams)
 	if errTx != nil {
-		Logger.log.Errorf("Cannot create new transaction token from params, err %v", err)
-		return nil, NewRPCError(CreateTxDataError, errTx)
-	}
-	errTx = tx.Init(txTokenParams)
-	if errTx != nil {
+		utils.LogPrintf("Cannot create new transaction token from params, err %v", err)
 		return nil, NewRPCError(CreateTxDataError, errTx)
 	}
 
+	// log tx info
+	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx: %v", tx.GetTxTokenData())
+	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx.GetTxTokenData(): %v", tx.GetTxTokenData())
+	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx.GetTxBase(): %v", tx.GetTxBase())
+	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx.GetTxNormal(): %v", tx.GetTxNormal())
+	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx.GetType(): %v", tx.GetType())
+
+	errTx = tx.Init(txTokenParams)
+	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx.Init")
+	if errTx != nil {
+		utils.LogPrintf("create raw privacy custom token transaction errTx: %v", errTx)
+		return nil, NewRPCError(CreateTxDataError, errTx)
+	}
+
+	utils.LogPrintf("create raw privacy custom token transaction tx: %v success", tx)
 	return tx, nil
 }
 
@@ -2236,7 +2250,7 @@ func (txService TxService) BuildRawDefragmentAccountTransaction(params interface
 	return tx, nil
 }
 
-//calculateOutputCoinsByMinValue
+// calculateOutputCoinsByMinValue
 func (txService TxService) calculateOutputCoinsByMinValue(outCoins []coin.PlainCoin, maxVal uint64, maxDefragmentQuantityTemp int) ([]coin.PlainCoin, uint64) {
 	outCoinsTmp := make([]coin.PlainCoin, 0)
 	amount := uint64(0)

@@ -11,6 +11,7 @@ import (
 	"github.com/incognitochain/incognito-chain/rpcserver/bean"
 	"github.com/incognitochain/incognito-chain/rpcserver/jsonresult"
 	"github.com/incognitochain/incognito-chain/rpcserver/rpcservice"
+	"github.com/incognitochain/incognito-chain/utils"
 	"github.com/pkg/errors"
 )
 
@@ -162,8 +163,10 @@ func (httpServer *HttpServer) handleCreateAndSendBurningRequest(params interface
 	newParam := make([]interface{}, 0)
 	newParam = append(newParam, base58CheckData)
 	// sendResult, err1 := httpServer.handleSendRawCustomTokenTransaction(newParam, closeChan)
+	utils.LogPrintf("handleCreateAndSendBurningRequest newParam: %v", newParam)
 	sendResult, err1 := httpServer.handleSendRawPrivacyCustomTokenTransaction(newParam, closeChan)
 	if err1 != nil {
+		utils.LogPrintf("handleCreateAndSendBurningRequest error: %v", err1)
 		return nil, rpcservice.NewRPCError(rpcservice.UnexpectedError, err1)
 	}
 

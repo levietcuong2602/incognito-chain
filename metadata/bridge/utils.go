@@ -8,6 +8,8 @@ import (
 	"math/big"
 	"strings"
 
+	"github.com/ethereum/go-ethereum/crypto"
+
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	rCommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -264,16 +266,38 @@ func VerifyProofAndParseEVMReceipt(
 	keybuf.Reset()
 	rlp.Encode(keybuf, txIndex)
 
-	nodeList := new(light.NodeList)
-	for _, proofStr := range proofStrs {
+	// Debug: Log key and receipt hash
+	fmt.Println("=== DEBUG PROOF VERIFICATION ===")
+	fmt.Printf("Key for verification: %x\n", keybuf.Bytes())
+	fmt.Printf("ReceiptHash from header: %s\n", evmHeaderResult.Header.ReceiptHash.String())
+	fmt.Printf("Number of proof strings: %d\n", len(proofStrs))
+
+	// Create NodeSet directly instead of NodeList to have control over keys
+	proof := light.NewNodeSet()
+	expectedKey := crypto.Keccak256(evmHeaderResult.Header.ReceiptHash[:])
+	fmt.Printf("expectedKey: %s\n", evmHeaderResult.Header.ReceiptHash.Hex())
+
+	for i, proofStr := range proofStrs {
 		proofBytes, err := base64.StdEncoding.DecodeString(proofStr)
 		if err != nil {
+			fmt.Printf("Failed to decode proof string %d: %v\n", i, err)
 			return nil, err
 		}
-		nodeList.Put([]byte{}, proofBytes)
+
+		// Use Keccak256 hash of proof bytes as key (same as NodeList.Store does)
+		expectedKey = crypto.Keccak256(proofBytes)
+		proof.Put(expectedKey, proofBytes)
+
+		// convert key from byte to hex string
+		fmt.Printf("Proof node %d key: %s\n", i, common.BytesToHash(expectedKey).String())
 	}
-	proof := nodeList.NodeSet()
-	val, _, err := trie.VerifyProof(evmHeaderResult.Header.ReceiptHash, keybuf.Bytes(), proof)
+
+	wantHash := common.BytesToHash(expectedKey)
+	fmt.Printf("wantHash: %s\n", wantHash.String())
+	fmt.Printf("Proof node count: %d\n", proof.KeyCount())
+	fmt.Println("=== END DEBUG ===")
+
+	val, _, err := trie.VerifyProof(rCommon.BytesToHash(expectedKey), keybuf.Bytes(), proof)
 	if err != nil {
 		errMsg := fmt.Sprintf("WARNING: EVM issuance proof verification failed: %v", err)
 		metadataCommon.Logger.Log.Warn(errMsg)
@@ -339,7 +363,8 @@ func GetEVMInfoByMetadataType(metadataType int, networkID uint) ([]string, strin
 	} else if isETHNetwork {
 		evmParam := config.Param().GethParam
 		evmParam.GetFromEnv()
-		hosts = evmParam.Host
+		// hosts = evmParam.Host
+		hosts = []string{"http://localhost:8545"}
 
 		// Ethereum network with default prefix (empty string)
 		networkPrefix = ""

@@ -3,6 +3,7 @@ package bridge
 import (
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"strconv"
 
 	rCommon "github.com/ethereum/go-ethereum/common"
@@ -12,6 +13,7 @@ import (
 	"github.com/incognitochain/incognito-chain/dataaccessobject/statedb"
 	metadataCommon "github.com/incognitochain/incognito-chain/metadata/common"
 	"github.com/incognitochain/incognito-chain/metadata/rpccaller"
+	"github.com/incognitochain/incognito-chain/utils"
 	"github.com/pkg/errors"
 )
 
@@ -95,6 +97,13 @@ func NewIssuingEVMRequest(
 	networkID uint,
 	metaType int,
 ) (*IssuingEVMRequest, error) {
+	utils.LogPrintf("IssuingEVMRequest => NewIssuingEVMRequest: metaType %v", metaType)
+	utils.LogPrintf("IssuingEVMRequest => NewIssuingEVMRequest: incTokenID %v", incTokenID)
+	utils.LogPrintf("IssuingEVMRequest => NewIssuingEVMRequest: networkID %v", networkID)
+	utils.LogPrintf("IssuingEVMRequest => NewIssuingEVMRequest: blockHash %v", blockHash)
+	utils.LogPrintf("IssuingEVMRequest => NewIssuingEVMRequest: txIndex %v", txIndex)
+	utils.LogPrintf("IssuingEVMRequest => NewIssuingEVMRequest: proofStrs %v", proofStrs)
+
 	metadataBase := metadataCommon.MetadataBase{
 		Type: metaType,
 	}
@@ -163,13 +172,19 @@ func (iReq IssuingEVMRequest) ValidateSanityData(chainRetriever metadataCommon.C
 }
 
 func (iReq IssuingEVMRequest) ValidateMetadataByItself() bool {
+	utils.LogPrintf("IssuingEVMRequest => ValidateMetadataByItself: iReq.Type %v", iReq.Type)
+
 	if iReq.Type != metadataCommon.IssuingETHRequestMeta && iReq.Type != metadataCommon.IssuingBSCRequestMeta &&
 		iReq.Type != metadataCommon.IssuingPRVERC20RequestMeta && iReq.Type != metadataCommon.IssuingPRVBEP20RequestMeta &&
 		iReq.Type != metadataCommon.IssuingPLGRequestMeta && !(iReq.Type == metadataCommon.IssuingUnifiedTokenRequestMeta && iReq.NetworkID != common.DefaultNetworkID) &&
 		iReq.Type != metadataCommon.IssuingFantomRequestMeta {
+		utils.LogPrintf("IssuingEVMRequest => ValidateMetadataByItself: iReq.Type %v", iReq.Type)
+		utils.LogPrintf("IssuingEVMRequest => ValidateMetadataByItself:  IssuingETHRequestMeta %v", metadataCommon.IssuingETHRequestMeta)
 		return false
 	}
 	evmReceipt, err := iReq.verifyProofAndParseReceipt()
+	utils.LogPrintf("IssuingEVMRequest => ValidateMetadataByItself: evmReceipt %v", evmReceipt)
+	utils.LogPrintf("IssuingEVMRequest => ValidateMetadataByItself: err %v", err)
 	if err != nil {
 		metadataCommon.Logger.Log.Error(metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestValidateTxWithBlockChainError, err))
 		return false
@@ -183,7 +198,7 @@ func (iReq IssuingEVMRequest) ValidateMetadataByItself() bool {
 
 func (iReq IssuingEVMRequest) Hash() *common.Hash {
 	record := iReq.BlockHash.String()
-	record += string(iReq.TxIndex)
+	record += fmt.Sprintf("%d", iReq.TxIndex)
 	proofStrs := iReq.ProofStrs
 	for _, proofStr := range proofStrs {
 		record += proofStr
@@ -225,9 +240,15 @@ func (iReq *IssuingEVMRequest) CalculateSize() uint64 {
 }
 
 func (iReq *IssuingEVMRequest) verifyProofAndParseReceipt() (*types.Receipt, error) {
+	utils.LogPrintf("IssuingEVMRequest => verifyProofAndParseReceipt: iReq.Type %v", iReq.Type)
+	utils.LogPrintf("IssuingEVMRequest => verifyProofAndParseReceipt: iReq.NetworkID %v", iReq.NetworkID)
+	utils.LogPrintf("IssuingEVMRequest => verifyProofAndParseReceipt: iReq.BlockHash %v", iReq.BlockHash)
+	utils.LogPrintf("IssuingEVMRequest => verifyProofAndParseReceipt: iReq.TxIndex %v", iReq.TxIndex)
+	utils.LogPrintf("IssuingEVMRequest => verifyProofAndParseReceipt: iReq.ProofStrs %v", iReq.ProofStrs)
 	// get hosts, minEVMConfirmationBlocks, networkPrefix depend iReq.Type
 	hosts, networkPrefix, minEVMConfirmationBlocks, checkEVMHardFork, err := GetEVMInfoByMetadataType(iReq.Type, iReq.NetworkID)
 	if err != nil {
+		utils.LogPrintf("IssuingEVMRequest => verifyProofAndParseReceipt: err %v", err)
 		metadataCommon.Logger.Log.Errorf("Can not get EVM info - Error: %+v", err)
 		return nil, metadataCommon.NewMetadataTxError(metadataCommon.IssuingEvmRequestVerifyProofAndParseReceipt, err)
 	}

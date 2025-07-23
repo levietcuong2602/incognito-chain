@@ -11,6 +11,7 @@ import (
 	"github.com/incognitochain/incognito-chain/metadata"
 	"github.com/incognitochain/incognito-chain/privacy"
 	"github.com/incognitochain/incognito-chain/transaction/utils"
+	logUtils "github.com/incognitochain/incognito-chain/utils"
 )
 
 func VerifyTxCreatedByMiner(tx metadata.Transaction, mintdata *metadata.MintData, shardID byte, bcr metadata.ChainRetriever, accumulatedValues *metadata.AccumulatedValues, retriever metadata.ShardViewRetriever, viewRetriever metadata.BeaconViewRetriever) (bool, error) {
@@ -109,7 +110,9 @@ func MdValidateWithBlockChain(tx metadata.Transaction, chainRetriever metadata.C
 func MdValidate(tx metadata.Transaction, hasPrivacy bool, transactionStateDB *statedb.StateDB, bridgeStateDB *statedb.StateDB, shardID byte) (bool, error) {
 	meta := tx.GetMetadata()
 	if meta != nil {
+		logUtils.LogPrintf("MdValidate => ValidateMetadataByItself: meta.Type %v", meta.GetType())
 		validMetadata := meta.ValidateMetadataByItself()
+		logUtils.LogPrintf("MdValidate => ValidateMetadataByItself: validMetadata %v", validMetadata)
 		if validMetadata {
 			return validMetadata, nil
 		}

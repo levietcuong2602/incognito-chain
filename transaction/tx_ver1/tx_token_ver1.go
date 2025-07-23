@@ -14,6 +14,7 @@ import (
 	"github.com/incognitochain/incognito-chain/metadata"
 	"github.com/incognitochain/incognito-chain/transaction/tx_generic"
 	"github.com/incognitochain/incognito-chain/transaction/utils"
+	logUtils "github.com/incognitochain/incognito-chain/utils"
 )
 
 type TxToken struct {
@@ -21,6 +22,7 @@ type TxToken struct {
 }
 
 func (tx *TxToken) Init(paramsInterface interface{}) error {
+	logUtils.LogPrintf("tx_ver1.TxToken.Init")
 	params, ok := paramsInterface.(*tx_generic.TxTokenParams)
 	if !ok {
 		return errors.New("Cannot init TxTokenBase because params is not correct")
