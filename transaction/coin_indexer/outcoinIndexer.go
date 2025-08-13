@@ -10,11 +10,12 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/incognitochain/incognito-chain/config"
-	"github.com/incognitochain/incognito-chain/transaction/utils"
 	"math"
 	"sync"
 	"time"
+
+	"github.com/incognitochain/incognito-chain/config"
+	"github.com/incognitochain/incognito-chain/transaction/utils"
 
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/dataaccessobject/rawdbv2"
@@ -59,8 +60,9 @@ const (
 	StatusIndexingFinished
 )
 
-//nolint:gocritic
 // NewOutCoinIndexer creates CoinIndexer instance.
+//
+//nolint:gocritic
 func NewOutCoinIndexer(numWorkers int64, db incdb.Database, accessToken string, allTokens map[common.Hash]interface{}) (*CoinIndexer, error) {
 	accessTokens := make(map[string]bool)
 	authorizedCache := true
@@ -194,7 +196,7 @@ func (ci *CoinIndexer) GetManagedOTAKeys() *sync.Map {
 
 // RemoveOTAKey removes an OTAKey from the cached database.
 //
-//nolint // TODO: remove cached output coins, access token.
+// nolint // TODO: remove cached output coins, access token.
 func (ci *CoinIndexer) RemoveOTAKey(otaKey privacy.OTAKey) error {
 	keyBytes := OTAKeyToRaw(otaKey)
 	err := rawdbv2.DeleteIndexedOTAKey(ci.db, keyBytes[:])
@@ -219,10 +221,10 @@ func (ci *CoinIndexer) AddOTAKey(otaKey privacy.OTAKey, state int) error {
 
 // HasOTAKey checks if an OTAKey has been added to the indexer and returns the state of OTAKey.
 // The returned state could be:
-//	- StatusNotSubmitted
-//	- StatusIndexing
-//	- StatusKeySubmittedUsual
-//	- StatusIndexingFinished
+//   - StatusNotSubmitted
+//   - StatusIndexing
+//   - StatusKeySubmittedUsual
+//   - StatusIndexingFinished
 func (ci *CoinIndexer) HasOTAKey(k [64]byte) (bool, int) {
 	var result int
 	val, ok := ci.managedOTAKeys.Load(k)
@@ -344,10 +346,11 @@ func (ci *CoinIndexer) ReIndexOutCoin(idxParams *IndexParam) {
 	ci.statusChan <- status
 }
 
-//nolint:revive // using defer in loop
 // ReIndexOutCoinBatch re-scans all output coins for a list of indexing params of the same shardID.
 //
 // Callers must manage to make sure all indexing params belong to the same shard.
+//
+//nolint:revive // using defer in loop
 func (ci *CoinIndexer) ReIndexOutCoinBatch(idxParams []*IndexParam, txDb *statedb.StateDB, id string) {
 	if len(idxParams) == 0 {
 		return
@@ -514,10 +517,11 @@ func (ci *CoinIndexer) ReIndexOutCoinBatch(idxParams []*IndexParam, txDb *stated
 	}
 }
 
-//nolint:revive // using defer in loop
 // ReIndexOutCoinBatchByIndices re-scans all output coins for a list of indexing params of the same shardID.
 //
 // Callers must manage to make sure all indexing params belong to the same shard.
+//
+//nolint:revive // using defer in loop
 func (ci *CoinIndexer) ReIndexOutCoinBatchByIndices(idxParams []*IndexParam, txDb *statedb.StateDB, id string) {
 	if len(idxParams) == 0 {
 		return
@@ -794,9 +798,9 @@ func (ci *CoinIndexer) GetAllTokenIDs() map[common.Hash]interface{} {
 
 // Start starts the CoinIndexer in case the authorized cache is employed.
 // It is a hub to
-//	- record key submission from users;
-//	- record the indexing status of keys;
-//	- collect keys into batches and index them all together in a batching way.
+//   - record key submission from users;
+//   - record the indexing status of keys;
+//   - collect keys into batches and index them all together in a batching way.
 func (ci *CoinIndexer) Start(cfg *IndexerInitialConfig) {
 	ci.mtx.Lock()
 	if ci.isAuthorizedRunning {

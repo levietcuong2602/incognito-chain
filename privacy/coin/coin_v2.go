@@ -72,10 +72,11 @@ func (t *TxRandom) SetBytes(b []byte) error {
 	return nil
 }
 
-//nolint:revive // skip linter for this struct name
 // CoinV2 is the struct that will be stored to db
 // If not privacy, mask and amount will be the original randomness and value
 // If has privacy, mask and amount will be as paper monero
+//
+//nolint:revive // skip linter for this struct name
 type CoinV2 struct {
 	// Public
 	version    uint8
@@ -127,7 +128,7 @@ func (c CoinV2) ParseKeyImageWithPrivateKey(privKey key.PrivateKey) (*operation.
 
 // Conceal the amount of coin using the publicView of the receiver
 //
-//	- AdditionalData: must be the publicView of the receiver
+//   - AdditionalData: must be the publicView of the receiver
 func (c *CoinV2) ConcealOutputCoin(additionalData *operation.Point) error {
 	// If this coin is already encrypted or it is created by other person then cannot conceal
 	if c.IsEncrypted() || c.GetSharedConcealRandom() == nil {

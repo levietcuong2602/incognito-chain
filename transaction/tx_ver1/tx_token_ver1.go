@@ -22,9 +22,10 @@ type TxToken struct {
 }
 
 func (tx *TxToken) Init(paramsInterface interface{}) error {
-	logUtils.LogPrintf("tx_ver1.TxToken.Init")
+	logUtils.LogPrintf("tx_token_ver1.TxToken.Init")
 	params, ok := paramsInterface.(*tx_generic.TxTokenParams)
 	if !ok {
+		logUtils.LogPrintf("cannot init TxToken because params is not correct")
 		return errors.New("Cannot init TxTokenBase because params is not correct")
 	}
 	// init data for tx PRV for fee
@@ -41,6 +42,7 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 	)
 	tx.Tx = new(Tx)
 	if err := tx.Tx.Init(txPrivacyParams); err != nil {
+		logUtils.LogPrintf("tx_token_ver1.TxToken.Init error: %v", err)
 		return utils.NewTransactionErr(utils.PrivacyTokenInitPRVError, err)
 	}
 	// override TxCustomTokenPrivacyType type
@@ -51,6 +53,7 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 	estimateTxSizeParam := tx_generic.NewEstimateTxSizeParam(1, len(params.InputCoin), len(params.PaymentInfo),
 		params.HasPrivacyCoin, nil, params.TokenParams, limitFee)
 	if txSize := tx_generic.EstimateTxSize(estimateTxSizeParam); txSize > common.MaxTxSize {
+		logUtils.LogPrintf("tx_token_ver1.TxToken.Init error: exceed max tx size %d", common.MaxTxSize)
 		return utils.NewTransactionErr(utils.ExceedSizeTx, nil, strconv.Itoa(int(txSize)))
 	}
 
@@ -61,9 +64,11 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 	tx.TxTokenData.SetPropertyName(params.TokenParams.PropertyName)
 	tx.TxTokenData.SetPropertySymbol(params.TokenParams.PropertySymbol)
 
+	logUtils.LogPrintf("tx_token_ver1.TxToken.Init params.TokenParams.TokenTxType: %v", params.TokenParams.TokenTxType)
 	switch params.TokenParams.TokenTxType {
 	case utils.CustomTokenInit:
 		{
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenInit")
 			// case init a new privacy custom token
 			handled = true
 			tx.TxTokenData.SetAmount(params.TokenParams.Amount)
@@ -78,6 +83,7 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 			tempOutputCoin[0].CoinDetails.SetValue(params.TokenParams.Amount)
 			PK, err := new(privacy.Point).FromBytesS(params.TokenParams.Receiver[0].PaymentAddress.Pk)
 			if err != nil {
+				logUtils.LogPrintf("tx_ver1.TxToken.Init FromBytesS error: %v", err)
 				return utils.NewTransactionErr(utils.DecompressPaymentAddressError, err)
 			}
 			tempOutputCoin[0].CoinDetails.SetPublicKey(PK)
@@ -109,6 +115,7 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 			temp.SetPrivateKey(*params.SenderKey)
 			err = temp.sign()
 			if err != nil {
+				logUtils.LogPrintf("tx_token_ver1.TxToken.Init sign error: %v", err)
 				utils.Logger.Log.Error(errors.New("can't signOnMessage this tx"))
 				return utils.NewTransactionErr(utils.SignTxError, err)
 			}
@@ -116,6 +123,7 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 
 			hashInitToken, err := tx.TxTokenData.Hash()
 			if err != nil {
+				logUtils.LogPrintf("tx_token_ver1.TxToken.Init Hash error: %v", err)
 				utils.Logger.Log.Error(errors.New("can't hash this token data"))
 				return utils.NewTransactionErr(utils.UnexpectedError, err)
 			}
@@ -123,6 +131,7 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 			if params.TokenParams.Mintable {
 				propertyID, err := common.Hash{}.NewHashFromStr(params.TokenParams.PropertyID)
 				if err != nil {
+					logUtils.LogPrintf("tx_token_ver1.TxToken.Init NewHashFromStr error: %v", err)
 					return utils.NewTransactionErr(utils.TokenIDInvalidError, err, propertyID.String())
 				}
 				tx.TxTokenData.PropertyID = *propertyID
@@ -133,6 +142,7 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 				utils.Logger.Log.Debug("New Privacy Token %+v ", newHashInitToken)
 				existed := statedb.PrivacyTokenIDExisted(params.TransactionStateDB, newHashInitToken)
 				if existed {
+					logUtils.LogPrintf("tx_token_ver1.TxToken.Init PrivacyTokenIDExisted error: %v", newHashInitToken)
 					utils.Logger.Log.Error("INIT Tx Custom Token Privacy is Existed", newHashInitToken)
 					return utils.NewTransactionErr(utils.TokenIDExistedError, errors.New("this token is existed in network"))
 				}
@@ -142,17 +152,22 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 		}
 	case utils.CustomTokenTransfer:
 		{
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer")
 			handled = true
 			// make a transfering for privacy custom token
 			// fee always 0 and reuse function of normal tx for custom token ID
 			propertyID, _ := common.Hash{}.NewHashFromStr(params.TokenParams.PropertyID)
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer propertyID: %v", propertyID)
 			existed := statedb.PrivacyTokenIDExisted(params.TransactionStateDB, *propertyID)
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer existed: %v", existed)
 			if !existed {
 				isBridgeToken, err := statedb.IsBridgeToken(params.BridgeStateDB, *propertyID)
 				if err != nil {
+					logUtils.LogPrintf("tx_token_ver1.TxToken.Init IsBridgeToken error: %v", err)
 					return utils.NewTransactionErr(utils.TokenIDExistedError, err)
 				}
 				if !isBridgeToken {
+					logUtils.LogPrintf("tx_token_ver1.TxToken.Init isBridgeToken error: %v", *propertyID)
 					return utils.NewTransactionErr(utils.TokenIDExistedError, errors.New("invalid Token ID"))
 				}
 				if !isBridgeToken {
@@ -160,11 +175,19 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 				}
 			}
 
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer propertyID: %v", propertyID)
 			utils.Logger.Log.Debugf("Token %+v wil be transfered with", propertyID)
 			tx.TxTokenData.SetPropertyID(*propertyID)
 			tx.TxTokenData.SetMintable(params.TokenParams.Mintable)
 
 			tx.TxTokenData.TxNormal = new(Tx)
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer params.SenderKey: %v", params.SenderKey)
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer params.TokenParams.Receiver: %v", params.TokenParams.Receiver)
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer params.TokenParams.TokenInput: %v", params.TokenParams.TokenInput)
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer params.TokenParams.Fee: %v", params.TokenParams.Fee)
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer params.HasPrivacyToken: %v", params.HasPrivacyToken)
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer params.TransactionStateDB: %v", params.TransactionStateDB)
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer propertyID: %v", propertyID)
 			err := tx.TxTokenData.TxNormal.Init(tx_generic.NewTxPrivacyInitParams(params.SenderKey,
 				params.TokenParams.Receiver,
 				params.TokenParams.TokenInput,
@@ -174,16 +197,20 @@ func (tx *TxToken) Init(paramsInterface interface{}) error {
 				propertyID,
 				nil,
 				nil))
+			logUtils.LogPrintf("tx_token_ver1.TxToken.Init CustomTokenTransfer err: %v", err)
 			if err != nil {
+				logUtils.LogPrintf("tx_token_ver1.TxToken.Init TxNormal.Init error: %v", err)
 				return utils.NewTransactionErr(utils.PrivacyTokenInitTokenDataError, err)
 			}
 		}
 	}
 	if !handled {
+		logUtils.LogPrintf("tx_ver1.TxToken.Init error: %v", params.TokenParams.TokenTxType)
 		return utils.NewTransactionErr(utils.PrivacyTokenTxTypeNotHandleError, errors.New("can't handle this TokenTxType"))
 	}
 
 	jsb, _ := json.Marshal(tx)
+	logUtils.LogPrintf("TX Creation complete ! The resulting token transaction is : %v, %s\n", tx.Hash().String(), string(jsb))
 	utils.Logger.Log.Warnf("TX Creation complete ! The resulting token transaction is : %v, %s\n", tx.Hash().String(), string(jsb))
 	return nil
 }

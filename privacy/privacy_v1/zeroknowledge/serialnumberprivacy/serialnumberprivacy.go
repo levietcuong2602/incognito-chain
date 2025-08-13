@@ -2,9 +2,11 @@ package serialnumberprivacy
 
 import (
 	"errors"
+
 	"github.com/incognitochain/incognito-chain/common"
 	"github.com/incognitochain/incognito-chain/privacy/operation"
 	"github.com/incognitochain/incognito-chain/privacy/privacy_v1/zeroknowledge/utils"
+	logUtils "github.com/incognitochain/incognito-chain/utils"
 )
 
 type SerialNumberPrivacyStatement struct {
@@ -129,8 +131,6 @@ func (proof SNPrivacyProof) GetComInput() *operation.Point {
 	return proof.stmt.comInput
 }
 
-
-
 // Set sets Statement
 func (stmt *SerialNumberPrivacyStatement) Set(
 	SN *operation.Point,
@@ -204,7 +204,7 @@ func (proof *SNPrivacyProof) SetBytes(bytes []byte) error {
 	if len(bytes) == 0 {
 		return errors.New("Bytes array is empty")
 	}
-	if len(bytes) < 9*operation.Ed25519KeySize{
+	if len(bytes) < 9*operation.Ed25519KeySize {
 		return errors.New("Not enough bytes to unmarshal Serial Number Proof")
 	}
 
@@ -268,56 +268,86 @@ func (proof *SNPrivacyProof) SetBytes(bytes []byte) error {
 }
 
 func (wit SNPrivacyWitness) Prove(mess []byte) (*SNPrivacyProof, error) {
-
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove starting...")
 	eSK := operation.RandomScalar()
 	eSND := operation.RandomScalar()
 	dSK := operation.RandomScalar()
 	dSND := operation.RandomScalar()
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove eSK: %v", eSK)
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove eSND: %v", eSND)
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove dSK: %v", dSK)
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove dSND: %v", dSND)
 
 	// calculate tSeed = g_SK^eSK * h^dSK
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove operation.RandomScalar: %v", operation.RandomScalar())
 	tSeed := operation.PedCom.CommitAtIndex(eSK, dSK, operation.PedersenPrivateKeyIndex)
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove tSeed: %v", tSeed)
 
 	// calculate tSND = g_SND^eSND * h^dSND
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove operation.RandomScalar: %v", operation.RandomScalar())
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove operation.PedersenSndIndex: %v", operation.PedersenSndIndex)
 	tInput := operation.PedCom.CommitAtIndex(eSND, dSND, operation.PedersenSndIndex)
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove tInput: %v", tInput)
 
 	// calculate tSND = g_SK^eSND * h^dSND2
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove operation.RandomScalar: %v", operation.RandomScalar())
 	tOutput := new(operation.Point).ScalarMult(wit.stmt.sn, new(operation.Scalar).Add(eSK, eSND))
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove tOutput: %v", tOutput)
 
 	// calculate x = hash(tSeed || tInput || tSND2 || tOutput)
 	x := new(operation.Scalar)
 	if mess == nil {
+		logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove mess is nil")
 		x = utils.GenerateChallenge([][]byte{
 			wit.stmt.sn.ToBytesS(),
 			wit.stmt.comSK.ToBytesS(),
 			tSeed.ToBytesS(),
 			tInput.ToBytesS(),
 			tOutput.ToBytesS()})
+		logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove x: %v", x)
 	} else {
 		x.FromBytesS(mess)
+		logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove x: %v", x)
 	}
 
 	// Calculate zSeed = sk * x + eSK
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove Calculate zSeed = sk * x + eSK")
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove wit.sk: %v", wit.sk)
 	zSeed := new(operation.Scalar).Mul(wit.sk, x)
 	zSeed.Add(zSeed, eSK)
 	//zSeed.Mod(zSeed, operation.Curve.Params().N)
 
 	// Calculate zRSeed = rSK * x + dSK
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove Calculate zRSeed = rSK * x + dSK")
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove wit.rSK: %v", wit.rSK)
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove x: %v", x)
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove dSK: %v", dSK)
 	zRSeed := new(operation.Scalar).Mul(wit.rSK, x)
 	zRSeed.Add(zRSeed, dSK)
 	//zRSeed.Mod(zRSeed, operation.Curve.Params().N)
 
 	// Calculate zInput = input * x + eSND
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove Calculate zInput = input * x + eSND")
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove wit.input: %v", wit.input)
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove x: %v", x)
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove eSND: %v", eSND)
 	zInput := new(operation.Scalar).Mul(wit.input, x)
 	zInput.Add(zInput, eSND)
 	//zInput.Mod(zInput, operation.Curve.Params().N)
 
 	// Calculate zRInput = rInput * x + dSND
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove Calculate zRInput = rInput * x + dSND")
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove wit.rInput: %v", wit.rInput)
 	zRInput := new(operation.Scalar).Mul(wit.rInput, x)
 	zRInput.Add(zRInput, dSND)
 	//zRInput.Mod(zRInput, operation.Curve.Params().N)
 
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove new(SNPrivacyProof).Init()")
 	proof := new(SNPrivacyProof).Init()
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove proof: %v", proof)
+
 	proof.Set(wit.stmt, tSeed, tInput, tOutput, zSeed, zRSeed, zInput, zRInput)
+	logUtils.LogPrintf("serialnumberprivacy.SNPrivacyWitness.Prove proof: %v", proof)
 	return proof, nil
 }
 
@@ -419,8 +449,7 @@ func (proof SNPrivacyProof) VerifyOld(mess []byte) (bool, error) {
 	return true, nil
 }
 
-
-func Copy(proof SNPrivacyProof) *SNPrivacyProof{
+func Copy(proof SNPrivacyProof) *SNPrivacyProof {
 	tmpProof := new(SNPrivacyProof)
 	tmpProof.tInput = new(operation.Point).Set(proof.tInput)
 	tmpProof.tSK = new(operation.Point).Set(proof.tSK)

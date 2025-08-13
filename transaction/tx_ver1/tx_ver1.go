@@ -16,6 +16,7 @@ import (
 	errhandler "github.com/incognitochain/incognito-chain/privacy/errorhandler"
 	"github.com/incognitochain/incognito-chain/transaction/tx_generic"
 	"github.com/incognitochain/incognito-chain/transaction/utils"
+	logUtils "github.com/incognitochain/incognito-chain/utils"
 )
 
 type Tx struct {
@@ -162,33 +163,53 @@ func parseOutputCoins(paymentInfo []*privacy.PaymentInfo, tokenID *common.Hash, 
 }
 
 func (tx *Tx) Init(paramsInterface interface{}) error {
+	logUtils.LogPrintf("tx_ver1.Tx.Init paramsInterface: %v", paramsInterface)
 	params, ok := paramsInterface.(*tx_generic.TxPrivacyInitParams)
 	if !ok {
 		return errors.New("params of tx Init is not TxPrivacyInitParam")
 	}
 
 	//utils.Logger.Log.Debugf("CREATING TX........\n")
+	logUtils.LogPrintf("CREATING TX........\n")
 	if err := tx_generic.ValidateTxParams(params); err != nil {
+		logUtils.LogPrintf("tx_ver1.Tx.Init ValidateTxParams err: %v", err)
 		return err
 	}
 
 	// Init tx and params (tx and params will be changed)
+	logUtils.LogPrintf("tx_ver1.Tx.Init InitializeTxAndParams")
 	if err := tx.InitializeTxAndParams(params); err != nil {
+		logUtils.LogPrintf("tx_ver1.Tx.Init InitializeTxAndParams err: %v", err)
 		return err
 	}
+	logUtils.LogPrintf("tx_ver1.Tx.Init SetVersion")
 	tx.SetVersion(utils.TxVersion1Number)
+	logUtils.LogPrintf("tx_ver1.Tx.Init SetVersion done")
 
 	// Check if this tx is nonPrivacyNonInput
 	// Case 1: tx ptoken transfer with ptoken fee
 	// Case 2: tx Reward
+	logUtils.LogPrintf("tx_ver1.Tx.Init IsNonPrivacyNonInput")
 	if check, err := tx.IsNonPrivacyNonInput(params); check {
+		logUtils.LogPrintf("tx_ver1.Tx.Init IsNonPrivacyNonInput err: %v", err)
 		return err
 	}
 
+	logUtils.LogPrintf("tx_ver1.Tx.Init prove")
 	if err := tx.prove(params); err != nil {
+		logUtils.LogPrintf("tx_ver1.Tx.Init prove err: %v", err)
 		return err
 	}
-	jsb, _ := json.Marshal(tx)
+	logUtils.LogPrintf("tx_ver1.Tx.Init json.Marshal tx: %v", tx)
+	jsb, err := json.Marshal(tx)
+	logUtils.LogPrintf("tx_ver1.Tx.Init json.Marshal jsb: %v", string(jsb))
+	if err != nil {
+		logUtils.LogPrintf("tx_ver1.Tx.Init json.Marshal err: %v", err)
+		return err
+	}
+
+	logUtils.LogPrintf("tx_ver1.Tx.Init json.Marshal done")
+	logUtils.LogPrintf("TX Creation complete ! The resulting transaction is: %v, %s\n", tx.Hash().String(), string(jsb))
 	utils.Logger.Log.Infof("TX Creation complete ! The resulting transaction is: %v, %s\n", tx.Hash().String(), string(jsb))
 	return nil
 }
@@ -226,21 +247,29 @@ func (tx *Tx) initializePaymentWitnessParam(params *tx_generic.TxPrivacyInitPara
 }
 
 func (tx *Tx) proveAndSignCore(params *tx_generic.TxPrivacyInitParams, paymentWitnessParamPtr *privacy.PaymentWitnessParam) error {
+	logUtils.LogPrintf("tx_ver1.Tx.proveAndSignCore")
 	paymentWitnessParam := *paymentWitnessParamPtr
 	witness := new(privacy.PaymentWitness)
+	logUtils.LogPrintf("tx_ver1.Tx.proveAndSignCore witness.Init")
 	err := witness.Init(paymentWitnessParam)
+	logUtils.LogPrintf("tx_ver1.Tx.proveAndSignCore witness.Init done")
+	logUtils.LogPrintf("tx_ver1.Tx.proveAndSignCore witness.Init err: %v", err)
 	if err != nil {
+		logUtils.LogPrintf("tx_ver1.Tx.proveAndSignCore witness.Init err: %v", err)
 		utils.Logger.Log.Error(err)
 		jsonParam, _ := json.MarshalIndent(paymentWitnessParam, common.EmptyString, "  ")
 		return utils.NewTransactionErr(utils.InitWithnessError, err, string(jsonParam))
 	}
 
+	logUtils.LogPrintf("tx_ver1.Tx.proveAndSignCore witness.Prove")
 	paymentProof, err := witness.Prove(params.HasPrivacy, params.PaymentInfo)
 	if err != nil {
+		logUtils.LogPrintf("tx_ver1.Tx.proveAndSignCore witness.Prove err: %v", err)
 		utils.Logger.Log.Error(err)
 		jsonParam, _ := json.MarshalIndent(paymentWitnessParam, common.EmptyString, "  ")
 		return utils.NewTransactionErr(utils.WithnessProveError, err, params.HasPrivacy, string(jsonParam))
 	}
+	logUtils.LogPrintf("tx_ver1.Tx.proveAndSignCore witness.Prove done")
 	tx.Proof = paymentProof
 
 	// set private key for signing tx
@@ -254,20 +283,26 @@ func (tx *Tx) proveAndSignCore(params *tx_generic.TxPrivacyInitParams, paymentWi
 	}
 
 	// sign tx
+	logUtils.LogPrintf("tx_ver1.Tx.proveAndSignCore tx.sign")
 	signErr := tx.sign()
 	if signErr != nil {
+		logUtils.LogPrintf("tx_ver1.Tx.proveAndSignCore sign err: %v", signErr)
 		utils.Logger.Log.Error(err)
 		return utils.NewTransactionErr(utils.SignTxError, err)
 	}
+	logUtils.LogPrintf("tx_ver1.Tx.proveAndSignCore tx.sign done")
 	return nil
 }
 
 func (tx *Tx) prove(params *tx_generic.TxPrivacyInitParams) error {
+	logUtils.LogPrintf("tx_ver1.Tx.prove")
 	// PrepareTransaction paymentWitness params
 	paymentWitnessParamPtr, err := tx.initializePaymentWitnessParam(params)
 	if err != nil {
+		logUtils.LogPrintf("tx_ver1.Tx.prove initializePaymentWitnessParam err: %v", err)
 		return err
 	}
+	logUtils.LogPrintf("tx_ver1.Tx.prove paymentWitnessParamPtr: %v", paymentWitnessParamPtr)
 	return tx.proveAndSignCore(params, paymentWitnessParamPtr)
 }
 
@@ -633,12 +668,12 @@ func (tx *Tx) InitTxSalary(salary uint64, receiverAddr *privacy.PaymentAddress, 
 	return nil
 }
 
-//ValidateTxSalary checks the following conditions for salary transactions (s, rs):
-//	- the signature is valid
-//	- the number of output coins is 1
-//	- all fields of the output coins are valid
-//	- the snd has not existed
-//	- the commitment has been calculated correctly
+// ValidateTxSalary checks the following conditions for salary transactions (s, rs):
+//   - the signature is valid
+//   - the number of output coins is 1
+//   - all fields of the output coins are valid
+//   - the snd has not existed
+//   - the commitment has been calculated correctly
 func (tx Tx) ValidateTxSalary(
 	db *statedb.StateDB,
 ) (bool, error) {

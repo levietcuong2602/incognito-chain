@@ -14,6 +14,7 @@ import (
 	"github.com/incognitochain/incognito-chain/privacy/key"
 	"github.com/incognitochain/incognito-chain/privacy/operation"
 	henc "github.com/incognitochain/incognito-chain/privacy/privacy_v1/hybridencryption"
+	logUtils "github.com/incognitochain/incognito-chain/utils"
 )
 
 // Coin represents a coin
@@ -114,17 +115,24 @@ func (pc *PlainCoinV1) SetInfo(v []byte) {
 
 // Conceal data leaving serialnumber
 func (pc *PlainCoinV1) ConcealOutputCoin(additionalData *operation.Point) error {
+	logUtils.LogPrintf("coin_v1.PlainCoinV1.ConcealOutputCoin starting...")
+	logUtils.LogPrintf("coin_v1.PlainCoinV1.ConcealOutputCoin pc: %v", pc)
 	pc.SetCommitment(nil)
+	logUtils.LogPrintf("coin_v1.PlainCoinV1.ConcealOutputCoin pc after SetCommitment: %v", pc)
 	pc.SetValue(0)
+	logUtils.LogPrintf("coin_v1.PlainCoinV1.ConcealOutputCoin pc after SetValue: %v", pc)
 	pc.SetSNDerivator(nil)
+	logUtils.LogPrintf("coin_v1.PlainCoinV1.ConcealOutputCoin pc after SetSNDerivator: %v", pc)
 	pc.SetPublicKey(nil)
+	logUtils.LogPrintf("coin_v1.PlainCoinV1.ConcealOutputCoin pc after SetPublicKey: %v", pc)
 	pc.SetRandomness(nil)
+	logUtils.LogPrintf("coin_v1.PlainCoinV1.ConcealOutputCoin pc after SetRandomness: %v", pc)
 	return nil
 }
 
-//MarshalJSON (CoinV1) converts coin to bytes array,
-//base58 check encode that bytes array into string
-//json.Marshal the string
+// MarshalJSON (CoinV1) converts coin to bytes array,
+// base58 check encode that bytes array into string
+// json.Marshal the string
 func (pc PlainCoinV1) MarshalJSON() ([]byte, error) {
 	data := pc.Bytes()
 	temp := base58.Base58Check{}.Encode(data, common.ZeroByte)
@@ -155,7 +163,7 @@ func (pc *PlainCoinV1) HashH() *common.Hash {
 	return &hash
 }
 
-//CommitAll commits a coin with 5 attributes include:
+// CommitAll commits a coin with 5 attributes include:
 // public key, value, serial number derivator, shardID form last byte public key, randomness
 func (pc *PlainCoinV1) CommitAll() error {
 	shardID, err := pc.GetShardID()
@@ -600,6 +608,14 @@ func (c CoinV1) Decrypt(keySet *incognitokey.KeySet) (PlainCoin, error) {
 				// Assign randomness and value to outputCoin details
 				result.CoinDetails.randomness = new(operation.Scalar).FromBytesS(msg[0:operation.Ed25519KeySize])
 				result.CoinDetails.value = new(big.Int).SetBytes(msg[operation.Ed25519KeySize:]).Uint64()
+
+				// Assign snDerivator and serialNumber to outputCoin details
+				// TODO: check if this is correct
+				result.CoinDetails.snDerivator = new(operation.Scalar).FromBytesS(c.CoinDetails.snDerivator.ToBytesS())
+				result.CoinDetails.serialNumber = new(operation.Point).Derive(
+					operation.PedCom.G[operation.PedersenPrivateKeyIndex],
+					new(operation.Scalar).FromBytesS(keySet.PrivateKey),
+					result.CoinDetails.GetSNDerivator())
 			}
 		}
 		if len(keySet.PrivateKey) > 0 {

@@ -1196,20 +1196,14 @@ func (txService TxService) BuildRawPrivacyCustomTokenTransaction(
 	}
 
 	// log tx info
-	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx: %v", tx.GetTxTokenData())
-	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx.GetTxTokenData(): %v", tx.GetTxTokenData())
-	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx.GetTxBase(): %v", tx.GetTxBase())
-	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx.GetTxNormal(): %v", tx.GetTxNormal())
-	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx.GetType(): %v", tx.GetType())
-
 	errTx = tx.Init(txTokenParams)
-	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx.Init")
+	utils.LogPrintf("txService.BuildRawPrivacyCustomTokenTransaction tx.Init err %v", errTx)
 	if errTx != nil {
 		utils.LogPrintf("create raw privacy custom token transaction errTx: %v", errTx)
 		return nil, NewRPCError(CreateTxDataError, errTx)
 	}
 
-	utils.LogPrintf("create raw privacy custom token transaction tx: %v success", tx)
+	utils.LogPrintf("create raw privacy custom token transaction tx success")
 	return tx, nil
 }
 
